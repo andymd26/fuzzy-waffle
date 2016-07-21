@@ -1,13 +1,10 @@
 install.packages("R.utils")
-install.packages("R.Curl")
 install.packages("dplyr")
 options(scipen=999)
 require(R.utils)
-require(R.Curl)
 require(dplyr)
 
-cap.raw = gunzip((capacity_eia.txt, destname=gsub("[.]gz$", "", capacity_eia.txt, ignore.case = TRUE), temporary=FALSE, skip=FALSE, overwrite=FALSE, remove=TRUE, BFR.SIZE=1e+07
-read.table("/Users/bloh356/Google Drive/Working Papers/ECON_1/capacity_eia.txt", sep="\t", header=TRUE, comment.char="")
+cap.raw = read.csv("/Users/bloh356/Documents/fuzzy-waffle/data/capacity_eia.txt.gz", sep="\t", header=TRUE, comment.char="")
 
 cap.eia = cap.raw %>%
   filter(summer_capacity != 0) %>%
