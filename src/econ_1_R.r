@@ -5,6 +5,7 @@ require(R.utils)
 require(dplyr)
 
 path_data = "/Users/bloh356/Documents/fuzzy-waffle/data/"
+# Local path to the cloned data folder in the repository
 cap.raw = read.table(paste(path_data, "capacity_eia.txt.gz", sep=""), sep="\t", header=TRUE, comment.char="")
 cap.raw$summer_capacity = as.numeric(as.character(cap.raw$summer_capacity))
 
