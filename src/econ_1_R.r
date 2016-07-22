@@ -101,6 +101,8 @@ cap.eia = cap.raw %>%
   # Remove plants with no summer time capacity (not sure why they exist in the data anyway)
   filter(status_code_1 != "RE" & status_code_2 != "RE") %>%
   # Remove retired plants
+  filter(status_code_2 != "RA") %>%
+  # Remove not yet reactivated plants
   filter(status_code_2 != "CN") %>%
   # Remove previously planned but now canceled projects
   filter(status_code_2 != "PL" & status_code_2 != "P" & status_code_2 != "IP") %>%
