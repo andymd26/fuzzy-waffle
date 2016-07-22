@@ -4,8 +4,10 @@ options(scipen=999)
 require(R.utils)
 require(dplyr)
 
-cap.raw = read.csv("/Users/bloh356/Documents/fuzzy-waffle/data/capacity_eia.txt.gz", sep="\t", header=TRUE, comment.char="")
-{
+path_data = "/Users/bloh356/Documents/fuzzy-waffle/data/"
+cap.raw = read.table(paste(path_data, "capacity_eia.txt.gz", sep=""), sep="\t", header=TRUE, comment.char="")
+cap.raw$summer_capacity = as.numeric(as.character(cap.raw$summer_capacity))
+
 eia.dict.1 = data.frame(status_code_1 = c("BU", "OA", "OP", "OS", "RE", "SB", "SC", "SD", "TS", "A", "CN", "CO", "D", "FC", "IP", "L", 
                                   "LE", "M", "MO", "OT", "P", "PL", "RA", "RP", "RT", "T", "U", "V"), 
                          status_code_1_text = c("backup", "out of service but expected to return this year", "operating", "out of service > 365 days not expected to return this year",
@@ -91,7 +93,7 @@ eia.dict.6 = data.frame(fuel_3 = c("AB", "ANT", "BFG", "BIO", "BIT", "BL", "BLQ"
                                         'water', 'waste coal', 'wood and wood waste', 'waste heat', 'wind', 'other', 'not available', 'propane', 'purchased steam', 'refined coal', 
                                         "residual fuel oil", 'coal synfuel', 'synthetic gas other than coal derived', 'coal-derived synthetic gas', 'synthetic gas from petroleum coke', 
                                         'sludge waste', 'not defined', 'tires', 'not defined', 'wood waste liquids', 'wood and wood waste solids', 'oil-other and waste oil', 'not defined'))
-} # Abbreviations explained
+ # Abbreviations explained
 
 cap.eia = cap.raw %>%
   filter(summer_capacity != 0) %>%
@@ -108,4 +110,33 @@ cap.eia = cap.raw %>%
   # Remove additional plants under construction (U and V) and constructed power plants not yet in operation
   filter(status_code_2 != "LE") %>%
   # Remove sites that are not constructed (legal delays)
-  mutate(status_fulltext = 2)
+  mutate(status_fulltext = 2) %>%
+  mutate(age = year - in_service) %>%
+  # Calculate the age of the plant
+  left_join(eia.dict.3) %>%
+  # Add a new column that includes an explanation of the prime mover variable
+  left_join(eia.dict.1) %>%
+  # Add a new column that includes an explanation of the status_code_1
+  left_join(eia.dict.2) %>%
+  # Add a column that includes an explanation of the status_code_2
+  left_join(eia.dict.4) %>%
+  left_join(eia.dict.5) %>%
+  left_join(eia.dict.6)
+  # Add three columns for the primary, secondary, and tertiary fuel used by each unit
+
+gz1 = gzfile(paste(path_data,"capacity_eia_fueluse_productiontechnology_1990_2014.txt.gz", sep=""), "w")
+write.table(cap.eia, file = gz1, sep="\t",col.names = TRUE, row.names = FALSE)
+close(gz1)
+# Output the cleaned up data to the data folder as a .txt.gz file
+
+cap.eia.total = cap.eia %>%
+  group_by(year, prime_mover, fuel_1, prime_mover_text, fuel_1_text) %>%
+  # Add three new columns explaining the fuel type abbreviation
+  summarize(total_summer_capacity = sum(summer_capacity, na.rm=TRUE))
+  # Generate a new dataframe that is the sum of summer capacity by primary fuel and production technology
+
+gz1 = gzfile(paste(path_data,"total_annual_capacity_eia_fueluse_technology_1990_2014.txt.gz", sep=""), "w")
+write.table(cap.eia.total, file = gz1, sep="\t", col.names=TRUE, row.names=FALSE)
+close(gz1)
+# Output the total capacity by fuel and production technology to the data folder as a .txt.gz file
+
