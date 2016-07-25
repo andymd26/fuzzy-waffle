@@ -1,0 +1,104 @@
+\documentclass[10pt]{amsart}
+\usepackage{graphicx} 
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{tabularx}
+\usepackage{endnotes}
+\usepackage{verbatimbox}
+\usepackage{float} % necessary for placement of figures
+\usepackage[style = authoryear, sorting = nyt, backend = biber]{biblatex}
+% \addbibresource[location = local, type = file]{C:/Users/bloh356/Google Drive/Library/Library.bib}
+\addbibresource[location = local, type = file]{/Users/bloh356/Google Drive/Library/Library.bib}
+\graphicspath{{./figures/}}
+
+\title{Data merging: Mapping overnight costs to installed capacities}
+\author{Andrew Blohm}
+\date{\today}
+\begin{document}
+\maketitle
+
+\section{Merging overnight cost estimates (EIA) with Form 860 generator level data}
+In this section we layout the underlying assumptions to the mappings we use to merge teh data.
+
+\subsection{Overnight cost data}
+The overnight cost data comes from the annual energy outlook (AEO) underlying assumptions. 
+Each annual energy outlook estimates the characteristics of new generating plants including the operational and cost assumptions.
+We use the overnight capital cost assumptions from each AEO to approximate the investment cost for each technology in each year of the analysis.
+
+The earliest AEO for which the overnight cost is available is the 1997 AEO.
+
+The energy production categories have changed over time. 
+
+\subsection{EIA Form EIA-860 (plant level electricity sector data)}
+The EIA tracks plant level data using surveys, which are then compiled in the publicly available Form EIA-860.
+Form EIA-860 compiles information on the utility, environmental regulation compliance, ownership structure, plant and generator level information, etc.  
+Of particular interest to the study is the plant level dataset, which amongst other information contains capacity, installation date, operating status, primary fuel, and technology use at a disaggregated scale not found elsewhere.
+However, the technology categories available in the Form EIA-860 do not readily map onto the overnight cost technology categories. 
+In this section, we discuss the mappings that we employ and the reasoning behind those. 
+
+The 
+
+\subsection{Mappings}
+There are 37 prime movers (i.e., technologies) and 78 primary fuels in the Form EIA-860 database. 
+The issue we have is to identify the closest mapping between these technology/fuel pairings and the between 15 and 20 overnight cost categories.
+In this section we identify the mappings and assumptions inherent to them.
+We begin with the more obvious mappings before proceeding to the less clear mappings.
+
+We ignore the prime mover designation 'CG' as it is undefined by the survey. 
+There are 3 CG plants in the dataset and they all use natural gas as their primary feedstock.
+We ignore the prime mover designation 'other' (OT) because the cost of determining how to allocate these resources is high (i.e., it would require reading the notes for approximately 309 generators).
+Further, the OT category is approximately 63,000 MW of installed summer capacity or about 0.000009\% of total installed capacity over the period of analysis.  
+
+The overnight cost dataset includes one cost estimate for conventional hydropower.
+We assume that the technologies with water as a primary fuel can be mapped onto this investment cost.
+These include prime mover designations hydraulic turbines (conventional) (HC), hydraulic turbine (pipeline) (HL), hydraulic turbine (reversible) (HR), hydraulic turbine (conventional) (HY), and hydraulic turbine reversible (pumped storage) (PS). 
+There are 90,160 hydropower units in the dataset with a total installed summer capacity of approximately 1030.12 TW for the period of analysis. 
+
+The overnight cost dataset includes one cost estimate for geothermal power plants. 
+We assign the geothermal overnight cost to any power plant with geothermal (GEO) or geothermal steam (GST) as a primary fuel. 
+This includes prime mover designations, turbines used in binary cycles (BT), other (OT), steam turbine (geothermal) (GE), and steam turbine (boiler) (ST).  
+There are 3,269 geothermal units in the dataset with a total installed summer capacity of approximately 0.0033 TW over the period of analysis. 
+
+The overnight cost dataset includes one cost estimate for photovoltaic power plants.
+We assign the photovoltaic overnight cost to both prime mover designations photovoltaic (PV) and photovoltaic (SP) in the Form EIA-860 dataset.
+There are 3460 photovoltaic units in the dataset with a total installed summer capacity of approximately 0.062 TW over the period of analysis. 
+
+The overnight cost dataset includes one cost estimate for solar thermal power plants. 
+We assign the solar thermal overnight cost to any power plant with sun (SUN) as a primary fuel source and a prime mover designation that is not photovoltaic (PV or SP).
+This includes other (OT), steam turbine (solar) (SS), and concentrated solar power energy storage (CP) plants.  
+There are 170 solar thermal power plants in the dataset with a total installed summer capacity of approximately 0.018 TW over the period of analysis.
+
+The overnight cost dataset has two cost estimates for wind (i.e., onshore and offshore).
+We do not have this level of specificity in the Form EIA-860 dataset. 
+However, we know that most of the installed capacity in the US is (and has been) onshore wind capacity. 
+Therefore, we assign the onshore wind overnight costs to the wind turbine (WT) plants. 
+There are 7732 wind farms in the dataset with a total installed summer capacity of approximately 0.52 TW over the period of analysis. 
+
+The overnight cost dataset includes one cost estimate for nuclear power plants.
+We assign the nuclear power overnight cost to any power plants using uranium (UR) or thorium (TH) as the primary fuel.  
+This includes steam turbine (boiling water nuclear reactor) (NB), steam turbine (graphite nuclear reactor) (NG), steam turbine (high-temperature gas-cooled nuclear reactor)(NH), and steam turbine (pressurized water nuclear reactor) (NP).
+While thorium is a primary fuel designation there aren't any currently deployed (at least not in the Form EIA-860 data).   
+There are 1054 nuclear plants in the dataset with a total installed summer capacity of approximately 963.44 TW.
+
+The overnight cost dataset has one cost estimate for fuel cells.
+We assign the overnight cost estimate for fuel cells to fuel cell (electrochemcial) (FC). 
+In the Form EIA-860 dataset the fuel cell plants use landfill gas (LFG), natural gas (NG), and other biomass gases (OBG) as there primary fuel. 
+
+The overnight cost dataset includes one cost estimate for biomass power plants. 
+The DOE assumes that woody residues, round wood and woody energy crops, municipal solid wastes, wet herbaceous residues, and dry herbaceous residues and energy 
+crops are all biomass feedstocks Source: \url{http://www.energy.gov/eere/bioenergy/biomass-feedstocks}. 
+We assign BIO, OBG, OBL, OBS, REF, WD, WDL, WDS to the Biomass overnight costs. However, given that MSW is its own category in the overnight cost we separate that one out.
+ Biomass generic (BIO),  is not installed at this time.  
+\begin{table}
+
+\end{table}
+
+HC, HL, HR, HY, PS all use water as a fuel (AEO only has the conventional hydropower overnight cost estimate so we use it for all)
+(IC) Internal combustion plant: A plant in which the prime mover is an internal combustion engine. An internal combustion engine has one or more cylinders in which the process of combustion takes place, converting energy releasted from the rapid burning of a fuel-air mixture into mechanical energy. Diesel or gas-fired engines are the principal types used in electric plants. The plant is usually operated during periods of high demand for electricity.
+(BIO) 
+(GEO) and (GST), all involve geothermal energy sources
+(MSW) is assigned to municipal solid waste
+
+
+
+\end{document}
