@@ -17,38 +17,39 @@
 \begin{document}
 \maketitle
 
-\section{Merging overnight cost estimates (EIA) with Form 860 generator level data}
-In this section we layout the underlying assumptions to the mappings we use to merge teh data.
+\section{Merging EIA overnight cost estimates with Form 860 generator level data}
+In this section we put forward the underlying assumptions on the mappings we use to merge data from Form EIA-860 with EIA overnight cost estimates.
+The result of this work is a dataset to be used in the multinomial logit.
 
 \subsection{Overnight cost data}
-The overnight cost data comes from the annual energy outlook (AEO) underlying assumptions. 
+The overnight cost data used in this analysis comes from the US Energy Information Administration (EIA) annual energy outlook (AEO) series, specifically the underlying assumptions on characteristics of new and existing power plants. 
 Each annual energy outlook estimates the characteristics of new generating plants including the operational and cost assumptions.
 We use the overnight capital cost assumptions from each AEO to approximate the investment cost for each technology in each year of the analysis.
-
-The earliest AEO for which the overnight cost is available is the 1997 AEO.
-
-The energy production categories have changed over time. 
+The earliest AEO for which the overnight cost is available is the 1997 AEO; having been published in each subsequent year.
+However, as new technologies emerge and existing technologies evolve the categories within the overnight cost database have necessarily changed. 
+Therefore, the database does not have consistent categories over time. 
 
 \subsection{EIA Form EIA-860 (plant level electricity sector data)}
-The EIA tracks plant level data using surveys, which are then compiled in the publicly available Form EIA-860.
-Form EIA-860 compiles information on the utility, environmental regulation compliance, ownership structure, plant and generator level information, etc.  
+The EIA uses the survey form EIA-860 to collect generator level data on existing and planned power plants with an installed capacity of greater than 1 MW. 
+Form EIA-860 compiles information on the utility, plant, and generator for each of the generators, including information on environmental regulation compliance, ownership structure, etc.  
 Of particular interest to the study is the plant level dataset, which amongst other information contains capacity, installation date, operating status, primary fuel, and technology use at a disaggregated scale not found elsewhere.
 However, the technology categories available in the Form EIA-860 do not readily map onto the overnight cost technology categories. 
-In this section, we discuss the mappings that we employ and the reasoning behind those. 
-
-The 
+In the next section, we discuss the mappings that we employ and the reasoning behind those. 
 
 \subsection{Mappings}
 There are 37 prime movers (i.e., technologies) and 78 primary fuels in the Form EIA-860 database. 
 The issue we have is to identify the closest mapping between these technology/fuel pairings and the between 15 and 20 overnight cost categories.
-In this section we identify the mappings and assumptions inherent to them.
+In this section we identify our mappings and expound on our reasoning behind them.
 We begin with the more obvious mappings before proceeding to the less clear mappings.
 
+First there are a few categories that either don't have enough information for us to assign them or would require too much work to do so (with limited gain). 
 We ignore the prime mover designation 'CG' as it is undefined by the survey. 
 There are 3 CG plants in the dataset and they all use natural gas as their primary feedstock.
 We ignore the prime mover designation 'other' (OT) because the cost of determining how to allocate these resources is high (i.e., it would require reading the notes for approximately 309 generators).
 Further, the OT category is approximately 63,000 MW of installed summer capacity or about 0.000009\% of total installed capacity over the period of analysis.  
 We ignore flywheel energy storage (FW) because the installed capacity is very small (~135 MW over the entire period of analysis) and it is not clear what the overnight cost of the technology would be.  
+
+\subsubsection{Renewables, hydropower, and geothermal resources}
 
 The overnight cost dataset includes one cost estimate for conventional hydropower.
 We assume that the technologies with water as a primary fuel can be mapped onto this investment cost.
