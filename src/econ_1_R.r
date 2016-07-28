@@ -97,6 +97,8 @@ eia.dict.6 = data.frame(fuel_3 = c("AB", "ANT", "BFG", "BIO", "BIT", "BL", "BLQ"
  # Abbreviations explained
 
 cap.eia = cap.raw %>%
+  mutate(fuel_1 = replace(fuel_1, fuel_1=="BL", "BLQ")) %>%
+  # We are assuming that BL was incorrectly entered BLQ
   filter(summer_capacity != 0) %>%
   # Remove plants with no summer time capacity (not sure why they exist in the data anyway)
   filter(status_code_1 != "RE" & status_code_2 != "RE") %>%
@@ -143,3 +145,66 @@ write.table(cap.eia.total, file = gz1, sep="\t", col.names=TRUE, row.names=FALSE
 close(gz1)
 # Output the total capacity by fuel and production technology to the data folder as a .txt.gz file
 
+eia.mapping = unique(cap.eia[, c('prime_mover', 'fuel_1', 'prime_mover_text', 'fuel_1_text')])
+# Grab the unique combinations of primary fuel and production technology (this set will need to be mapped to the overnight costs)
+eia.mapping = eia.mapping %>%
+  mutate(overnight_category = "") %>%
+  # add a blank column (code doesn't work otherwise)
+  mutate(overnight_category = ifelse(prime_mover == "CG" | prime_mover == "OT" | fuel_1 == "WOC" | fuel_1 == "MF" | 
+                                       fuel_1 == "OTH" | fuel_1 == "" | fuel_1 == "BL", "undefined", overnight_category)) %>%
+  # CG, BL, and WOC not defined anywhere in the supporting documentation (that I can find)
+  # OT, OTH, "", and MF do not provide enough information to assign either the fuel or production technology to these units
+  mutate(overnight_category = ifelse(fuel_1 == "WAT", "hydro", overnight_category)) %>%
+  # hydropower assignment, which moves two sets of units from undefined to hydro (HC, "") and (HR, "")
+  mutate(overnight_category = ifelse(fuel_1 == "", 
+                                     ifelse(prime_mover == "HC" | prime_mover == "HR", "hydro", 
+                                            overnight_category), overnight_category)) %>%
+  # some hydropower are missing a fuel so assign these to hydro overnight cost
+  mutate(overnight_category = ifelse(fuel_1 == "GEO" | fuel_1 == "GST", "geothermal", overnight_category)) %>%
+  # geothermal assignment
+  mutate(overnight_category = ifelse(prime_mover == "PV" | prime_mover == "SP", "photovoltaic", overnight_category)) %>%
+  # photovoltaic assignment
+  mutate(overnight_category = ifelse(prime_mover != "PV" & prime_mover != "SP" & fuel_1 == "SUN", 
+                                     "solar thermal", overnight_category)) %>%
+  # solar thermal assignment
+  mutate(overnight_category = ifelse(fuel_1 == "WND", 'wind', overnight_category)) %>%
+  # onshore wind assignment
+  mutate(overnight_category = ifelse(fuel_1 == "UR" | fuel_1 == "TH" | fuel_1 == "NUC", 'nuclear', overnight_category)) %>%
+  # nuclear assignment
+  mutate(overnight_category = ifelse(prime_mover == "FC", 'fuel cell', overnight_category)) %>%
+  mutate(overnight_category = ifelse(fuel_1 == "MSW", 'municipal solid waste', overnight_category)) %>%
+  mutate(overnight_category = ifelse(fuel_1 == "MSW", 'municipal solid waste', overnight_category)) %>%
+  mutate(overnight_category = ifelse(prime_mover == "ST", 
+                                     ifelse(fuel_1 == "LFG" | fuel_1 == "SNG" |  fuel_1 == "OG" | 
+                                              fuel_1 == "NG" | fuel_1 == "LPG" | fuel_1 == "BFG" |
+                                               fuel_1 == "OBG" | fuel_1 == "BLQ",'steam turbine', 
+                                            overnight_category), overnight_category)) %>%
+  # steam turbine running on natural gas assignment
+  mutate(overnight_category = ifelse(prime_mover == "ST", 
+                                     ifelse(fuel_1 == "BLQ" | fuel_1 == "DFO" |  fuel_1 == "FO1" | 
+                                              fuel_1 == "FO2" | fuel_1 == "FO4" | fuel_1 == "FO6" |
+                                              fuel_1 == "RFO" | fuel_1 == "WO" | fuel_1 == "SC" |
+                                              fuel_1 == "RFO" | fuel_1 == 'SLW','steam turbine', 
+                                            overnight_category), overnight_category)) %>%
+  # steam turbine running on oil assignment
+  mutate(overnight_category = ifelse(prime_mover == "IG", "igcc", overnight_category)) %>%
+  # integrated gasification combined cycle assignment
+  mutate(overnight_category = ifelse(fuel_1 != "PC" | fuel_1 != "OTH", ifelse(prime_mover == "JE" | prime_mover == "IC" | 
+                                                                                prime_mover == "GT" | prime_mover == "ic",
+                                                            "conventional combustion turbine", overnight_category), overnight_category)) %>%
+  # conventional combustion turbine assignment but don't assign the petroleum coke units (those are more similar to coal fired)
+  mutate(overnight_category = ifelse(prime_mover == "CH" & fuel_1 == "NG", "conventional combustion turbine", overnight_category)) %>%
+  mutate(overnight_category = ifelse(fuel_1 == "BIT" | fuel_1 == "SUB" | fuel_1 == "LIG" | fuel_1 == "ANT" |
+                                       fuel_1 == "COL" | fuel_1 == "RC" | fuel_1=="WC" | fuel_1 == "PC" | fuel_1 == "TDF", 
+                                     ifelse(prime_mover != "IG" & prime_mover != "CC" & prime_mover != "CA" &
+                                              prime_mover != "CT" & prime_mover != "IC", 'coal', overnight_category), 
+                                     overnight_category)) %>%
+  # coal fired power plants not igcc, combined cycle, or internal combustion (conventional combustion)
+  mutate(overnight_category = ifelse(fuel_1 != "OTH", ifelse(prime_mover == "CA" | prime_mover == "CC" | prime_mover == "CT" | 
+                                       prime_mover == "CS" | prime_mover == "CW", 'conventional combined cycle', overnight_category), 
+                                     overnight_category)) %>%
+  # the combined cycle power plants assignment for plants with a known fuel type 
+  mutate(overnight_category = ifelse(prime_mover != "CA", ifelse(fuel_1== "WD" | fuel_1== "REF" | fuel_1== "AB" | fuel_1 == "WDS" | 
+                                       fuel_1 == "BIO" | fuel_1 == "OBS", 'biomass', overnight_category), overnight_category)) %>%
+  mutate(overnight_category = ifelse(fuel_1 == "MWH" | prime_mover == "CE", "distributed", overnight_category))
+  #
