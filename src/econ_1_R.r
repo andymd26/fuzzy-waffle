@@ -242,8 +242,23 @@ summary.cap.eia.year = cap.eia %>%
             n = n(), 
             avg_size_mw = sum(summer_capacity)/n(),
             avg_age = mean(age)) %>%
+  ungroup()
+
+test = summary.cap.eia.year %>%
   group_by(overnight_category, fuel_1) %>%
-  arrange(year) %>%
+  do(expand.grid(.$overnight_category, .$fuel_1, seq(from=1990, to=2014, by=1))) %>%
+  rename(overnight_category = Var1, fuel_1=Var2, year=Var3) %>%
+  left_join(summary.cap.eia.year) %>%
+  mutate(diff_capacity_mw = capacity_mw - lag(capacity_mw, default=first(capacity_mw)))
+  
+  
+  
+  mutate(id = paste0(overnight_category, fuel_1)) %>%
+  do(expand.grid(unique(.$id), seq(from=1990, to=2014, by=1))) %>%
+  left_join(summary.cap.eia.year)
+  
+    
+  
   mutate(diff_capacity_mw = capacity_mw - lag(capacity_mw, default=first(capacity_mw)))
 
 gz1 = gzfile(paste(path_data,"summary_year_summer_cap_eia_860_overnight_cost.txt.gz", sep=""), "w")
@@ -258,3 +273,8 @@ ggplot(summary.cap.eia.year, aes(year, capacity_tw)) +
 ggplot(summary.cap.eia.year, aes(overnight_category, capacity_tw)) +
   geom_bar(stat="identity") +
   facet_wrap(~ year)
+
+
+
+
+
