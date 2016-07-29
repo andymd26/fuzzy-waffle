@@ -115,7 +115,9 @@ cap.eia = cap.raw %>%
   # Remove additional plants under construction (U and V) and constructed power plants not yet in operation
   filter(status_code_2 != "LE") %>%
   # Remove sites that are not constructed (legal delays)
-  mutate(status_fulltext = 2) %>%
+  # mutate(status_fulltext = 2) %>%
+  mutate(in_service = replace(in_service, in_service==0, NA)) %>%
+  # recodes an inservice date of '0' as missing
   mutate(age = year - in_service) %>%
   # Calculate the age of the plant
   mutate(summer_capacity = ifelse(year >= 1990 & year <= 2000, summer_capacity/1000, summer_capacity)) %>%
@@ -210,5 +212,49 @@ eia.mapping = eia.mapping %>%
   # the combined cycle power plants assignment for plants with a known fuel type 
   mutate(overnight_category = ifelse(prime_mover != "CA", ifelse(fuel_1== "WD" | fuel_1== "REF" | fuel_1== "AB" | fuel_1 == "WDS" | 
                                        fuel_1 == "BIO" | fuel_1 == "OBS", 'biomass', overnight_category), overnight_category)) %>%
-  mutate(overnight_category = ifelse(fuel_1 == "MWH" | prime_mover == "CE", "distributed", overnight_category))
-  #
+  # biomass assignment
+  mutate(overnight_category = ifelse(fuel_1 == "MWH" | prime_mover == "CE", "distributed", overnight_category)) %>%
+  # distibuted generation assignment
+  mutate(overnight_category = ifelse(overnight_category=="", "undefined", overnight_category))
+
+cap.eia = cap.eia %>%
+  left_join(eia.mapping)
+
+gz1 = gzfile(paste(path_data,"clean_capacity_eia_860_overnight_cost.txt.gz", sep=""), "w")
+write.table(cap.eia, file = gz1, sep="\t",col.names = TRUE, row.names = FALSE)
+close(gz1)
+# Output the cleaned up data to the data folder as a .txt.gz file
+
+summary.cap.eia = cap.eia %>%
+  group_by(overnight_category) %>%
+  summarize(capacity_tw = sum(summer_capacity)/1000000,
+            n = n(), 
+            avg_size_mw = sum(summer_capacity)/n())
+
+gz1 = gzfile(paste(path_data,"summary_summer_cap_eia_860_overnight_cost.txt.gz", sep=""), "w")
+write.table(summary.cap.eia, file = gz1, sep="\t",col.names = TRUE, row.names = FALSE)
+close(gz1)
+# Output the cleaned up data to the data folder as a .txt.gz file
+
+summary.cap.eia.year = cap.eia %>%
+  group_by(overnight_category, year, fuel_1, fuel_1_text) %>%
+  summarize(capacity_mw = sum(summer_capacity),
+            n = n(), 
+            avg_size_mw = sum(summer_capacity)/n(),
+            avg_age = mean(age)) %>%
+  group_by(overnight_category, fuel_1) %>%
+  arrange(year) %>%
+  mutate(diff_capacity_mw = capacity_mw - lag(capacity_mw, default=first(capacity_mw)))
+
+gz1 = gzfile(paste(path_data,"summary_year_summer_cap_eia_860_overnight_cost.txt.gz", sep=""), "w")
+write.table(summary.cap.eia.year, file = gz1, sep="\t",col.names = TRUE, row.names = FALSE)
+close(gz1)
+# Output the cleaned up data to the data folder as a .txt.gz file
+
+ggplot(summary.cap.eia.year, aes(year, capacity_tw)) +
+  geom_line(color='steelblue') +
+  facet_wrap(~ overnight_category)
+
+ggplot(summary.cap.eia.year, aes(overnight_category, capacity_tw)) +
+  geom_bar(stat="identity") +
+  facet_wrap(~ year)
