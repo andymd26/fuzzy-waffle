@@ -118,6 +118,10 @@ cap.eia = cap.raw %>%
   mutate(status_fulltext = 2) %>%
   mutate(age = year - in_service) %>%
   # Calculate the age of the plant
+  mutate(summer_capacity = ifelse(year >= 1990 & year <= 2000, summer_capacity/1000, summer_capacity)) %>%
+  # For years 1990 to 2000 summer capacity is in kW, which we change to MW
+  mutate(summer_capacity = ifelse(summer_capacity < 0, summer_capacity*-1, summer_capacity)) %>%
+  # It appears that some capacity values were mistakenly entered as negative, which we correct
   left_join(eia.dict.3) %>%
   # Add a new column that includes an explanation of the prime mover variable
   left_join(eia.dict.1) %>%
