@@ -1,8 +1,10 @@
 install.packages("R.utils")
+install.packages("tidyr")
 install.packages("dplyr")
 options(scipen=999)
 require(R.utils)
 require(dplyr)
+require(tidyr)
 
 path_data = "/Users/bloh356/Documents/fuzzy-waffle/data/"
 # Local path to the cloned data folder in the repository
@@ -242,24 +244,14 @@ summary.cap.eia.year = cap.eia %>%
             n = n(), 
             avg_size_mw = sum(summer_capacity)/n(),
             avg_age = mean(age)) %>%
-  ungroup()
-
-test = summary.cap.eia.year %>%
-  group_by(overnight_category, fuel_1) %>%
-  do(expand.grid(.$overnight_category, .$fuel_1, seq(from=1990, to=2014, by=1))) %>%
-  rename(overnight_category = Var1, fuel_1=Var2, year=Var3) %>%
+  ungroup() %>%
+  complete(overnight_category, year = full_seq(year, 1), fuel_1) %>%
   left_join(summary.cap.eia.year) %>%
-  mutate(diff_capacity_mw = capacity_mw - lag(capacity_mw, default=first(capacity_mw)))
-  
-  
-  
-  mutate(id = paste0(overnight_category, fuel_1)) %>%
-  do(expand.grid(unique(.$id), seq(from=1990, to=2014, by=1))) %>%
-  left_join(summary.cap.eia.year)
-  
-    
-  
-  mutate(diff_capacity_mw = capacity_mw - lag(capacity_mw, default=first(capacity_mw)))
+  group_by(overnight_category, fuel_1, fuel_1_text) %>%
+  mutate(year = as.integer(year)) %>%
+  arrange(year) %>%
+  mutate(diff_mw = capacity_mw - lag(capacity_mw))
+
 
 gz1 = gzfile(paste(path_data,"summary_year_summer_cap_eia_860_overnight_cost.txt.gz", sep=""), "w")
 write.table(summary.cap.eia.year, file = gz1, sep="\t",col.names = TRUE, row.names = FALSE)
