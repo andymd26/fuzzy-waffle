@@ -1,26 +1,31 @@
 install.packages("R.utils")
 install.packages("tidyr")
 install.packages("dplyr")
+install.packages("ggplot2")
+install.packages("broom")
 options(scipen=999)
 require(R.utils)
 require(dplyr)
 require(tidyr)
+require(ggplot2)
+require(broom)
 
-path_data = "/Users/bloh356/Documents/fuzzy-waffle/data/"
+#path_data = "/Users/bloh356/Documents/fuzzy-waffle/data/"
+path_data = "C:/Users/bloh356/Documents/GitHub/fuzzy-waffle/data/"
 # Local path to the cloned data folder in the repository
 cap.raw = read.table(paste(path_data, "capacity_eia.txt.gz", sep=""), sep="\t", header=TRUE, comment.char="")
 cap.raw$summer_capacity = as.numeric(as.character(cap.raw$summer_capacity))
 
 eia.dict.1 = data.frame(status_code_1 = c("BU", "OA", "OP", "OS", "RE", "SB", "SC", "SD", "TS", "A", "CN", "CO", "D", "FC", "IP", "L", 
-                                  "LE", "M", "MO", "OT", "P", "PL", "RA", "RP", "RT", "T", "U", "V"), 
-                         status_code_1_text = c("backup", "out of service but expected to return this year", "operating", "out of service > 365 days not expected to return this year",
-                                                "retired", "standby or backup", "cold shutdown", "sold to nonutility", "construction complete but not in commercial operation", 
-                                                "proposed increase in generator capability", "cancelled", "under construction", "proposed decrease in generator capability", 
-                                                "planned fuel conversion", "planned, indefinitely postponed", "regulatory approval pending but site prep potentially underway", 
-                                                "environmental, site or legal challenges", "proposed deactivated shutdown", "modification planned for existing generator", "other",
-                                                "planned but no regulatory approvals", "planned not under construction", "planned reactivation of previously retired or deactivated unit",
-                                                "proposed repowering", "scheduled for retirement", "regulatory approved but not under construction", "under construction < 50 percent complete", 
-                                                "under construction > 50 percent complete")) 
+                                          "LE", "M", "MO", "OT", "P", "PL", "RA", "RP", "RT", "T", "U", "V"), 
+                        status_code_1_text = c("backup", "out of service but expected to return this year", "operating", "out of service > 365 days not expected to return this year",
+                                               "retired", "standby or backup", "cold shutdown", "sold to nonutility", "construction complete but not in commercial operation", 
+                                               "proposed increase in generator capability", "cancelled", "under construction", "proposed decrease in generator capability", 
+                                               "planned fuel conversion", "planned, indefinitely postponed", "regulatory approval pending but site prep potentially underway", 
+                                               "environmental, site or legal challenges", "proposed deactivated shutdown", "modification planned for existing generator", "other",
+                                               "planned but no regulatory approvals", "planned not under construction", "planned reactivation of previously retired or deactivated unit",
+                                               "proposed repowering", "scheduled for retirement", "regulatory approved but not under construction", "under construction < 50 percent complete", 
+                                               "under construction > 50 percent complete")) 
 
 eia.dict.2 = data.frame(status_code_2 = c("BU", "OA", "OP", "OS", "RE", "SB", "SC", "SD", "TS", "A", "CN", "CO", "D", "FC", "IP", "L", 
                                           "LE", "M", "MO", "OT", "P", "PL", "RA", "RP", "RT", "T", "U", "V"), 
@@ -35,25 +40,25 @@ eia.dict.2 = data.frame(status_code_2 = c("BU", "OA", "OP", "OS", "RE", "SB", "S
 
 
 eia.dict.3 = data.frame(prime_mover = c("AB", "BA", "BT", "CA", "CC", "CE", "CG", "CH", "CP", "CS", "CT", "CW", "FC", "FW", "GE", "GT", "HC", "HL", "HR",
-                                 "HY", "IC", "IG", "JE", "NB", "NG", "NH", "NP", "OC", "PB", "PS", "PV", "SP", "SS", "ST", "VR", "WT", "OT", "NA"),
+                                        "HY", "IC", "IG", "JE", "NB", "NG", "NH", "NP", "OC", "PB", "PS", "PV", "SP", "SS", "ST", "VR", "WT", "OT", "NA"),
                         prime_mover_text = c("Atmospheric Fluidized Bed", "Battery energy storage", "turbines used in a binary cycle", "Combined Cycle Steam Turbine with Supplemental Firing", 
-                                 "Combine Cycle - Total Unit", "Compressed Air Energy Storage", "not defined", "Steam Turbine, Common Header", "Concentrated solar power energy storage", 
-                                 "Combined Cycle Single Shaft (gas turbine and steam turbine share a single generator)", "Combined Cycle Combustion Turbine Part", 
-                                 "Combined Cycle Steam Turbine Part (Waste Heat Boiler Only)", "Fuel Cell (electrochemical)", "Flywheel energy storage", "Steam Turbine (geothermal)", 
-                                 "Combustion (gas) Turbine",  "Hydraulic Turbine (conventional)",
-                                 "Hydraulic Turbine (pipeline)", "Hydraulic Turbine (reversible)",
-                                 "Hydraulic Turbine (conventional)", "Internal Combustion", "Integrated Coal Gasification Combined Cycle",
-                                 "Jet Engine", "Steam Turbine (Boiling Water Nuclear Reactor)", "Steam Turbine (Graphite Nuclear Reactor)",
-                                 "Steam Turbine (High-Temperature Gas-Cooled Nuclear Reactor)", "Steam Turbine (Pressurized Water Nuclear Reactor)",
-                                 "Ocean Thermal Turbine", "Pressurized Fluidized Bed Combustion", "Hydraulic Turbine Reversible (pumped storage)",
-                                 "Photovoltaic","Photovoltaic", "Steam Turbine (Solar)", "Steam Turbine (Boiler)", "Various Types", "Wind Turbine", "Other (Explained in Notes)",
-                                 "Unknown at this Time"))
+                                             "Combine Cycle - Total Unit", "Compressed Air Energy Storage", "not defined", "Steam Turbine, Common Header", "Concentrated solar power energy storage", 
+                                             "Combined Cycle Single Shaft (gas turbine and steam turbine share a single generator)", "Combined Cycle Combustion Turbine Part", 
+                                             "Combined Cycle Steam Turbine Part (Waste Heat Boiler Only)", "Fuel Cell (electrochemical)", "Flywheel energy storage", "Steam Turbine (geothermal)", 
+                                             "Combustion (gas) Turbine",  "Hydraulic Turbine (conventional)",
+                                             "Hydraulic Turbine (pipeline)", "Hydraulic Turbine (reversible)",
+                                             "Hydraulic Turbine (conventional)", "Internal Combustion", "Integrated Coal Gasification Combined Cycle",
+                                             "Jet Engine", "Steam Turbine (Boiling Water Nuclear Reactor)", "Steam Turbine (Graphite Nuclear Reactor)",
+                                             "Steam Turbine (High-Temperature Gas-Cooled Nuclear Reactor)", "Steam Turbine (Pressurized Water Nuclear Reactor)",
+                                             "Ocean Thermal Turbine", "Pressurized Fluidized Bed Combustion", "Hydraulic Turbine Reversible (pumped storage)",
+                                             "Photovoltaic","Photovoltaic", "Steam Turbine (Solar)", "Steam Turbine (Boiler)", "Various Types", "Wind Turbine", "Other (Explained in Notes)",
+                                             "Unknown at this Time"))
 
 eia.dict.4 = data.frame(fuel_1 = c("AB", "ANT", "BFG", "BIO", "BIT", "BL", "BLQ", "COG", "COL", "COM", "CRU", "CWM", "DFO", "FO1", "FO2", "FO3", "FO4",
-                                 "FO5", "FO6", "GAS", "GEO", "GST", "JF", "KER", "LFG", "LIG", "LNG", "LPG", "MF", "MSW", "MTE", "MWH", "MTH", "NG", "NUC", 
-                                 "OBG", "OBL", "OBS", "OG", "OO", "OTH", "PC", "PET", "PL", "PRO", "REF", "RG", "RRO", "SNG", "STM", "SUB", "SUN", "TH", "TOP", 
-                                 "UR", "WAT", "WC", "WD", "WH", "WND", "OT", "NA", "PG", "PUR", "RC", "RFO", "SC", "SG", "SGC", "SGP", 'SLW', 'SU', 'TDF', 'UNK', 'WDL',
-                                 "WDS", "WO", "WOC"),
+                                   "FO5", "FO6", "GAS", "GEO", "GST", "JF", "KER", "LFG", "LIG", "LNG", "LPG", "MF", "MSW", "MTE", "MWH", "MTH", "NG", "NUC", 
+                                   "OBG", "OBL", "OBS", "OG", "OO", "OTH", "PC", "PET", "PL", "PRO", "REF", "RG", "RRO", "SNG", "STM", "SUB", "SUN", "TH", "TOP", 
+                                   "UR", "WAT", "WC", "WD", "WH", "WND", "OT", "NA", "PG", "PUR", "RC", "RFO", "SC", "SG", "SGC", "SGP", 'SLW', 'SU', 'TDF', 'UNK', 'WDL',
+                                   "WDS", "WO", "WOC"),
                         fuel_1_text = c("Agriculture crop byproducts, straw, energy crops", "Anthracite", "blast furnace gas", 'biomass generic', 'bituminous coal', 'not defined',
                                         'black liquor', 'coke oven gas', 'coal generic', 'coal oil mixture', 'crude oil', 'coal water mixture', 'distillate fuel oil', 'no 1 fuel oil', 
                                         'no 2 fuel oil', 'no 3 fuel oil', 'no 4 fuel oil', 'no 5 fuel oil', 'no 6 fuel oil', 'gas generic', 'geothermal', 'geothermal steam', 
@@ -66,10 +71,10 @@ eia.dict.4 = data.frame(fuel_1 = c("AB", "ANT", "BFG", "BIO", "BIT", "BL", "BLQ"
                                         'sludge waste', 'not defined', 'tires', 'not defined', 'wood waste liquids', 'wood and wood waste solids', 'oil-other and waste oil', 'not defined'))
 
 eia.dict.5 = data.frame(fuel_2 = c("AB", "ANT", "BFG", "BIO", "BIT", "BL", "BLQ", "COG", "COL", "COM", "CRU", "CWM", "DFO", "FO1", "FO2", "FO3", "FO4",
-                                     "FO5", "FO6", "GAS", "GEO", "GST", "JF", "KER", "LFG", "LIG", "LNG", "LPG", "MF", "MSW", "MTE", "MWH", "MTH", "NG", "NUC", 
-                                     "OBG", "OBL", "OBS", "OG", "OO", "OTH", "PC", "PET", "PL", "PRO", "REF", "RG", "RRO", "SNG", "STM", "SUB", "SUN", "TH", "TOP", 
-                                     "UR", "WAT", "WC", "WD", "WH", "WND", "OT", "NA", "PG", "PUR", "RC", "RFO", "SC", "SG", "SGC", "SGP", 'SLW', 'SU', 'TDF', 'UNK', 'WDL',
-                                     "WDS", "WO", "WOC"),
+                                   "FO5", "FO6", "GAS", "GEO", "GST", "JF", "KER", "LFG", "LIG", "LNG", "LPG", "MF", "MSW", "MTE", "MWH", "MTH", "NG", "NUC", 
+                                   "OBG", "OBL", "OBS", "OG", "OO", "OTH", "PC", "PET", "PL", "PRO", "REF", "RG", "RRO", "SNG", "STM", "SUB", "SUN", "TH", "TOP", 
+                                   "UR", "WAT", "WC", "WD", "WH", "WND", "OT", "NA", "PG", "PUR", "RC", "RFO", "SC", "SG", "SGC", "SGP", 'SLW', 'SU', 'TDF', 'UNK', 'WDL',
+                                   "WDS", "WO", "WOC"),
                         fuel_2_text = c("Agriculture crop byproducts, straw, energy crops", "Anthracite", "blast furnace gas", 'biomass generic', 'bituminous coal', 'not defined',
                                         'black liquor', 'coke oven gas', 'coal generic', 'coal oil mixture', 'crude oil', 'coal water mixture', 'distillate fuel oil', 'no 1 fuel oil', 
                                         'no 2 fuel oil', 'no 3 fuel oil', 'no 4 fuel oil', 'no 5 fuel oil', 'no 6 fuel oil', 'gas generic', 'geothermal', 'geothermal steam', 
@@ -96,7 +101,7 @@ eia.dict.6 = data.frame(fuel_3 = c("AB", "ANT", "BFG", "BIO", "BIT", "BL", "BLQ"
                                         'water', 'waste coal', 'wood and wood waste', 'waste heat', 'wind', 'other', 'not available', 'propane', 'purchased steam', 'refined coal', 
                                         "residual fuel oil", 'coal synfuel', 'synthetic gas other than coal derived', 'coal-derived synthetic gas', 'synthetic gas from petroleum coke', 
                                         'sludge waste', 'not defined', 'tires', 'not defined', 'wood waste liquids', 'wood and wood waste solids', 'oil-other and waste oil', 'not defined'))
- # Abbreviations explained
+# Abbreviations explained
 
 cap.eia = cap.raw %>%
   mutate(fuel_1 = replace(fuel_1, fuel_1=="BL", "BLQ")) %>%
@@ -135,7 +140,7 @@ cap.eia = cap.raw %>%
   left_join(eia.dict.4) %>%
   left_join(eia.dict.5) %>%
   left_join(eia.dict.6)
-  # Add three columns for the primary, secondary, and tertiary fuel used by each unit
+# Add three columns for the primary, secondary, and tertiary fuel used by each unit
 
 gz1 = gzfile(paste(path_data,"capacity_eia_fueluse_productiontechnology_1990_2014.txt.gz", sep=""), "w")
 write.table(cap.eia, file = gz1, sep="\t",col.names = TRUE, row.names = FALSE)
@@ -146,7 +151,7 @@ cap.eia.total = cap.eia %>%
   group_by(year, prime_mover, fuel_1, prime_mover_text, fuel_1_text) %>%
   # Add three new columns explaining the fuel type abbreviation
   summarize(total_summer_capacity = sum(summer_capacity, na.rm=TRUE))
-  # Generate a new dataframe that is the sum of summer capacity by primary fuel and production technology
+# Generate a new dataframe that is the sum of summer capacity by primary fuel and production technology
 
 gz1 = gzfile(paste(path_data,"total_annual_capacity_eia_fueluse_technology_1990_2014.txt.gz", sep=""), "w")
 write.table(cap.eia.total, file = gz1, sep="\t", col.names=TRUE, row.names=FALSE)
@@ -185,7 +190,7 @@ eia.mapping = eia.mapping %>%
   mutate(overnight_category = ifelse(prime_mover == "ST", 
                                      ifelse(fuel_1 == "LFG" | fuel_1 == "SNG" |  fuel_1 == "OG" | 
                                               fuel_1 == "NG" | fuel_1 == "LPG" | fuel_1 == "BFG" |
-                                               fuel_1 == "OBG" | fuel_1 == "BLQ",'steam turbine', 
+                                              fuel_1 == "OBG" | fuel_1 == "BLQ",'steam turbine', 
                                             overnight_category), overnight_category)) %>%
   # steam turbine running on natural gas assignment
   mutate(overnight_category = ifelse(prime_mover == "ST", 
@@ -199,7 +204,7 @@ eia.mapping = eia.mapping %>%
   # integrated gasification combined cycle assignment
   mutate(overnight_category = ifelse(fuel_1 != "PC" | fuel_1 != "OTH", ifelse(prime_mover == "JE" | prime_mover == "IC" | 
                                                                                 prime_mover == "GT" | prime_mover == "ic",
-                                                            "conventional combustion turbine", overnight_category), overnight_category)) %>%
+                                                                              "conventional combustion turbine", overnight_category), overnight_category)) %>%
   # conventional combustion turbine assignment but don't assign the petroleum coke units (those are more similar to coal fired)
   mutate(overnight_category = ifelse(prime_mover == "CH" & fuel_1 == "NG", "conventional combustion turbine", overnight_category)) %>%
   mutate(overnight_category = ifelse(fuel_1 == "BIT" | fuel_1 == "SUB" | fuel_1 == "LIG" | fuel_1 == "ANT" |
@@ -209,11 +214,11 @@ eia.mapping = eia.mapping %>%
                                      overnight_category)) %>%
   # coal fired power plants not igcc, combined cycle, or internal combustion (conventional combustion)
   mutate(overnight_category = ifelse(fuel_1 != "OTH", ifelse(prime_mover == "CA" | prime_mover == "CC" | prime_mover == "CT" | 
-                                       prime_mover == "CS" | prime_mover == "CW", 'conventional combined cycle', overnight_category), 
+                                                               prime_mover == "CS" | prime_mover == "CW", 'conventional combined cycle', overnight_category), 
                                      overnight_category)) %>%
   # the combined cycle power plants assignment for plants with a known fuel type 
   mutate(overnight_category = ifelse(prime_mover != "CA", ifelse(fuel_1== "WD" | fuel_1== "REF" | fuel_1== "AB" | fuel_1 == "WDS" | 
-                                       fuel_1 == "BIO" | fuel_1 == "OBS", 'biomass', overnight_category), overnight_category)) %>%
+                                                                   fuel_1 == "BIO" | fuel_1 == "OBS", 'biomass', overnight_category), overnight_category)) %>%
   # biomass assignment
   mutate(overnight_category = ifelse(fuel_1 == "MWH" | prime_mover == "CE", "distributed", overnight_category)) %>%
   # distibuted generation assignment
@@ -228,10 +233,23 @@ close(gz1)
 # Output the cleaned up data to the data folder as a .txt.gz file
 
 summary.cap.eia = cap.eia %>%
-  group_by(overnight_category) %>%
-  summarize(capacity_tw = sum(summer_capacity)/1000000,
+  group_by(overnight_category, fuel_1, year) %>%
+  summarize(capacity_tw = sum(summer_capacity)/1000000, 
+            # Capacity (TW) by overnight category, fuel, and year
             n = n(), 
-            avg_size_mw = sum(summer_capacity)/n())
+            # Count of plants (same divisions)
+            avg_size_mw = sum(summer_capacity)/n(),
+            # Average size of the plants (same divisions)
+            heat_rate = mean(heat_rate, na.rm=TRUE)) %>%
+  # Average heat rate (same divisions)
+  ungroup() %>%
+  group_by(overnight_category, fuel_1) %>%
+  complete(year = seq(from = 1990, to =2014, by = 1)) %>%
+  # Fill in the missing years for the unique combination of overnight category and primary fuel in the database
+  ungroup() %>%
+  arrange(overnight_category, fuel_1, year)
+# Order the data
+
 
 gz1 = gzfile(paste(path_data,"summary_summer_cap_eia_860_overnight_cost.txt.gz", sep=""), "w")
 write.table(summary.cap.eia, file = gz1, sep="\t",col.names = TRUE, row.names = FALSE)
@@ -243,15 +261,36 @@ summary.cap.eia.year = cap.eia %>%
   summarize(capacity_mw = sum(summer_capacity),
             n = n(), 
             avg_size_mw = sum(summer_capacity)/n(),
-            avg_age = mean(age)) %>%
+            avg_age = mean(age),
+            heat_rate = mean(heat_rate, na.rm=TRUE)) %>%
   ungroup() %>%
-  complete(overnight_category, year = full_seq(year, 1), fuel_1) %>%
-  left_join(summary.cap.eia.year) %>%
   group_by(overnight_category, fuel_1, fuel_1_text) %>%
-  mutate(year = as.integer(year)) %>%
+  complete(year = seq(from = 1990, to = 2014, by = 1)) %>%
+  mutate(diff_mw = capacity_mw - lag(capacity_mw)) %>%
+  mutate(outlier = ifelse(heat_rate <= mean(heat_rate, na.rm=TRUE) - 2*sd(heat_rate, na.rm=TRUE) |
+                            heat_rate >= mean(heat_rate, na.rm=TRUE) + 2*sd(heat_rate, na.rm=TRUE), 1, 0)) %>%
+  # Identify potential outliers (most of the outliers identified are a simple case of no variance (i.e., identical values))
+  mutate(heat_rate = replace(heat_rate, overnight_category=="biomass" & fuel_1=="REF" & year==1993, NA)) %>%
+  # One proposed outlier (replace the heat_rate value with NA)[see supporting documentation for more detail]
+  mutate(heat_rate = replace(heat_rate, overnight_category=="steam turbine" & fuel_1=="FO4" & year==1993, NA)) %>%
+  # Second proposed outlier (replace the heat_rate value with NA)
+  ungroup() %>%
   arrange(year) %>%
-  mutate(diff_mw = capacity_mw - lag(capacity_mw))
+  arrange(overnight_category, fuel_1, year) 
 
+h.r.model = summary.cap.eia.year %>%
+  filter(heat_rate > 0) %>%
+  group_by(overnight_category, fuel_1, fuel_1_text) %>%
+  complete(year = seq(from = 1990, to = 2014, by = 1)) %>% 
+  ungroup() %>%
+  group_by(overnight_category, fuel_1) %>%
+  do({mod <- lm(heat_rate ~ year, data = .)
+  pred <- predict(mod, newdata = .["year"])
+  data.frame(., pred)})
+
+summary.cap.eia.year = summary.cap.eia.year %>%
+  left_join(h.r.model, by = c("overnight_category", "fuel_1", "fuel_1_text", "year")) %>%
+  arrange(overnight_category, fuel_1, year)
 
 gz1 = gzfile(paste(path_data,"summary_year_summer_cap_eia_860_overnight_cost.txt.gz", sep=""), "w")
 write.table(summary.cap.eia.year, file = gz1, sep="\t",col.names = TRUE, row.names = FALSE)
@@ -265,6 +304,10 @@ ggplot(summary.cap.eia.year, aes(year, capacity_tw)) +
 ggplot(summary.cap.eia.year, aes(overnight_category, capacity_tw)) +
   geom_bar(stat="identity") +
   facet_wrap(~ year)
+
+ggplot(summary.cap.eia, aes(year, heat_rate)) +
+  geom_line() +
+  facet_wrap(~ overnight_category + fuel_1)
 
 
 
