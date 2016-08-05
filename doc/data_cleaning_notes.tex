@@ -191,6 +191,16 @@ The EIA Form 860 for the years 1990 to 1995 includes a generator level heat rate
 However, for all units installed past this point the we don't have the generator specific heat rate. 
 We can also calculate the efficiency of a power plant as the equivalent Btu content of a kWh of electricity divided by the heat rate, which changes the units to an efficiency percentage.
 
+The 2014 edition of the Electric Power Annual in Table 8.2 'Average tested heat rates by prime mover and energy source' publishes the average heat rate by electricity production technology and primary fuel.\footnote{We use the following datasources for the construction of this table: 2014 issue contains historic heat rates for the period 2007 to 2014; 2006 edition, Table A6;  
 The EIA has average heat rates by prime mover and energy source for the period 2007 to 2014. 
+
+We create a capacity weighted, heat rate.
+
+We use a simple linear regression model to identify any trends that exist for the available heat rate data (i.e., 1990-1995) and project it forward for each subgrouping (i.e., prime mover and primary fuel). 
+There appear to be data entry errors, resulting in outlier heat rate values for two categories in the data; steam turbine using type four fuel oil (FO4) and biomass plants using refuse, bagasse and all other non-wood waste (REF). 
+
+In 1993 the average heat rate for the 3 steam turbines using FO4 is 16,200, which is 2.04 standard deviations from the mean heat rate (~12,670). One explanation is that the number of plants that year drops from six in the previous year to three. However, this value seems to high as compared to other information we have for the period 2007 to 2014. Similarly, for the biomass plants using REF, in 1993 the average heat rate is 5,000, which is also approximately 2.04 standard deviations from the average heat rate for this type of plant (~9760). 
+
+In both these cases we remove the outlier values so that the linear regression model is not unduly influenced by their presence. 
 
 \end{document}
