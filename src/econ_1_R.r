@@ -2,13 +2,13 @@ install.packages("R.utils")
 install.packages("tidyr")
 install.packages("dplyr")
 install.packages("ggplot2")
-install.packages("broom")
+install.packages('data.table')
 options(scipen=999)
 require(R.utils)
 require(dplyr)
 require(tidyr)
 require(ggplot2)
-require(broom)
+require(data.table)
 
 #path_data = "/Users/bloh356/Documents/fuzzy-waffle/data/"
 path_data = "C:/Users/bloh356/Documents/GitHub/fuzzy-waffle/data/"
@@ -291,6 +291,63 @@ h.r.model = summary.cap.eia.year %>%
 summary.cap.eia.year = summary.cap.eia.year %>%
   left_join(h.r.model, by = c("overnight_category", "fuel_1", "fuel_1_text", "year")) %>%
   arrange(overnight_category, fuel_1, year)
+
+
+path_data = "C:/Users/bloh356/Desktop/generation/"
+# Local path to the cloned data folder in the repository
+data = fread(paste0(path_data, dir(path_data)[1]))
+data$year = 2004
+z = tolower(colnames(data)) 
+
+
+a = dim(data)[1]
+data.2 = data.frame(fread(paste0(path_data, dir(path_data)[11])))
+y = tolower(colnames(data.2)) %in% z
+data.2 = data.2[, y]
+data.2$year = 2014
+dim(data.2)[2] == 9
+data = rbind(data, data.2)
+dim(data)[1] == (dim(data.2)[1] + a)
+
+write.table(data, file = "util_id.txt", sep = "\t")
+
+data.3 = data.frame(fread(paste0(path_data, dir(path_data)[6])))
+z = tolower(colnames(data.3)[tolower(colnames(data.3)) %in% tolower(c('UTILITY_ID', 'utility_name',"PLANT_CODE","PLANT_NAME", "STATE","GENERATOR_ID", 
+                                           'unit_code', "PRIME_MOVER", 'year'))])
+x = tolower(colnames(data.3)) %in% tolower(c('UTILITY_ID', 'utility_name',"PLANT_CODE","PLANT_NAME", "STATE","GENERATOR_ID", 
+                                     'unit_code', "PRIME_MOVER", 'year'))
+data.3 = data.3[, x]
+data.3$year = 2009
+
+
+a = dim(data.3)[1]
+data.2 = data.frame(fread(paste0(path_data, dir(path_data)[8])))
+y = tolower(colnames(data.2)) %in% z
+data.2 = data.2[, y]
+data.2$year = 2011
+dim(data.2)[2] == 9
+data.3 = rbind(data.3, data.2)
+dim(data.3)[1] == (dim(data.2)[1] + a)
+
+data.4 = data.frame(fread(paste0(path_data, dir(path_data)[9])))
+z = tolower(colnames(data.4)[tolower(colnames(data.3)) %in% tolower(c('UTILITY.ID', 'utility.name',"PLANT.CODE","PLANT.NAME", "STATE",
+                                                                      "GENERATOR.ID", 'unit.code', "PRIME.MOVER", 'year'))])
+x = tolower(colnames(data.4)) %in% tolower(c('UTILITY.ID', 'utility.name',"PLANT.CODE","PLANT.NAME", "STATE",
+                                             "GENERATOR.ID", 'unit.code', "PRIME.MOVER", 'year'))
+data.4 = data.4[, x]
+data.4$year = 2012
+
+a = dim(data.4)[1]
+data.2 = data.frame(fread(paste0(path_data, dir(path_data)[10])))
+y = tolower(colnames(data.2)) %in% x
+data.2 = data.2[, y]
+data.2$year = 2013
+dim(data.2)[2] == 9
+data.3 = rbind(data.3, data.2)
+dim(data.3)[1] == (dim(data.2)[1] + a)
+
+
+
 
 gz1 = gzfile(paste(path_data,"summary_year_summer_cap_eia_860_overnight_cost.txt.gz", sep=""), "w")
 write.table(summary.cap.eia.year, file = gz1, sep="\t",col.names = TRUE, row.names = FALSE)
