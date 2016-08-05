@@ -1,0 +1,1048 @@
+category,company.name,heat.rate,main.mmbtu,net.mwh,plant.id,plant.name,year
+C,ACE Cogeneration Co ,13.1304399424112,4204380,320201,C0001 ,ACE Cogeneration (ACE is Argus Cogen Expansion - Retired),2013
+C,Karnavati Holdings Inc ,46.4787071132738,15163265,326241.110000014,C0017 ,Argus Cogen Plant,2013
+C,Los Angeles Department of Water & Power (LADWP) ,10.2605857682553,121322500,11824130,C0023 ,Intermountain Power Project (UT),2013
+C,Rio Bravo ,10.930570718098,720893,65952,C0018 ,Rio Bravo Jasmin,2013
+C,Rio Bravo ,10.8443020824922,1208630,111453,C0022 ,Rio Bravo Poso,2013
+C,Tesoro Refining & Marketing Company LLC ,15.1920220337934,2945490,193884,C0002 ,Los Angeles Refinery - Calciner,2013
+E,Ameresco Inc ,10.5007457916045,147840,14079,E0248 ,Ameresco Butte County Neal Road Landfill,2013
+E,Ameresco Inc ,14.1677627547894,693682,48962,E0250 ,Ameresco Chiquita Energy,2013
+E,Ameresco Inc ,10.7247108478687,919837,85768,E0218 ,Ameresco Half Moon Bay (Ox Mountain Landfill),2013
+E,Ameresco Inc ,10.6495610839319,306931,28821,E0217 ,Ameresco Keller Canyon,2013
+E,Ameresco Inc ,11.8613183048787,214678,18099,E0214 ,Ameresco Santa Cruz Energy,2013
+E,Bio Energy Partners/WM Renewable Energy ,17.2256745079213,897027,52075,E0106 ,Altamont Gas Recovery,2013
+E,Blue Lake Power LLC ,18.4342511752854,1372430,74450,E0097 ,Blue Lake,2013
+E,Brea Parent 2007 LLC c/o Broadrock Renewables LLC ,10.333620203579,1741060,168485,E0249 ,Brea Expansion Plant - Brea Power II LLC,2013
+E,Buena Vista Biomass Power ,18.8404797063248,1365200,72461,E0201 ,Buena Vista Biomass,2013
+E,Burney Forest Power ,18.2324972527112,4164430,228407,E0005 ,Burney Forest Products,2013
+E,City of Oxnard Wastewater Division ,11.702965636278,74583,6373,E0211 ,Oxnard Wastewater Treatment Plant,2013
+E,City of San Diego ,17.0026525198939,641000,37700,E0171 ,Gas Utilization Facility (Pt. Loma Sewage TP),2013
+E,City of San Diego ,11.4575471698113,2429,212,E0244 ,North City Cogeneration Facility Expansion (NCCFE),2013
+E,City of Santa Maria ,19.9997392777995,153418,7671,E0228 ,Santa Maria II Landfill,2013
+E,City of Sunnyvale Water Pollution Control Plant ,6.20916121356336,52188,8405,E0181 ,Sunnyvale Water Pollution Control Plant,2013
+E,Collins Pine Co ,16.9075197951733,713193,42182,E0026 ,Collins Pine Co Project,2013
+E,Community Renewable Energy Services Inc ,20.6642387345763,1520640,73588,E0033 ,Dinuba Energy,2013
+E,County of Riverside Waste Management Department ,11.3740932642487,43904,3860,E0210 ,RCWMD Badlands Power Plant,2013
+E,County of Sacramento Waste Management ,4.153559566787,287634,69250,E0203 ,Kiefer Landfill Gas-to-Energy Facility,2013
+E,County Sanitation Districts of Los Angeles County ,13.4576944451128,542927,40343.240234375,E0227 ,Calabasas Gas-to-Energy Facility,2013
+E,County Sanitation Districts of Los Angeles County ,14.7874287369488,1123120,75951,E0113 ,Commerce Refuse To Energy,2013
+E,County Sanitation Districts of Los Angeles County ,11.6254622483059,4483270,385642.300000012,E0127 ,Puente Hills Energy Recovery,2013
+E,County Sanitation Districts of Los Angeles County ,10.3838341196921,418157,40270,E0128 ,Puente Hills Gas-to-Energy Facility  Phase II,2013
+E,County Sanitation Districts of Los Angeles County ,15.3144610397129,529084,34548,E0129 ,Spadra Landfill Gas to Energy,2013
+E,County Sanitation Districts of Los Angeles County ,12.8121494198709,1716910,134006.3984375,E0212 ,Total Energy Facilities,2013
+E,Covanta Delano/Mendota ,17.5155779890993,5652820,322731,E0029 ,Covanta Delano  Inc,2013
+E,Covanta Delano/Mendota ,16.828425438073,2960810,175941,E0052 ,Covanta Mendota LP,2013
+E,Covanta Energy Inc ,18.4910638182728,2733460,147826,E0150 ,Stanislaus Resource Recovery Facility,2013
+E,Desert View Power (formerly Colmac Energy Inc) ,15.9048481173728,5587230,351291,E0027 ,Desert View Power (Mecca Plant),2013
+E,DTE Energy Services ,17.1979524354572,3245460,188712,E0105 ,Woodland Biomass Power Ltd,2013
+E,East Bay Municipal Utility District (EBMUD) ,11.783795178414,307451,26091,E0242 ,EBMUD Wastewater Treatment Plant Digester Gas Turbine,2013
+E,East Bay Municipal Utility District (EBMUD) ,9.95852064523441,263612,26471,E0036 ,EBMUD Wastewater Treatment Plant Power Generation Station,2013
+E,Eel River Power LLC ,24.6782477413001,3329809,134928.907226562,E0063 ,Scotia,2013
+E,Encina Wastewater Authority ,10.9792616226071,144531,13164,E0251 ,Encina Water Pollution Control,2013
+E,Energy 2001 Inc ,13.225087683103,384612,29082,E0225 ,Lincoln Landfill - WPWMA,2013
+E,Fortistar Methane Group ,17.9941956882255,21701,1206,E0118 ,American Canyon Power Plant (Retired 2013),2013
+E,Fortistar Methane Group ,21.2971983480299,954008,44795,E0117 ,Coyote Canyon,2013
+E,Fortistar Methane Group ,12.65113623387,110786,8757,E0120 ,Guadalupe Power Plant (Retired 2013),2013
+E,Fortistar Methane Group ,13.3832783937669,44660,3337,E0123 ,Marsh Road Power Plant (Retired 2013),2013
+E,Fortistar Methane Group ,10.1244627815025,235576,23268,E0205 ,Miramar Energy LLC LFG,2013
+E,Fortistar Methane Group ,10.2835136661887,473309,46026,E0168 ,MM Lopez Energy LLC,2013
+E,Fortistar Methane Group ,12.0150196202246,532770,44342,E0194 ,MM Prima Deshecha Energy LLC,2013
+E,Fortistar Methane Group ,10.311461548218,487794,47306,E0054 ,MM San Diego LLC - Miramar Landfill,2013
+E,Fortistar Methane Group ,12.6878232077086,341036,26879,E0202 ,MM San Diego LLC - North City,2013
+E,Fortistar Methane Group ,12.1955622576476,283059,23210,E0095 ,MM Tajiguas Energy LLC,2013
+E,Fortistar Methane Group ,,0,0,E0101 ,MM Tulare Energy LLC,2013
+E,Fortistar Methane Group ,17.9198066060761,770928,43021,E0152 ,MM West Covina LLC,2013
+E,Fortistar Methane Group ,13.6935063553688,257479,18803,E0154 ,MM Yolo Power LLC Facility,2013
+E,Fortistar Methane Group ,15.6735042735043,73352,4680,E0204 ,MN Colton Genco LLC (Retired 2013),2013
+E,Fortistar Methane Group ,14.0855439384775,163012,11573,E0209 ,MN Mid Valley Genco LLC,2013
+E,Fortistar Methane Group ,14.5280705310093,143363,9868,E0206 ,MN Milliken Genco LLC (Retired 2014),2013
+E,Fortistar Methane Group ,13.5939254354398,94437,6947,E0179 ,Newby Island I,2013
+E,Fortistar Methane Group ,11.7664104080426,119382,10146,E0132 ,Santa Cruz Energy LLC,2013
+E,G2 Energy (Hay Road) LLC ,10.0405986307913,63065,6281,E0236 ,Hay Road,2013
+E,G2 Energy (Ostrom Road) LLC ,10.0416308160699,151719,15109,E0237 ,Ostrom Road,2013
+E,Gas Recovery Systems Inc ,12.2556137724551,130988,10688,E0075 ,San Marcos,2013
+E,Gas Recovery Systems Inc ,26.4121635009457,425286,16101.8994140625,E0094 ,Sycamore Landfill San Diego,2013
+E,Global Ampersand LLC ,20.4952016468064,1413800,68982,E0018 ,Chowchilla II Biomass,2013
+E,Global Ampersand LLC ,21.691410623664,1491740,68771,E0007 ,El Nido Biomass,2013
+E,HL Power Co ,14.363067479772,2882840,200712,E0041 ,HL Power Company (Honey Lake),2013
+E,IHI Power Services Corp ,20.2330333328134,2594320,128222,E0100 ,Pacific Ultrapower Chinese,2013
+E,Los Angeles Department of Water & Power (LADWP) ,13.6821739130435,157345,11500,E0153 ,Bradley Landfill,2013
+E,Madera Power LLC ,0,0,0.119999997317791,E0050 ,Madera Power (offline 3/28/2012 - repowered 2013),2013
+E,Marubeni Sustainable Energy Inc ,17.7077093540624,2045630,115522,E0037 ,DG Fairhaven Power Plant,2013
+E,Monterey Regional Waste Mgmt Dist ,10.6193061275427,340370,32052,E0135 ,Marina Landfill Gas (Monterey Regional Waste Management Dst),2013
+E,MRWPCA ,15.1786591786592,129732,8547,E0055 ,Monterey Regional Water Pollution Control Cogen,2013
+E,Mt Poso Cogeneration Co ,16.2979005998286,3803930,233400,E0232 ,Mt. Poso Cogeneration,2013
+E,Orange County Sanitation District ,10.7075660807368,474506,44315.01953125,E0025 ,Plant No 2,2013
+E,Otay Landfill Gas LLC ,13.5621644652748,318304,23470,E0061 ,Otay 1 & 2 Power Station,2013
+E,Otay Landfill Gas LLC ,6.9202080810305,251425,36332,E0300 ,Otay 3 Power Station,2013
+E,Ridgewood Power Management LLC ,12.1003998223012,27238,2251,E0109 ,Brea Power Partners LP,2013
+E,Rio Bravo ,14.9792162497121,2731520,182354,E0098 ,Rio Bravo Fresno,2013
+E,Rio Bravo ,15.6224439894455,2907040,186081,E0099 ,Rio Bravo Rocklin,2013
+E,Roseburg Forest Products ,22.2560135165177,1501680,67473,E0243 ,Roseburg Forest Products,2013
+E,SERRF Joint Powers Authority ,18.7203054298643,4236480,226304,E0112 ,Southeast Resource Recovery,2013
+E,SF Public Utilities Commisson ,10.3651548544252,89358,8621,E0110 ,Southeast Digester Gas Cogen Plant,2013
+E,Sierra Pacific Industries Inc ,47.5030188679245,1258830,26500,E0174 ,SPI - Anderson,2013
+E,Sierra Pacific Industries Inc ,23.9857657657658,2662420,111000,E0078 ,SPI - Burney,2013
+E,Sierra Pacific Industries Inc ,23.6044687607606,2467800,104548,E0004 ,SPI - Lincoln,2013
+E,Sierra Pacific Industries Inc ,25.0847784322956,3943277,157198,E0081 ,SPI - Quincy,2013
+E,Sierra Pacific Industries Inc ,46.6619825294341,1228610,26330,E0038 ,SPI - Sonora - Restarted 1/1/2012 (Shut Down 9/28/2009),2013
+E,Sonoma County Department of Transportation and Public Works ,11.5544881827861,216010,18694.8999023438,E0195 ,Central LF (Sonoma) Phase I,2013
+E,Sonoma County Department of Transportation and Public Works ,13.6493086214232,224396,16440.1000976562,E0196 ,Central LF (Sonoma) Phase II,2013
+E,South Orange County Wastewater Authority ,9.36670708470466,54074,5773,E0155 ,Aliso Water Management Agency,2013
+E,Thermal Energy Dev Partner LP ,17.1225234702498,2148500,125478,E0096 ,Tracy Biomass Plant,2013
+E,Toro Energy of California LLC ,11.1430123099203,61554,5524,E0254 ,Cold Canyon,2013
+E,Toyon Landfill Gas Conversion LLC ,15.0367773508915,130369.01,8670.00999999978,E0143 ,Toyon Landfill Gas Conversion LLC,2013
+E,Ventura Regional Sanitation District ,12.6450333002692,89236,7057,E0256 ,Toland Road Landfill (Ventura),2013
+E,Wadham Energy LP ,13.283881376376,2610110,196487,E0102 ,Wadham,2013
+E,West Contra Costa Energy Recovery Inc ,17.8418278852568,267449,14990,E0137 ,Nove Power Plant,2013
+E,Wheelabrator Hudson Energy Co Inc ,20.9783924705051,474762,22631,E0165 ,Wheelabrator Hudson Energy - Retired 2003 and 2014,2013
+E,Wheelabrator Technologies Inc ,14.3084796907511,5803920,405628,E0086 ,Wheelabrator Shasta,2013
+E,WM Energy Solutions Inc ,14.0611636465272,301851,21467,E0207 ,El Sobrante Landfill,2013
+E,WM Energy Solutions Inc ,11.8133929175977,174472,14769,E0208 ,Simi Valley Landfill,2013
+G,Aera Energy LLC ,26.2071296105502,1271832,48530,G0802 ,AERA San Ardo Cogen Facility,2013
+G,Aera Energy LLC ,14.1354595398256,779613,55153,G0557 ,Coalinga Cogeneration Facility,2013
+G,Aera Energy LLC ,16.8933325136024,549557,32531,G0599 ,Lost Hills Cogeneration Plant,2013
+G,Aera Energy LLC ,10.6923735393068,4296880,401864,G0516 ,South Belridge Cogen Facility,2013
+G,AES Alamitos LLC ,10.9677201285444,16076981,1465845.29980469,G0011 ,Alamitos,2013
+G,AES Huntington Beach LLC ,10.7686786250906,9166590,851227,G0274 ,Huntington Beach (AES),2013
+G,AES Redondo Beach LLC ,12.4743622993113,3695939,296282.80078125,G0490 ,Redondo Beach LLC_(AES),2013
+G,Air Products and Chemicals Inc ,0,0,195666,G0078 ,Wilmington,2013
+G,Algonquin Power Systems ,8.39232326434165,1164930,138809,G0536 ,Algonquin Power Sanger LLC,2013
+G,Alliance Star Energy LLC ,11.722380919674,29013.0099999998,2475.00999999978,G1017 ,Sheraton San Diego East Tower (shutdown August 2014),2013
+G,Altagas Blythe Operations Inc ,7.2145229541744,13252350,1836899,G0787 ,Blythe Energy Project,2013
+G,AltaGas Pomona Energy Inc ,9.89899843241061,1054570,106533,G0562 ,AltaGas Pomona Energy Inc (San Gabriel Cogeneration),2013
+G,AltaGas San Joaquin Energy Inc ,11.0327389816865,1370542,124225,G0832 ,Hanford Energy Park Peaker,2013
+G,AltaGas San Joaquin Energy Inc ,10.7161107824286,579613,54088,G0867 ,Henrietta Peaker,2013
+G,AltaGas San Joaquin Energy Inc ,8.12946223103772,4963370,610541,G0838 ,Tracy Peaker Plant (reconfigured from Peaker to CC 2012),2013
+G,Applied Energy LLC ,10.8429233656966,3616180,333506,G0626 ,Naval Station Energy Facility,2013
+G,Applied Energy LLC ,9.89855082268889,2926170,295616,G0399 ,North Island Energy Facility,2013
+G,Applied Energy LLC ,10.6147983520112,2025070,190778,G0386 ,NTC MCRD Energy Facility,2013
+G,B Braun Medical Inc ,14.2182798113631,506512,35624,G9100 ,B Braun Medical Inc,2013
+G,Badger Creek Limited ,9.43671881634122,2333710,247301,G0040 ,Badger Creek Cogen,2013
+G,Bear Mountain Limited ,9.2993065162241,2063730,221923,G0428 ,Bear Mountain Cogen,2013
+G,Bicent (California) Malburg LLC ,6.84735758008969,5421950,791831,G0894 ,Malburg Power Plant,2013
+G,Biola University ,11.4911792752702,144605,12584,G0054 ,Biola University,2013
+G,Burbank Water and Power ,11.3661978836001,140601,12370.099609375,G0063 ,Lake 1,2013
+G,Burbank Water and Power ,7.11066135307555,8274399.30078125,1163661,G0329 ,Magnolia,2013
+G,Burbank Water and Power ,0.769230828012472,0.600000023841858,0.779999971389771,G0410 ,Olive,2013
+G,C&H Sugar Company ,0,0,45455.599609375,G0509 ,C&H Sugar Plant,2013
+G,Cabrillo Power I LLC (NRG West Coast Inc) ,12.9431290885979,6262080,483815,G0196 ,Encina,2013
+G,Cabrillo Power II LLC (NRG West Coast Inc) ,19.3326710221628,13419,694.109985351562,G0189 ,El Cajon,2013
+G,Cabrillo Power II LLC (NRG West Coast Inc) ,15.6595137682957,252494,16124,G0289 ,Kearny,2013
+G,Cabrillo Power II LLC (NRG West Coast Inc) ,17.3895376753144,44528,2560.6201171875,G0360 ,San Diego Combustion Turbines - Miramar 1A 1B,2013
+G,Calgren Renewable Fuels LLC ,15.3779010413122,451895,29386,G1020 ,Pixley Cogen Plant,2013
+G,California Institute of Technology ,11.6466375521323,829392,71213,G0757 ,California Institute of Technology,2013
+G,California Power Holdings LLC ,10.5974132159981,254868,24050.0200195312,G0896 ,Chowchilla II Peaker,2013
+G,California Power Holdings LLC ,10.6771749014853,105672,9897,G0897 ,Red Bluff,2013
+G,California Resources Corporation ,12.6373787515071,2326870,184126,G0775 ,Elk Hills CoGeneration,2013
+G,CalPeak Power - Border LLC ,11.2503488372093,96753,8600,G0853 ,Border - CalPeak Power,2013
+G,CalPeak Power - Enterprise LLC ,10.8725905782612,135940,12503,G0845 ,Enterprise - CalPeak Power,2013
+G,CalPeak Power - Panoche ,10.9006618942826,85811.1015625,7872.10009765625,G0908 ,Panoche - CalPeak Power,2013
+G,CalPeak Power - Vaca Dixon LLC ,10.8044547847139,76691.1015625,7098.10009765625,G0909 ,Vaca Dixon - CalPeak Power,2013
+G,CalPeak Power LLC ,10.924679526459,445716,40799,G0998 ,Midway LLC - Starwood Power - CalPeak Power,2013
+G,Calpine Corp & Bechtel Enterprise ,7.38081918156935,23589600,3196068,G0794 ,Metcalf Energy Center LLC,2013
+G,Calpine Corporation - West Region ,7.23392439436575,2151971,297483.203125,G0866 ,Los Esteros Critical Energy Facility  LLC,2013
+G,Calpine Corporation - West Region ,7.27787250098585,25653700,3524890,G0780 ,Los Medanos Energy Center LLC,2013
+G,Calpine Corporation - West Region ,6.75935482127901,25018400,3701300,G0785 ,Otay Mesa Generating Project,2013
+G,Calpine Corporation - West Region ,7.06902286128834,9500590,1343975,G0935 ,Russell City Energy Company  LLC,2013
+G,Calpine Corporation - West Region ,7.72913504291874,8055320,1042202,G0779 ,Sutter Energy Center - Calpine Construction Finance Co,2013
+G,Calpine Gilroy Cogen LP ,8.9810302986329,1128030,125601.40234375,G0229 ,Calpine Gilroy Cogen  L.P.,2013
+G,Calpine King City Cogeneration LLC ,8.74784620566112,3584360,409742,G0019 ,Calpine King City Cogeneration  LLC,2013
+G,Cardinal Cogen ,11.3595542872365,4008480,352873,G0080 ,Cardinal Cogen - Retired 3/31/2015,2013
+G,Central Valley Financing ,8.91658844206553,3571593,400556,G0085 ,Sacramento Carson - Carson Ice CG,2013
+G,Chalk Cliff Ltd ,9.08157668425009,1341140,147677,G0429 ,Chalk Cliff Cogen,2013
+G,Chevron North America Exploration and Production ,1,0.0199999995529652,0.0199999995529652,G0595 ,A Fee Cogeneration Plant - Indefinite Shutdown,2013
+G,Chevron North America Exploration and Production ,1,0.00999999977648258,0.00999999977648258,G0596 ,B Fee Cogeneration Plant - Indefinite Shutdown,2013
+G,Chevron North America Exploration and Production ,1,0.0199999995529652,0.0199999995529652,G0597 ,C Fee Cogeneration Plant - Indefinite Shutdown,2013
+G,Chevron North America Exploration and Production ,25.4590658286607,1589825.99000004,62446.359999992,G0100 ,Coalinga Cogeneration Plants,2013
+G,Chevron North America Exploration and Production ,22.5357084022282,3693535,163897,G0102 ,Cymric Cogeneration Plants,2013
+G,Chevron North America Exploration and Production ,11.7001454471452,3909510,334142,G0103 ,Kern River Eastridge Cogeneration Plant,2013
+G,Chevron North America Exploration and Production ,16.817608927717,804106.390000012,47813.359999992,G0600 ,McKittrick Cogeneration Plant,2013
+G,Chevron North America Exploration and Production ,0.714285764969938,0.900000035762787,1.25999996066093,G0601 ,North Midway Cogeneration Plant,2013
+G,Chevron North America Exploration and Production ,12.1529616725624,1925870.60000002,158469.239999995,G0558 ,Southeast Kern River Cogen,2013
+G,Chevron North America Exploration and Production ,23.0839829743922,1995795,86458,G0107 ,Taft 26C Cogeneration Plant,2013
+G,Chevron Products Co - NorCal ,16.8901423652432,15711430,930213,G0104 ,Chevron Richmond Refinery Cogeneration,2013
+G,Chevron Products Co - SoCal ,12.8801930858617,15792820,1226132.23999999,G0105 ,Chevron El Segundo Refinery Cogeneration,2013
+G,Childrens Hospital & Health ,18.453470482219,419798,22749,G0109 ,Childrens Hospital #2,2013
+G,City of Anaheim ,9.5004702245187,878879,92509,G0026 ,Anaheim CT,2013
+G,City of Colton ,10.0519193037179,399604,39754,G0911 ,Agua Mansa Power Plant,2013
+G,City of Glendale ,7.35327084245871,1191110.31323242,161983.740127563,G0236 ,Grayson,2013
+G,City of Palm Springs ,11.7604969609272,95660,8134.01000976562,G0119 ,Municipal Cogeneration Plant (Palm Springs),2013
+G,City of Palo Alto ,9.5,228,24,G1034 ,COBUG - City of Palo Alto Backup Generator,2013
+G,City of Pasadena ,11.2702166989599,506044,44901,G0061 ,Broadway,2013
+G,City of Pasadena ,11.616594958172,622631.599804699,53598.4599658176,G0231 ,Glenarm,2013
+G,City of Redding Electric Utility ,8.78537097355036,1290513.02001953,146893.400848389,G0487 ,Redding Power,2013
+G,City of Riverside Public Utilities Department ,8.84485920997055,197665,22348.009765625,G0923 ,Clearwater,2013
+G,City of Riverside Public Utilities Department ,9.76401791943598,531807,54466,G0922 ,Riverside Energy Resource Center,2013
+G,City of Riverside Public Utilities Department ,12.4941496168826,20856.109375,1669.27001953125,G0912 ,Springs Generation Project,2013
+G,City of Riverside Regional Water Control Plant ,17.0996051497006,22606.0199999996,1322.01999999955,G1035 ,Riverside Water Quality Control Plant,2013
+G,City of Roseville ,20.7407237415653,17674,852.139984130859,G0382 ,Roseville,2013
+G,City of Roseville ,7.40581505135468,4125824,557106,G0213 ,Roseville Energy Park (REP),2013
+G,City of San Jose ,6.72741157299611,304275.1015625,45229.1491699219,G1047 ,San Jose-Santa Clara Regional Wastewater Facility,2013
+G,City of Santa Rosa Utilities Department ,8.55631399317406,50140,5860,G0077 ,Laguna Plant Cogen Facility,2013
+G,City of Vernon ,13.4065344882825,2178.83000555634,162.520001530647,G0652 ,Vernon (includes H. Gonzales),2013
+G,Coalinga Cogeneration Company ,13.2869139119954,3362320,253055,G0131 ,Coalinga Cogeneration,2013
+G,Colton Power LP ,14.6379645802842,27339.6201171875,1867.72006225586,G0842 ,Century (Alliance),2013
+G,Colton Power LP ,14.2920190216733,20232.6401367188,1415.66003417969,G0821 ,Drews - Agua Mansa (Alliance Colton),2013
+G,ConocoPhillips ,9.81906222013085,3881220,395274,G0759 ,ConocoPhillips Los Angeles Refinery Wilmington Plant,2013
+G,ConocoPhillips Company San Francisco Refinery ,10.1648763045704,3991320,392658,G0632 ,ConocoPhillips Company  San Francisco Refinery,2013
+G,ConocoPhillips Company San Francisco Refinery ,1.99775349882094,143173,71667,G0630 ,Phillips66 - Carbon Plant,2013
+G,Corn Products International Inc ,14.9797030137949,340968,22762,G0751 ,Ingredion Stockton Plant,2013
+G,Corona Energy Partners Ltd ,9.74555669601858,1262800,129577,G0149 ,Corona Cogen,2013
+G,County of Los Angeles ,9.00290797471678,1783260,198076,G0157 ,Pitchess Cogeneration Station,2013
+G,County of Sonoma ,8.79129911788292,87702,9976,G1024 ,Fuel Cell DFC,2013
+G,CP Kelco US Inc ,12.5873827672179,1054005,83735.0400390625,G0290 ,CP Kelco - San Diego Plant,2013
+G,Creed Energy Center LLC ,10.8381530218265,137547,12691,G0918 ,Creed Energy Center  LLC,2013
+G,Crockett Cogeneration LP ,8.77445299388873,13855300,1579050,G0161 ,Crockett Cogeneration Project,2013
+G,Delta Energy Center LLC ,7.1861792745729,40621100,5652670,G0783 ,Delta Energy Center  LLC,2013
+G,DGC Operations LLC ,9.98058183185617,3078750,308474,G0512 ,Sentinel Energy Project CPV,2013
+G,Diamond Generating Corporation ,10.9357962110771,936301,85618,G0818 ,Indigo Generation LLC,2013
+G,Diamond Generating Corporation ,10.1273194404796,886900,87575,G0819 ,Larkspur Energy LLC,2013
+G,Double C Ltd ,10.4563574324469,88420,8456.099609375,G0176 ,Double C,2013
+G,Duke Energy Moss Landing & Oakland LLC ,7.43332165067967,37497510,5044516,G0372 ,Moss Landing Power Plant,2013
+G,Duke Energy Oakland LLC ,12.4402201971214,37274.009765625,2996.25,G0406 ,Oakland Power Plant,2013
+G,Eco Services Operations LLC ,35.8550021105952,509643,14214,G0494 ,Rhodia - Martinez,2013
+G,Eco Services Operations LLC ,29.4528105482304,594181,20174,G0495 ,Rhodia Dominguez Plant,2013
+G,EF Oxnard Inc ,9.06831439052258,1507970,166290,G0180 ,EF Oxnard  Inc.,2013
+G,El Segundo Power LLC ,8.21192205646511,4708850,573416.3046875,G0053 ,El Segundo Energy Center (Units 5 6 7 8),2013
+G,El Segundo Power LLC ,12.1299062759426,6049160,498698,G0194 ,El Segundo Power Station (for Unit 3 and 4),2013
+G,Elk Hills Power LLC ,7.18858257403774,27992053,3893960,G0799 ,Elk Hills Power  LLC,2013
+G,Energia Azteca X Sociedad Anonima de Capital Variable ,7.56855072567254,19079060,2520834,G9787 ,La Rosita (INTERGEN  Mexicali  Mexico),2013
+G,Energy Operations Group ,10.8665929259796,854701,78654,G0366 ,Lake Shore Mojave  LLC (Retired 8/2013),2013
+G,Energy Operations Group LLC ,8.72412438858938,2443540,280090,G0084 ,Carson Cogeneration Co,2013
+G,Escondido Energy Center LLC ,17.8206390296753,9109.01953125,511.149993896484,G0924 ,Chula Vista Energy Center LLC,2013
+G,Escondido Energy Center LLC ,9.7466005226558,220049,22577,G0686 ,Yuba City Cogeneration Partners LP,2013
+G,ExxonMobil Oil Corporation ,9.37427175342981,1995220,212840,G0363 ,ExxonMobil Torrance Refinery,2013
+G,ExxonMobil Production Company ,10.7599416820268,3866556,359347.30078125,G0202 ,ExxonMobil Las Flores Canyon,2013
+G,Foster Wheeler Martinez Inc / Martinez Cogen Limited Partnership ,9.82851264444711,7786590,792245,G0613 ,Martinez Cogen Limited,2013
+G,Fresno Cogeneration Partners ,9.75769059756393,387118.029999999,39673.1199999973,G0384 ,Fresno Cogeneration Partners  LP,2013
+G,Fresno Cogeneration Partners ,16.5041361380288,69829,4231,G0904 ,Fresno Cogeneration Partners  LP PKR,2013
+G,Frito-Lay Inc ,11.90073463537,332090,27905,G0216 ,Frito-Lay (Kern Plant),2013
+G,General Mills Operations Inc ,18.6306087179159,291066,15623,G0225 ,General Mills Operations Inc Lodi Plant,2013
+G,Gilroy Energy Center LLC ,10.5897443822829,342610,32353,G0917 ,Feather River Energy Center,2013
+G,Gilroy Energy Center LLC ,11.214817985794,707341,63072,G0822 ,Gilroy Energy Center,2013
+G,Goal Line LP ,8.68686052438554,1397490,160874,G0233 ,Goal Line LP,2013
+G,Golden State Water Company (BVES) ,13.2416666666667,7945,600,G0930 ,Bear Valley Power Plant,2013
+G,Goose Haven Energy Center LLC ,11.0837140992167,135842,12256,G0916 ,Goose Haven Energy Center,2013
+G,Graphic Packaging International Inc ,10.3044958814597,2239270,217310,G0144 ,Altivity Packaging - Santa Clara,2013
+G,Greenleaf Plants 1&2 ,8.68718713891367,187944,21634.6208496094,G0238 ,Greenleaf 1  Inc.,2013
+G,Greenleaf Plants 1&2 ,9.86986244331559,2607440,264182,G0239 ,Greenleaf 2  Inc.,2013
+G,Harbor Cogeneration Co ,10.6913083538645,249984.600000024,23382.0400390625,G0246 ,Harbor Cogeneration Co,2013
+G,High Desert Power Project LLC ,7.14387296312015,31847700,4458044,G0778 ,High Desert Power Project,2013
+G,High Sierra Ltd ,10.4987551493182,91445.203125,8710.099609375,G0258 ,High Sierra,2013
+G,Houweling Nurseries Oxnard Inc ,8.63033016218999,323992,37541.08984375,G1046 ,Houweling Nurseries,2013
+G,Imperial Irrigation District ,16.3539930708209,16940.1198730469,1035.8399810791,G0130 ,Coachella,2013
+G,Imperial Irrigation District ,8.90096640965518,10557430,1186099.296875,G0190 ,El Centro Generating Station,2013
+G,Imperial Irrigation District ,10.3841812196332,536209,51637.099609375,G0931 ,Niland Gas Turbine Plant,2013
+G,Imperial Irrigation District ,13.4838067906756,17374.0200195312,1288.51000976562,G0504 ,Rockwood,2013
+G,Inland Empire Energy Center ,7.02787640676571,11577070,1647307,G0868 ,Inland Empire Energy Center,2013
+G,International Power Technology Inc ,15.8713872372898,499171,31451,G0515 ,SRI International Cogen Project,2013
+G,Intertie ,12.030082484231,24794,2061,G1042 ,Pacific Palms Cogeneration (shutdown Dec 2014),2013
+G,JR Simplot Company ,9.44346092503987,118421,12540,G0128 ,Lathrop Plant,2013
+G,Kern Front Ltd ,10.5096188539833,80904.203125,7698.11010742188,G0292 ,Kern Front,2013
+G,Kern River Cogeneration Co ,12.2223482971868,15855676,1297269.20019531,G0293 ,Kern River Cogeneration Co,2013
+G,KES Kingsburg LP ,10.2241087939052,306018,29931.01953125,G0286 ,Kingsburg Cogeneration,2013
+G,King City Energy Center LLC ,11.394523685694,73472,6448.009765625,G0823 ,King City Energy Center,2013
+G,Kirkwood Meadows  ,11.273691186216,85060,7545,G0801 ,Kirkwood Meadows PUD,2013
+G,Kyocera America Inc ,11.4224519940916,139194,12186,G0298 ,Kyocera Project,2013
+G,LA County ISD (Civic Center) ,12.8900910492981,1646490,127733,G0758 ,Civic Center Cogen,2013
+G,LA County ISD (Health Services) ,18.3594904310395,315618,17191,G0899 ,Olive View Medical Center,2013
+G,La Paloma Generating Co LLC ,7.16366962312735,47071900,6570920,G0781 ,La Paloma Generating,2013
+G,Lambie Energy Center LLC ,11.1346170526498,128371,11529,G0915 ,Lambie Energy Center,2013
+G,LAX Airport ,,0,0,G0803 ,Central Utility Plant (LAX),2013
+G,Linn Operating Company (Berry Petroleum LLC) ,12.9923988899318,1273411,98012,G0368 ,Berry Cogen Midway-Sunset 18MW,2013
+G,Linn Operating Company (Berry Petroleum LLC) ,13.9637367281179,4229560,302896,G0638 ,Berry Cogen Midway-Sunset 38MW,2013
+G,Linn Operating Company (Berry Petroleum LLC) ,11.7554712372423,3696120,314417,G0032 ,Berry Placerita Cogen,2013
+G,Linn Western Processing ,15.2872292993631,480019,31400,G0804 ,Linn Western Processing Generating Facility (Blacksand),2013
+G,Live Oak Limited ,9.35462554413373,3156840,337463,G0315 ,Live Oak Cogen,2013
+G,Loma Linda University ,16.8773849876585,1161958,68847.0400390625,G0317 ,Loma Linda University Cogeneration,2013
+G,Long Beach Generation LLC ,22.2748557160984,544197,24431,G0319 ,Long Beach Generation LLC,2013
+G,Los Angeles Department of Water & Power (LADWP) ,11.7661635015961,1522318,129381,G0245 ,Harbor,2013
+G,Los Angeles Department of Water & Power (LADWP) ,7.91731873592565,28821309.8984375,3640286.67529297,G0249 ,Haynes Generating Station,2013
+G,Los Angeles Department of Water & Power (LADWP) ,10.5511799203379,12651540,1199064,G0549 ,Scattergood,2013
+G,Los Angeles Department of Water & Power (LADWP) ,7.51032354216228,6964308,927298,G0648 ,Valley Generating Station,2013
+G,LSP Morro Bay LLC ,10.3557541204487,888724,85819.3415624946,G0371 ,Morro Bay Power Plant (Retired Feb 05 2014),2013
+G,Malaga Power LLC ,9.85756086539005,1745084,177030,G0220 ,Malaga Peaking Plant,2013
+G,Mariposa Energy LLC ,10.8031578947368,841566,77900,G1015 ,Mariposa Energy  LLC,2013
+G,McKittrick Ltd ,9.17012592150384,1321030,144058,G0339 ,McKittrick Cogen,2013
+G,Mid-Set Cogeneration Co ,13.3325979527003,3928210,294632,G0355 ,Mid-Set Cogeneration,2013
+G,Midway Sunset Cogeneration Co ,11.7365776190512,15741450,1341230,G0358 ,Midway-Sunset Cogeneration,2013
+G,Modesto Irrigation District ,18.5068988173456,56335,3044,G0336 ,McClure,2013
+G,Modesto Irrigation District ,10.2427283800244,210232,20525,G0204 ,MID Ripon,2013
+G,Modesto Irrigation District ,8.87470517020799,4391000,494777,G0679 ,Woodland Generation Station,2013
+G,Mule Creek State Prison ,,0,0,G0378 ,Mule Creek State Prison,2013
+G,Napa State Hospital ,19.8078048780488,243636,12300,G0282 ,Napa State Hospital - Retired December 2013,2013
+G,Navy Public Works ,1,0.00999999977648258,0.00999999977648258,G0986 ,Backup Generation - Navy Regional Data Automation Center,2013
+G,Navy Public Works ,15.1734450163151,451061,29727,G0388 ,Naval Hospital Medical Center,2013
+G,New-Indy Ontario LLC ,13.3151486510904,3831940,287788,G0280 ,Ontario Linerboard Mill,2013
+G,New-Indy Oxnard LLLC ,11.0361644988186,2256090,204427,G0677 ,New-Indy Containerboard Ontario (formerly Oxnard Paper Mill),2013
+G,Northern California Power Agency ,16.919935614067,4740.1201171875,280.150009155273,G0379 ,Alameda,2013
+G,Northern California Power Agency ,15.3777477663611,5122.02001953125,333.079986572266,G0380 ,Lodi,2013
+G,Northern California Power Agency ,9.79949229465556,17091,1744.06994628906,G0381 ,Lodi CC (NCPA STIG),2013
+G,Northern California Power Agency ,7.40097539269795,8781990,1186599,G1009 ,Lodi Energy Center,2013
+G,NRG California South ,14.2151534186837,374060.099609375,26314.1795654297,G0147 ,Contra Costa Power Plant - Retired May 2013,2013
+G,NRG California South ,11.3914915226277,3025375.1015625,265582,G0767 ,Coolwater Generating Station,2013
+G,NRG California South ,13.4397833841633,14435,1074.05004882812,G0195 ,Ellwood Generating Station,2013
+G,NRG California South ,12.008175321242,2618575,218066.020019531,G0330 ,Mandalay Generating Station,2013
+G,NRG California South ,10.6832734261068,6131590,573943,G0421 ,Ormond Beach Generating Station,2013
+G,NRG Delta LLC ,13.5053251193233,1577815,116829.1015625,G0450 ,Pittsburg Generating Station,2013
+G,NRG Marsh Landing LLC ,13.7329352862518,3532880,257256,G0201 ,Etiwanda Generating Station,2013
+G,NRG Marsh Landing LLC ,12.6493559952198,952623,75310,G1011 ,Marsh Landing Generating Station,2013
+G,NRG Solar Community 1 LLC ,13.3171162981219,26661,2002.00999999978,G0527 ,NRG Energy Inc,2013
+G,Oildale Energy LLC ,9.73275883539638,2344680,240906,G0409 ,Oildale,2013
+G,OLS Energy - Agnews Inc ,3.80893075259191,177695,46652.2001953125,G0221 ,OLS Energy - Agnews Inc.,2013
+G,OLS Energy Chino ,8.82857595872419,2060210,233357,G0404 ,OLS Energy Chino,2013
+G,Orange County Sanitation District ,10.0127183091205,381825,38134,G0483 ,Plant No 1,2013
+G,Orange Grove Energy LP ,10.4744727795167,408274,38978,G1005 ,Orange Grove Energy,2013
+G,Oroville Cogeneration LP ,12.3333333333333,2072,168,G0424 ,Oroville Cogeneration LP,2013
+G,Pacific Gas & Electric (PG&E) ,7.13969009204004,18102877,2535527,G0934 ,Colusa Generating Station,2013
+G,Pacific Gas & Electric (PG&E) ,9.57326975125661,74279,7759,G1028 ,CSU East Bay Fuel Cell,2013
+G,Pacific Gas & Electric (PG&E) ,7.15368415379543,22565009,3154320,G0950 ,Gateway Generating Station,2013
+G,Pacific Gas & Electric (PG&E) ,8.81269036938583,3182615,361140,G0268 ,Humboldt Bay,2013
+G,Pacific Gas & Electric (PG&E) ,9.15452648315612,92122,10063,G0127 ,SF Fuel Cell Station,2013
+G,Panoche Energy Center LLC ,8.99175316081194,3145594,349831,G0997 ,Panoche Energy Center,2013
+G,Pastoria Energy Facility LLC ,7.02424678898072,35063600,4991795,G0797 ,Pastoria Energy Facility L.L.C.,2013
+G,PE-Berkeley Inc c/o Olympus Power LLC ,13.5468717935168,1968510.30000001,145311.059999999,G0405 ,PE Berkeley Inc,2013
+G,Plains Exploraton and Production Co ,14.9681830659047,599820,40073,G0627 ,Dome Lease Project,2013
+G,Plains Exploraton and Production Co ,11.7116938263435,424748,36267,G0644 ,Welport Lease Project,2013
+G,Plumas Sierra Rural Electric Cooperative ,10.4974968269638,297751,28364,G1051 ,High Sierra Cogeneration Power Plant,2013
+G,Point Arguello Pipeline Co ,19.6869607273391,220064,11178.16015625,G0453 ,Point Arguello Pipeline Co.(Gaviota),2013
+G,Procter & Gamble Paper Products Company ,9.67512395755794,5368020,554827,G0468 ,The Procter & Gamble Paper Products Co.,2013
+G,Qualcomm Inc ,11.3273648321984,432275.01,38162.0099999998,G0475 ,Qualcomm Building P Central Plant,2013
+G,Qualcomm Inc ,10.0371592844974,94269,9392,G1050 ,Qualcomm Building Q Central Plant,2013
+G,Qualcomm Inc ,10.6250894620824,371145,34931,G0746 ,Qualcomm Building W Power Plant,2013
+G,Rio Tinto Minerals ,13.2289770883866,4281360,323635,G0625 ,U S Borax Inc,2013
+G,Ripon Cogeneration LLC ,9.6668883999386,1133520,117258,G0564 ,Ripon Cogeneration Facility,2013
+G,Riverview Energy Center LLC ,10.7351404632824,217816,20290,G0914 ,Riverview Energy Center,2013
+G,Sacramento Municipal Utility District (SMUD) ,6.78681973122282,25983000,3828450,G0889 ,Cosumnes Power Plant,2013
+G,Sacramento Municipal Utility District (SMUD) ,13.266442090478,43130,3251.06005859375,G0335 ,McClellan,2013
+G,Sacramento Municipal Utility District (SMUD) ,8.29151061173533,6774330,817020,G0076 ,Sacramento Campbell Soup SPA,2013
+G,Sacramento Municipal Utility District (SMUD) ,8.73284209303226,7215144,826208,G0467 ,Sacramento SCA,2013
+G,Saddleback Community College ,10.9652367834186,83588,7623,G1014 ,Saddleback Community College,2013
+G,Saint Agnes Medical Center ,16.1564002070546,436966,27046,G0518 ,Saint Agnes Medical Center,2013
+G,Salinas River Cogeneration Co ,13.1209347879901,3657290,278737,G0520 ,Salinas River Cogeneration,2013
+G,San Antonio Community Hospital ,10.0771321340753,155732,15454,G0522 ,San Antonio Community Hospital,2013
+G,San Diego Gas & Electric (SDG&E) ,11.1775738128995,449372,40203,G0910 ,Cuyamaca Peak Energy Plant (formely CalPeak El Cajon),2013
+G,San Diego Gas & Electric (SDG&E) ,7.21909816373393,19991567,2769261,G1040 ,Desert Star Energy Center (NV),2013
+G,San Diego Gas & Electric (SDG&E) ,9.66864303713975,1391630,143932.296875,G1023 ,Miramar Energy Facility 1 & 2,2013
+G,San Diego Gas & Electric (SDG&E) ,6.97459224260604,26319949,3773690,G0861 ,Palomar Energy Center,2013
+G,San Diego State University ,13.4425805822402,827001,61521,G0511 ,San Diego State University,2013
+G,San Diego Union-Tribune Publishing Company ,20.0203399823131,203747,10177,G0633 ,Union Tribune Publishing Co,2013
+G,San Joaquin Cogen ,9.59547063350401,209970,21882.19921875,G0529 ,San Joaquin Cogen,2013
+G,San Jose State University ,15.9178714737967,789415,49593,G0087 ,San Jose Cogeneration,2013
+G,Santa Maria Cogeneration Inc ,1,0.00999999977648258,0.00999999977648258,G0056 ,Santa Maria Cogen Plant (Retired 12/31/2013 per CAISO),2013
+G,Sargent Canyon Cogeneration Co ,12.9969493418885,3629840,279284,G0547 ,Sargent Canyon Cogeneration,2013
+G,Searles Valley Minerals ,,0,0,G0396 ,Westend Facility,2013
+G,Sharp Grossmont Hospital ,18.6344147220641,98222,5271,G0241 ,Grossmont Hospital,2013
+G,Shell Oil Products US - Equilon Enterprises LLC - Martinez Refinery ,9.79321406539173,7937400,810500,G0755 ,Martinez Refinery,2013
+G,Silicon Valley Power ,7.83124885030862,7226692.1015625,922802,G0169 ,Donald Von Raesfeld Power Plant (DVR),2013
+G,Silicon Valley Power ,14.3088538272911,27562,1926.21997070312,G0228 ,Gianera,2013
+G,Silicon Valley Power ,15.5899897154611,773092,49589,G0114 ,Santa Clara Cogen,2013
+G,Solano County ,9.94858725761773,89786,9025,G0159 ,Solano County Cogeneration Plant,2013
+G,Solar Turbines Incorporated ,0,0,809,G0991 ,Solar Turbines Inc. - Harbor Drive Plant (Testing Only),2013
+G,Solar Turbines Incorporated ,0,0,2038,G0990 ,Solar Turbines Inc. - Kearny Mesa Plant (Testing Only),2013
+G,Southern California Edison (SCE) ,10.7472669205257,174987,16282,G9111 ,Barre Peaker,2013
+G,Southern California Edison (SCE) ,9.15,20313,2220,G1048 ,California State - San Bernardino Fuel Cell Unit,2013
+G,Southern California Edison (SCE) ,10.8356274087792,216485,19979,G9222 ,Center Peaker,2013
+G,Southern California Edison (SCE) ,10.4987975668411,222648,21207,G9333 ,Etiwanda Peaker,2013
+G,Southern California Edison (SCE) ,10.6309793080338,253804,23874,G1041 ,McGrath Peaker,2013
+G,Southern California Edison (SCE) ,10.7944609297725,163698,15165,G9444 ,Mira Loma Peaker,2013
+G,Southern California Edison (SCE) ,7.09643564069286,39149900,5516840,G0795 ,Mountainview Generating Station,2013
+G,Southern California Edison (SCE) ,10.5153185093838,272862,25949,G0014 ,Pebbly Beach,2013
+G,Southern California Edison (SCE) ,6.87786259541985,10812,1572,G0578 ,UCSB Fuel Cell,2013
+G,Southern California Public Power Authority (SCPPA) ,10.424815103523,1096628,105194,G0058 ,Canyon Power Plant,2013
+G,Sunrise Power Company LLC ,7.44449588068666,9182473,1233458,G0784 ,Sunrise Power,2013
+G,Sycamore Cogeneration Co ,12.0902299478375,17376550,1437239,G0590 ,Sycamore Cogeneration Co,2013
+G,Techni-Cast Corporation ,11.8182365332531,39272,3323,G0621 ,Techni-Cast,2013
+G,Termoelectrica de Mexicali S de RL de CV ,7.1507257287734,25835000,3612920,G9786 ,Termoelectrica de Mexicali (TDM  Mexicali  Mexico),2013
+G,Tesoro LA Refinery - Carson Operations (formerly BP) ,0,0,0.660000026226044,G0034 ,Tesoro LAR Carson (formerly ARCO),2013
+G,Tesoro Refining and Marketing Company ,12.7564982970273,6000070,470354,G0776 ,Los Angeles Refinery (Tesoro),2013
+G,THUMS Long Beach Company ,10.1615086338812,3220680,316949,G0925 ,THUMS,2013
+G,Toyota Motor Engineering & Manufacturing NA Inc ,10,3050,305,G1030 ,Toyota Technical Center,2013
+G,Turlock Irrigation Distict ,10.5913342997683,1709632,161418,G0016 ,Almond Power Plant,2013
+G,Turlock Irrigation Distict ,22.4508646112941,8019,357.18000793457,G0662 ,Walnut,2013
+G,Turlock Irrigation Distict ,7.82121565352746,11023980,1409497,G0900 ,Walnut Energy Center,2013
+G,U S Trust Co of California ,8.70811534480958,1834260,210638,G0403 ,CI Power Cogeneration Plant (OLS Camarillo),2013
+G,UC Santa Cruz ,12.3737686975556,67833,5482,G0541 ,UC Santa Cruz Cogeneration,2013
+G,UCLA ,13.8140299943987,3502050,253514,G0763 ,UCLA Energy Systems Facility,2013
+G,United Technologies Corporation ,9.7359825979676,299878,30801,G0281 ,UTC Aerospace Systems Cogeneration Plant,2013
+G,University of California Irvine ,11.3470350440089,1189680,104845.009765625,G1019 ,Central Plant (UC Irvine),2013
+G,University of California San Diego ,13.3916115671231,2289940,170998.090000004,G0640 ,University of California San Diego Cogeneration Facility,2013
+G,University of San Francisco ,11.9901749341002,100070,8346,G0641 ,Univ of San Francisco Cogen,2013
+G,Valero Refining Company - California ,9.46962502518058,3290600,347490,G0902 ,Valero Cogeneration Unit #1,2013
+G,Walnut Creek Energy LLC ,9.67353810271204,3309714,342141,G0928 ,Walnut Creek Energy Park,2013
+G,Watson Cogeneration Company (Tesoro Refining & Marketing) ,9.58601934409762,29831280,3111957,G0035 ,Watson Cogeneration Co,2013
+G,Wellhead Power Delano LLC ,11.0814255463662,277357,25029,G1049 ,Delano Energy Center  LLC,2013
+G,Wellhead Power Panoche LLC/Gates LLC ,14.6166820397944,110926,7589,G0905 ,Wellhead Power Panoche  LLC,2013
+G,Wellhead Services Inc ,10.2564239014748,134913,13154,G0951 ,El Cajon Energy Center,2013
+G,Western Power and Steam ,9.10467122121735,2000360,219707,G0173 ,Western Power and Steam  Inc. (DAI Oildale),2013
+G,Wheelabrator Technologies Inc ,9.6398508376468,865996,89835,G0563 ,Wheelabrator Lassen (Retired 5/2013),2013
+G,Wheelabrator Technologies Inc ,10.4473006013348,790495,75665,G0673 ,Wheelabrator Norwalk Energy,2013
+G,Wolfskill Energy Center LLC ,10.8265257845766,205953,19023,G0913 ,Wolfskill Energy Center,2013
+G,Yuba City Energy Center LLC ,11.7845557976277,438138,37179,G0919 ,Yuba City Energy Center,2013
+H,Calaveras County Water District ,0,0,5479,H0073 ,Hogan,2013
+H,California Department of Water Resources ,0,0,33397,H0058 ,Alamo,2013
+H,California Department of Water Resources ,0,0,572179,H0137 ,Devil Canyon,2013
+H,California Department of Water Resources ,0,0,1489823.05000019,H0164 ,Edward C Hyatt,2013
+H,California Department of Water Resources ,0,0,34978,H0337 ,Mojave Siphon,2013
+H,California Department of Water Resources ,0,0,0.239999994635582,H0510 ,Thermalito (Unit 1 HY Unit 2-3-4 PS),2013
+H,California Department of Water Resources ,0,0,14760,H0511 ,Thermalito Diversion Dam,2013
+H,California Department of Water Resources ,0,0,5358.34156249464,H0452 ,W R Gianelli,2013
+H,California Department of Water Resources ,0,0,373764,H0567 ,William E. Warne,2013
+H,Calleguas Municipal Water District ,0,0,6993,H0078 ,East Portal Generator,2013
+H,Calleguas Municipal Water District ,0,0,2932,H0076 ,Springville Reservoir,2013
+H,City of Escondido ,0,0,81,H0021 ,Bear Valley,2013
+H,City of Pasadena ,1,0.00999999977648258,0.00999999977648258,H0014 ,Azusa,2013
+H,City of Redding Electric Utility ,0,0,27162,H0564 ,Whiskeytown,2013
+H,City of Ukiah ,0,0,1693.00999999978,H0283 ,Lake Mendocino,2013
+H,Desert Water Agency ,0,0,134,H0136 ,Whitewater Hydroelectric Plant,2013
+H,East Bay Municipal Utility District (EBMUD) ,0.475898768640554,7691,16161,H0080 ,Camanche,2013
+H,East Bay Municipal Utility District (EBMUD) ,0.162444368366998,7592,46736,H0380 ,Pardee,2013
+H,El Dorado Hydro ,2.02224464640699e-06,0.00999999977648258,4945,H0168 ,Montgomery Creek Hydro,2013
+H,El Dorado Irrigation District ,0,0,71094,H0167 ,El Dorado,2013
+H,Friant Power Authority ,0,0,60851.0703125,H0198 ,Friant-Kern Hydro Facility (River Outlet  Madera Canal  F-K),2013
+H,Humboldt Bay Municipal Water District ,0,0,4228,H0241 ,Gosselin Hydroelectric Plant,2013
+H,Hydrodynamics ,0,0,10690,H0323 ,Bidwell Ditch,2013
+H,Hydrodynamics ,0,0,13037,H0321 ,Hatchet Creek Project,2013
+H,Hydrodynamics ,0,0,5291,H0322 ,Roaring Creek,2013
+H,Hypower Inc ,0,0,25613.099609375,H0192 ,Forks of Butte Hydro Project,2013
+H,Imperial Irrigation District ,0,0,18847,H0147 ,Drop 1,2013
+H,Imperial Irrigation District ,0,0,46495.099609375,H0149 ,Drop 2,2013
+H,Imperial Irrigation District ,0,0,42940,H0150 ,Drop 3,2013
+H,Imperial Irrigation District ,0,0,99549.1015625,H0151 ,Drop 4,2013
+H,Imperial Irrigation District ,0,0,15810,H0152 ,Drop 5,2013
+H,Imperial Irrigation District ,,0,0,H0160 ,East Highline,2013
+H,Imperial Irrigation District ,0,0,20832.3896484375,H0385 ,Pilot Knob,2013
+H,Isabella Partners ,0,0,6541.02978515625,H0094 ,Isabella,2013
+H,Kaweah River Power Authority ,0,0,24768.099609375,H0262 ,Terminus Hydroelectric Project,2013
+H,Kings River Conservation District ,0,0,117540.80078125,H0387 ,Pine Flat,2013
+H,Los Angeles County Flood Control District ,2.18335839315462e-05,0.00999999977648258,458.009999999776,H0442 ,San Gabriel Hydroelectric Project,2013
+H,Los Angeles Department of Water & Power (LADWP) ,0,0,3241,H0040 ,Big Pine,2013
+H,Los Angeles Department of Water & Power (LADWP) ,0,0,477557.169433594,H0090 ,Castaic (Pumped Storage),2013
+H,Los Angeles Department of Water & Power (LADWP) ,0,0,5609,H0039 ,Castaic Efficiency (Small Hydro),2013
+H,Los Angeles Department of Water & Power (LADWP) ,0,0,3237.03002929688,H0110 ,Control Gorge,2013
+H,Los Angeles Department of Water & Power (LADWP) ,0,0,531,H0116 ,Cottonwood,2013
+H,Los Angeles Department of Water & Power (LADWP) ,0,0,531,H0142 ,Division Creek,2013
+H,Los Angeles Department of Water & Power (LADWP) ,0,0,25424,H0189 ,Foothill,2013
+H,Los Angeles Department of Water & Power (LADWP) ,0,0,2694,H0193 ,Franklin,2013
+H,Los Angeles Department of Water & Power (LADWP) ,0,0,3342,H0216 ,Haiwee,2013
+H,Los Angeles Department of Water & Power (LADWP) ,0,0,37344,H0328 ,Middle Gorge,2013
+H,Los Angeles Department of Water & Power (LADWP) ,0,0,2920,H0616 ,North Hollywood Pumping Plant,2013
+H,Los Angeles Department of Water & Power (LADWP) ,0,0,3815,H0394 ,Pleasant Valley,2013
+H,Los Angeles Department of Water & Power (LADWP) ,0,0,646,H0438 ,San Fernando,2013
+H,Los Angeles Department of Water & Power (LADWP) ,0,0,47258.1299438477,H0441 ,San Francisquito 1,2013
+H,Los Angeles Department of Water & Power (LADWP) ,0,0,1657.03000068665,H0440 ,San Francisquito 2,2013
+H,Los Angeles Department of Water & Power (LADWP) ,0,0,3776,H0467 ,Sawtelle,2013
+H,Los Angeles Department of Water & Power (LADWP) ,0,0,43525,H0536 ,Upper Gorge,2013
+H,Lower Tule River & Pixley Irrigation District ,0,0,12,H0503 ,Success Power Project,2013
+H,Madera-Chowchilla Water Power Authority ,0,0,2986,H0310 ,Madera Canal (Station 980  1174  1302  1923),2013
+H,Malacha Hydro Ltd Partnership ,0,0,39318,H0311 ,Muck Valley Hydroelectric,2013
+H,Merced Irrigation District ,0,0,137348,H0175 ,Exchequer,2013
+H,Merced Irrigation District ,0,0,19973,H0316 ,McSwain,2013
+H,Merced Irrigation District ,0,0,5597,H0325 ,Merced ID (Parker),2013
+H,Metropolitan Water District ,0,0,17347,H0114 ,Corona,2013
+H,Metropolitan Water District ,0,0,14394,H0119 ,Coyote Creek,2013
+H,Metropolitan Water District ,0,0,22348,H0611 ,Diamond Valley Lake,2013
+H,Metropolitan Water District ,0,0,27597,H0174 ,Etiwanda,2013
+H,Metropolitan Water District ,0,0,59567,H0188 ,Foothill Feeder,2013
+H,Metropolitan Water District ,0,0,0.00999999977648258,H0211 ,Greg Avenue,2013
+H,Metropolitan Water District ,0,0,28071,H0282 ,Lake Mathews,2013
+H,Metropolitan Water District ,0,0,1,H0382 ,Perris,2013
+H,Metropolitan Water District ,0,0,28287,H0408 ,Red Mountain,2013
+H,Metropolitan Water District ,0,0,1347,H0412 ,Rio Hondo,2013
+H,Metropolitan Water District ,0,0,21567,H0437 ,San Dimas Hydro Recovery Plant,2013
+H,Metropolitan Water District ,0,0,0.00999999977648258,H0472 ,Sepulveda Canyon,2013
+H,Metropolitan Water District ,0,0,17713,H0509 ,Temescal,2013
+H,Metropolitan Water District ,0,0,8371,H0539 ,Valley View,2013
+H,Metropolitan Water District ,0,0,0.389999985694885,H0541 ,Venice,2013
+H,Metropolitan Water District ,0,0,0.00999999977648258,H0577 ,Yorba Linda,2013
+H,Monterey County Water Resources Agency ,0,0,3108,H0341 ,Nacimiento Hydro Project,2013
+H,Nelson Creek Power Inc ,0,0,1611,H0349 ,Nelson Creek,2013
+H,Nevada Irrigation District ,0,0,6280,H0351 ,Bowman,2013
+H,Nevada Irrigation District ,0,0,107093,H0095 ,Chicago Park,2013
+H,Nevada Irrigation District ,0,0,2316,H0054 ,Combie South (3 @ 500kW = 1.5MW),2013
+H,Nevada Irrigation District ,0,0,19301,H0157 ,Dutch Flat 2,2013
+H,Nevada Irrigation District ,0,0,52338,H0424 ,Rollins,2013
+H,Norman Ross Burgess ,0,0,4181,H0512 ,Three Forks Water Power Project,2013
+H,Northbrook Power Management LLC ,0,0,304,H0427 ,Kanaka,2013
+H,Northbrook Power Management LLC ,0,0,1461,H0428 ,Kekawaka,2013
+H,Northbrook Power Management LLC ,0,0,4222.06005859375,H0226 ,Lower Haypress Hydroelectric,2013
+H,Northbrook Power Management LLC ,0,0,5071.06982421875,H0623 ,Middle Haypress Hydroelectric,2013
+H,Northern California Power Agency ,0,0,210688,H0107 ,Collierville,2013
+H,Northern California Power Agency ,0,0,1626,H0209 ,Graeagle,2013
+H,Northern California Power Agency ,0,0,12613,H0356 ,Spicer,2013
+H,Olcese Water District ,0,0,6448.080078125,H0367 ,Rio Bravo Hydroelectric,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,2456,H0005 ,Alta,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,53981,H0019 ,Balch #1,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,200597,H0020 ,Balch #2,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,249736,H0023 ,Belden,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,137774,H0052 ,Bucks Creek,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,133298,H0057 ,Butt Valley,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,143015,H0087 ,Caribou #1,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,368396,H0088 ,Caribou #2,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,0.0199999995529652,H0092 ,Centerville,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,15949,H0096 ,Chili Bar,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,39844,H0106 ,Coleman,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,4669,H0118 ,Cow Creek,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,681,H0120 ,Crane Valley,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,198325,H0121 ,Cresta,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,73720,H0130 ,De Sabla,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,19803,H0133 ,Deer Creek,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,57482.0400390625,H0154 ,Drum #1,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,240929,H0155 ,Drum #2,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,106726,H0156 ,Dutch Flat #1,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,312125,H0171 ,Electra,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,181773,H0215 ,Haas,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,44307,H0217 ,Halsey,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,9621,H0218 ,Hamilton Branch,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,19585,H0221 ,Hat Creek #1,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,36412,H0222 ,Hat Creek #2,2013
+H,Pacific Gas & Electric (PG&E) ,-0,0,-307423,H0229 ,Helms (Pumped Storage),2013
+H,Pacific Gas & Electric (PG&E) ,0,0,35430,H0244 ,Inskip,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,534997,H0250 ,James B Black,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,16196.219697265,H0265 ,Kerckhoff PH 1,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,205769,H0266 ,Kerckhoff PH 2,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,22130,H0267 ,Kern Canyon,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,14137,H0271 ,Kilarc,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,51054,H0272 ,Kings River,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,5496,H0287 ,Lime Saddle,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,7140,H0324 ,Merced Falls,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,58746,H0348 ,Narrows 1,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,13800.099609375,H0357 ,Newcastle,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,5465,H0364 ,Oak Flat,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,9560,H0383 ,Phoenix,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,204372,H0388 ,Pit #1,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,258558,H0389 ,Pit #3,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,348821,H0390 ,Pit #4,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,541766.11000061,H0391 ,Pit #5,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,273253,H0392 ,Pit #6,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,379453,H0393 ,Pit #7,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,443852,H0395 ,Poe,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,19523,H0401 ,Potter Valley,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,312977,H0417 ,Rock Creek,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,122522,H0431 ,Salt Springs,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,326,H0448 ,San Joaquin #1A,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,2556,H0449 ,San Joaquin #2,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,3394,H0450 ,San Joaquin #3,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,38305,H0486 ,South,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,20420,H0490 ,Spaulding #1,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,8174,H0491 ,Spaulding #2,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,24335,H0492 ,Spaulding #3,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,30618,H0495 ,Spring Gap,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,206358,H0498 ,Stanislaus,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,258587,H0516 ,Tiger Creek,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,3903,H0518 ,Toadtown,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,6759,H0523 ,Tule,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,38828,H0545 ,Volta #1,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,4749,H0546 ,Volta #2,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,72157,H0558 ,West Point,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,68222,H0569 ,Wise,2013
+H,Pacific Gas & Electric (PG&E) ,0,0,21248.1396484375,H0570 ,Wishon Powerhouse,2013
+H,PacifiCorp ,0,0,67577,H0111 ,Copco 1,2013
+H,PacifiCorp ,0,0,83609,H0112 ,Copco 2,2013
+H,PacifiCorp ,0,0,9864,H0177 ,Fall Creek,2013
+H,PacifiCorp ,0,0,85349,H0245 ,Iron Gate,2013
+H,Placer County Water Agency ,0,0,26833,H0195 ,French Meadows,2013
+H,Placer County Water Agency ,0,0,2564,H0228 ,Hell Hole,2013
+H,Placer County Water Agency ,0,0,327213,H0275 ,Middle Fork,2013
+H,Placer County Water Agency ,0,0,16784,H0374 ,Oxbow,2013
+H,Placer County Water Agency ,0,0,218396,H0406 ,Ralston,2013
+H,Sacramento Municipal Utility District (SMUD) ,0,0,211258,H0081 ,Camino,2013
+H,Sacramento Municipal Utility District (SMUD) ,0,0,12807,H0083 ,Camp Far West,2013
+H,Sacramento Municipal Utility District (SMUD) ,0,0,346981,H0253 ,Jaybird,2013
+H,Sacramento Municipal Utility District (SMUD) ,0,0,11974,H0255 ,Jones Fork,2013
+H,Sacramento Municipal Utility District (SMUD) ,0,0,53258,H0289 ,Loon Lake,2013
+H,Sacramento Municipal Utility District (SMUD) ,0,0,21651,H0414 ,Robbs Peak,2013
+H,Sacramento Municipal Utility District (SMUD) ,0,0,3046,H0482 ,Slab Creek,2013
+H,Sacramento Municipal Utility District (SMUD) ,0,0,80505,H0532 ,Union Valley,2013
+H,Sacramento Municipal Utility District (SMUD) ,0,0,289994,H0565 ,White Rock,2013
+H,San Diego County Water Authority ,-0,0,-6872,H0613 ,Lake Hodges Station (Olivenhain Pumped Storage),2013
+H,San Diego County Water Authority ,0,0,17504,H0612 ,Rancho Penasquitos,2013
+H,San Gabriel Valley Municipal Water District ,0,0,0.00999999977648258,H0443 ,San Dimas Wash,2013
+H,SF Public Utilities Commisson ,0,0,504234,H0141 ,Dion R Holm,2013
+H,SF Public Utilities Commisson ,0,0,435446,H0274 ,Kirkwood (RPS Certified),2013
+H,SF Public Utilities Commisson ,0,0,346040,H0601 ,Moccasin,2013
+H,SF Public Utilities Commisson ,0,0,2707,H0336 ,Moccasin Low Head,2013
+H,Silicon Valley Power ,0,0,7602,H0046 ,Black Butte,2013
+H,Silicon Valley Power ,0,0,22816,H0213 ,Grizzly,2013
+H,Silicon Valley Power ,0,0,7843.00999999978,H0500 ,Stony Gorge,2013
+H,Siskiyou County ,0,0,10838,H0284 ,Box Canyon,2013
+H,Sithe Energies Inc ,3.61271668225527e-06,0.0199999995529652,5536,H0422 ,Rock Creek L.P.,2013
+H,Slate Creek Hydro Assoc LP ,1.82381903638201e-06,0.00999999977648258,5483,H0483 ,Slate Creek,2013
+H,Snow Mountain Hydro LLC ,0,0,2030,H0240 ,Burney Creek,2013
+H,Snow Mountain Hydro LLC ,0,0,9487,H0236 ,Cove Hydroelectric,2013
+H,Snow Mountain Hydro LLC ,0,0,4894,H0238 ,Lost Creek 1,2013
+H,Snow Mountain Hydro LLC ,0,0,801,H0237 ,Ponderosa Bailey Creek,2013
+H,Solano Irrigation District ,0,0,43667,H0343 ,Monticello,2013
+H,Sonoma County Water Agency ,0,0,13182,H0485 ,Warm Springs,2013
+H,South Feather Water and Power ,0,0,86706,H0191 ,Forbestown,2013
+H,South Feather Water and Power ,0,0,39787,H0263 ,Kelly Ridge,2013
+H,South Feather Water and Power ,0,0,18320,H0484 ,Sly Creek,2013
+H,South Feather Water and Power ,0,0,141404,H0573 ,Woodleaf,2013
+H,South San Joaquin Irr District ,0,0,14814,H0488 ,Frankenheimer,2013
+H,South San Joaquin Irr District ,0,0,4943,H0489 ,Woodward,2013
+H,Southern California Edison (SCE) ,0,0,210501,H0027 ,Big Creek 1,2013
+H,Southern California Edison (SCE) ,0,0,200826,H0028 ,Big Creek 2,2013
+H,Southern California Edison (SCE) ,0,0,217741,H0030 ,Big Creek 2A,2013
+H,Southern California Edison (SCE) ,0,0,465039,H0032 ,Big Creek 3,2013
+H,Southern California Edison (SCE) ,0,0,221659,H0034 ,Big Creek 4,2013
+H,Southern California Edison (SCE) ,0,0,121044,H0036 ,Big Creek 8,2013
+H,Southern California Edison (SCE) ,0,0,21013,H0041 ,Bishop Creek 2,2013
+H,Southern California Edison (SCE) ,0,0,18174,H0042 ,Bishop Creek 3,2013
+H,Southern California Edison (SCE) ,0,0,24134,H0043 ,Bishop Creek 4,2013
+H,Southern California Edison (SCE) ,0,0,8652,H0044 ,Bishop Creek 5,2013
+H,Southern California Edison (SCE) ,0,0,8291,H0045 ,Bishop Creek 6,2013
+H,Southern California Edison (SCE) ,0,0,7122,H0048 ,Borel,2013
+H,Southern California Edison (SCE) ,0,0,72139,H0161 ,Eastwood (Pumped Storage),2013
+H,Southern California Edison (SCE) ,0,0,2845,H0187 ,Fontana,2013
+H,Southern California Edison (SCE) ,0,0,7185,H0259 ,Kaweah 1,2013
+H,Southern California Edison (SCE) ,0,0,6681,H0260 ,Kaweah 2,2013
+H,Southern California Edison (SCE) ,0,0,11085,H0261 ,Kaweah 3,2013
+H,Southern California Edison (SCE) ,0,0,61306.19921875,H0268 ,Kern River 1,2013
+H,Southern California Edison (SCE) ,0,0,72381,H0269 ,Kern River 3,2013
+H,Southern California Edison (SCE) ,0,0,4838,H0296 ,Lundy,2013
+H,Southern California Edison (SCE) ,0,0,1217,H0298 ,Lytle Creek,2013
+H,Southern California Edison (SCE) ,0,0,355685,H0313 ,Mammoth Pool,2013
+H,Southern California Edison (SCE) ,0,0,2908,H0331 ,Mill Creek 1,2013
+H,Southern California Edison (SCE) ,0,0,387,H0332 ,Mill Creek 2,2013
+H,Southern California Edison (SCE) ,0,0,4647,H0333 ,Mill Creek 3,2013
+H,Southern California Edison (SCE) ,0,0,765,H0372 ,Ontario 1,2013
+H,Southern California Edison (SCE) ,0,0,10,H0373 ,Ontario 2,2013
+H,Southern California Edison (SCE) ,0,0,8150.06005859375,H0398 ,Poole,2013
+H,Southern California Edison (SCE) ,0,0,15953,H0499 ,Portal,2013
+H,Southern California Edison (SCE) ,0,0,40023,H0426 ,Rush Creek,2013
+H,Southern California Edison (SCE) ,0,0,2136,H0460 ,Santa Ana 1,2013
+H,Southern California Edison (SCE) ,0,0,3737,H0462 ,Santa Ana 3,2013
+H,Southern California Edison (SCE) ,0,0,806,H0479 ,Sierra,2013
+H,Southern California Edison (SCE) ,0,0,6067,H0525 ,Tule River,2013
+H,Synergics Energy Services LLC ,0,0,4961,H0371 ,Olsen,2013
+H,TKO Power Inc ,5.82750569725092e-06,0.00999999977648258,1716,H0507 ,Bear Creek,2013
+H,Tri-Dam Power Authority ,0,0,54772,H0519 ,Sand Bar,2013
+H,Tri-Dam Project & Tri-Dam Power Authority ,0,0,34568,H0022 ,Beardsley,2013
+H,Tri-Dam Project & Tri-Dam Power Authority ,0,0,207855,H0145 ,Donnells,2013
+H,Tri-Dam Project & Tri-Dam Power Authority ,0,0,107520.119999997,H0527 ,Tulloch,2013
+H,Turlock Irrigation Distict ,0,0,342823,H0144 ,Don Pedro,2013
+H,Turlock Irrigation Distict ,0,0,3798,H0234 ,Hickman,2013
+H,Turlock Irrigation Distict ,0,0,9502,H0276 ,La Grange,2013
+H,Turlock Irrigation Distict ,0,0,7512,H0530 ,Turlock Lake,2013
+H,Turlock Irrigation Distict ,0,0,10152,H0535 ,Upper Dawson,2013
+H,United States Bureau of Reclamation ,0,0,341901,H0186 ,Folsom,2013
+H,United States Bureau of Reclamation ,0,0,3870070,H0242 ,Hoover Dam (NV),2013
+H,United States Bureau of Reclamation ,0,0,423716,H0257 ,Judge F Carr,2013
+H,United States Bureau of Reclamation ,0,0,383649,H0270 ,Keswick,2013
+H,United States Bureau of Reclamation ,0,0,3,H0286 ,Lewiston,2013
+H,United States Bureau of Reclamation ,0,0,410546,H0353 ,New Melones,2013
+H,United States Bureau of Reclamation ,0,0,45658,H0360 ,Nimbus,2013
+H,United States Bureau of Reclamation ,0,0,6486,H0363 ,O'Neill,2013
+H,United States Bureau of Reclamation ,0,0,433744,H0381 ,Parker,2013
+H,United States Bureau of Reclamation ,0,0,6321,H0471 ,Senator Wash,2013
+H,United States Bureau of Reclamation ,0,0,1794544,H0475 ,Shasta,2013
+H,United States Bureau of Reclamation ,0,0,352398,H0493 ,Spring Creek,2013
+H,United States Bureau of Reclamation ,0,0,13200,H0497 ,Stampede,2013
+H,United States Bureau of Reclamation ,0,0,449912,H0520 ,Trinity,2013
+H,United Water Conservation District ,,0,0,H0533 ,Santa Felicia,2013
+H,Utica Power Authority ,0,0,4643,H0008 ,Angels,2013
+H,Utica Power Authority ,0,0,12227,H0346 ,Murphys,2013
+H,Yolo County Flood Control & Water Conservation District ,,0,0,H0576 ,Clear Lake,2013
+H,Yolo County Flood Control & Water Conservation District ,0,0,2598,H0243 ,Indian Valley Dam,2013
+H,Yuba County Water Agency ,0,0,904940,H0352 ,Colgate,2013
+H,Yuba County Water Agency ,0,0,1069,H0053 ,Fish Power (NPCap = 0.15MW - No Reporting RQD),2013
+H,Yuba County Water Agency ,0,0,97816,H0354 ,Narrows 2,2013
+N,Pacific Gas & Electric (PG&E) ,3.41213893950852,61453100,18010140,N0001 ,Diablo Canyon,2013
+N,Southern California Edison (SCE) ,-0,0,-150066,N0002 ,San Onofre Nuclear Generating Station - SONGS,2013
+S,Agua Caliente Solar LLC ,0,0,687092,S0242 ,Agua Caliente Solar (AZ),2013
+S,AV Solar Ranch 1 LLC ,0,0,415459,S0241 ,Antelope Valley Solar Ranch 1,2013
+S,Borrego Solar/Golden Springs Development Company LLC ,0,0,2012,S0208 ,Golden Springs Building C1,2013
+S,Borrego Solar/Golden Springs Development Company LLC ,0,0,2179,S0209 ,Golden Springs Building D1,2013
+S,Campo Verde Solar LLC ,0,0,73641.1015625,S0258 ,Campo Verde Solar Project,2013
+S,CED California Holdings LLC ,0,0,127823,S0246 ,Alpaugh 50  LLC,2013
+S,CED California Holdings LLC ,0,0,51667,S0247 ,Alpaugh North  LLC,2013
+S,CED California Holdings LLC ,0,0,17083,S0249 ,CED Corcoran  LLC,2013
+S,CED California Holdings LLC ,0,0,27963.099609375,S0248 ,CED White River Solar  LLC,2013
+S,Copper Mountain Solar ,0,0,125620,S0243 ,Copper Mountain I (NV),2013
+S,Copper Mountain Solar ,0,0,226935,S0244 ,Copper Mountain II (NV),2013
+S,Csolar IV South LLC (Tenaska Inc) ,0,0,45827,S0255 ,Imperial Solar Energy Center South,2013
+S,Desert Sunlight 250 LLC ,0,0,33322,S0256 ,Desert Sunlight 250,2013
+S,Desert Sunlight 300 LLC ,0,0,73851,S0257 ,Desert Sunlight 300,2013
+S,Duke Energy Renewables ,0,0,18307,S9409 ,Highlander Solar 1 (SEPV8) (Duke Energy),2013
+S,Duke Energy Renewables ,0,0,14220,S9410 ,Highlander Solar 2 (SEPV9) (Duke Energy),2013
+S,Duke Energy Renewables ,0,0,7192,S0123 ,Sunset Reservoir Solar,2013
+S,Ecos Energy LLC ,0,0,0.00999999977648258,S9292 ,Ecos Energy   LLC_(Vintner Solar Project),2013
+S,EDF Renewable Energy Inc ,0,0,204243,S0081 ,Catalina Solar Phase I and II,2013
+S,eSolar Inc ,0,0,88,S0117 ,Sierra SunTower,2013
+S,Eurus Energy America Corporation ,0,0,13241,S0126 ,Avenal Park Solar,2013
+S,Eurus Energy America Corporation ,0,0,42065,S0131 ,Sand Drag,2013
+S,Eurus Energy America Corporation ,0,0,44032,S0127 ,Sun City,2013
+S,Genesis Solar LLC ,0,0,7029,S0259 ,Genesis Solar Energy Project,2013
+S,Gestamp Solar North America ,0,0,3693,S0179 ,La Joya Del Sol,2013
+S,Gestamp Solar North America ,0,0,4558,S0162 ,Meridian (Paso Robles Solar  LLC),2013
+S,Gestamp Solar North America ,0,0,5399,S0163 ,SEPV 1 (GASNA),2013
+S,Gestamp Solar North America ,0,0,4558,S0164 ,SEPV 2 (GASNA),2013
+S,High Plains Ranch II LLC ,0,0,403922,S0240 ,California Valley Solar Ranch,2013
+S,Imperial Valley Solar Company ,0,0,54528,S0161 ,IVSC1 - (SunPeak 1) - 23MW PV,2013
+S,Intertie ,0,0,3293,S0221 ,Industry MetroLink PV 1,2013
+S,K Road Modesto Solar LLC ,0,0,66685,S0180 ,McHenry Solar Plant,2013
+S,Konoike Pacific California Inc ,0,0,1656,S0144 ,Konoike Pacific California Inc,2013
+S,L-8 Solar Project LLC ,0,0,3427,S0226 ,L-8 Solar Project,2013
+S,LIGHTBEAM POWER COMPANY GRIDLEY MAIN TWO LLC ,0,0,4626,S9172 ,Gridley Main Two,2013
+S,Los Angeles Community College District ,0,0,2404,S0152 ,LA Harbor College,2013
+S,Los Angeles Community College District ,0,0,992,S0219 ,LAPC Carport Shade Structures (Los Angeles Pierce College),2013
+S,Los Angeles Department of Water & Power (LADWP) ,0,0,21154,S0218 ,Adelanto Solar Power Project,2013
+S,LS Power ,0,0,50036.1015625,S0291 ,Centinela Solar Energy,2013
+S,Luz Solar Partners Ltd III ,13.5756414609303,839667,61851,S0071 ,SEGS III,2013
+S,Luz Solar Partners Ltd IV ,13.8329347292396,873370,63137,S0072 ,SEGS IV,2013
+S,Luz Solar Partners Ltd IX ,11.5801629791065,1955380,168856,S0073 ,SEGS IX,2013
+S,Luz Solar Partners Ltd V ,13.7168580292321,857770,62534,S0074 ,SEGS V,2013
+S,Luz Solar Partners Ltd VI ,12.2715883135036,719925,58666,S0075 ,SEGS VI,2013
+S,Luz Solar Partners Ltd VII ,11.5258568465111,627848,54473,S0076 ,SEGS VII,2013
+S,Luz Solar Partners Ltd VIII ,12.0081505575032,1897600,158026,S0077 ,SEGS VIII,2013
+S,Meridian Energy USA Inc ,0,0,10786,S0121 ,CalRENEW-1,2013
+S,MidAmerican Renewables LLC (Solar Star) ,0,0,5338.08984375,S0252 ,Solar Star I (MidAmerican),2013
+S,MidAmerican Renewables LLC (Solar Star) ,0,0,4294.18017578125,S0253 ,Solar Star II (MidAmerican),2013
+S,NRG Solar Alpine LLC ,0,0,161722,S0237 ,Alpine Solar,2013
+S,NRG Solar Borrego I LLC ,0,0,66960,S0238 ,NRG Solar Borrego I,2013
+S,NRG Solar Community 1 LLC ,0,0,48100,S0111 ,Blythe 1 Solar,2013
+S,NRG Solar Kansas South LLC ,0,0,30769.099609375,S0260 ,Kansas South,2013
+S,OL Elk Grove Trust a Delaware Statutory Trust ,0,0,7780,S0204 ,Green Acres Solar Facility 1,2013
+S,OL Elk Grove Trust a Delaware Statutory Trust ,0,0,2529,S0203 ,Green Acres Solar Facility 2,2013
+S,Pacific Gas & Electric (PG&E) ,0,0,48176,S0176 ,Cantua Solar Station,2013
+S,Pacific Gas & Electric (PG&E) ,0,0,28338,S0140 ,Five Points Solar Station,2013
+S,Pacific Gas & Electric (PG&E) ,0,0,26440.099609375,S0224 ,Gates Solar Station,2013
+S,Pacific Gas & Electric (PG&E) ,0,0,24000,S0178 ,Giffen Solar Station,2013
+S,Pacific Gas & Electric (PG&E) ,0,0,11488.099609375,S0225 ,Guernsey Solar Station,2013
+S,Pacific Gas & Electric (PG&E) ,0,0,45056,S0177 ,Huron Solar Station,2013
+S,Pacific Gas & Electric (PG&E) ,0,0,44933,S0139 ,Stroud Solar Station,2013
+S,Pacific Gas & Electric (PG&E) ,0,0,4707,S0110 ,Vaca Dixon Solar Station,2013
+S,Pacific Gas & Electric (PG&E) ,0,0,13404,S0223 ,West Gates Solar Station,2013
+S,Pacific Gas & Electric (PG&E) ,0,0,32643,S0138 ,Westside Solar Station,2013
+S,Pristine Sun LLC ,0,0,0.00999999977648258,S9310 ,Pristine Sun Fund 1  LLC_(2127_Harris),2013
+S,QFER placeholder for company name ,0,0,4865,S9149 ,Advanced Micro Decives,2013
+S,QFER placeholder for company name ,0,0,1622,S9047 ,Airport Division City of San Jose,2013
+S,QFER placeholder for company name ,0,0,2027,S9121 ,Alameda Water District,2013
+S,QFER placeholder for company name ,0,0,1622,S9046 ,Almond Process Parreira,2013
+S,QFER placeholder for company name ,0,0,1622,S9006 ,Alza Corporation (700 Eubanks),2013
+S,QFER placeholder for company name ,0,0,1847,S9110 ,Amir Development Company,2013
+S,QFER placeholder for company name ,0,0,2838,S9137 ,Angels PH  Utica Power Authority,2013
+S,QFER placeholder for company name ,0,0,1622,S9074 ,Anheuser Busch Fairfield  PV Phase/Anheuser Busch,2013
+S,QFER placeholder for company name ,0,0,4054,S9148 ,ANHEUSER BUSCH INC,2013
+S,QFER placeholder for company name ,0,0,1622,S9075 ,Applied Materials Inc.,2013
+S,QFER placeholder for company name ,0,0,1622,S9073 ,AT&T San Ramon (PV)/AT&T Services Inc,2013
+S,QFER placeholder for company name ,0,0,3446,S9142 ,AT&T Services  Inc.,2013
+S,QFER placeholder for company name ,0,0,1622,S9025 ,AT&T Services Inc.,2013
+S,QFER placeholder for company name ,0,0,36106,S0323 ,Atwell Island PV Solar Generating Facility,2013
+S,QFER placeholder for company name ,0,0,1622,S9038 ,Beret & Kees Jan De Jong,2013
+S,QFER placeholder for company name ,0,0,1622,S9026 ,CA State University Fresno,2013
+S,QFER placeholder for company name ,0,0,1622,S9077 ,California National Guard,2013
+S,QFER placeholder for company name ,0,0,1622,S9062 ,California Natural Products,2013
+S,QFER placeholder for company name ,0,0,3918,S9139 ,Campbell Soup Supply Company LLC,2013
+S,QFER placeholder for company name ,0,0,1622,S9083 ,Carl Zeiss Meditec Inc.,2013
+S,QFER placeholder for company name ,0,0,1622,S9082 ,Cemex Construction Materials Pacific LLC,2013
+S,QFER placeholder for company name ,0,0,2432,S9130 ,Central Marin Sanitation Agency,2013
+S,QFER placeholder for company name ,0,0,2076,S9123 ,Chabot - Las Positas Community College,2013
+S,QFER placeholder for company name ,0,0,3786,S9146 ,Chabot Las Positas Community College District,2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9309 ,Chalk Hill Solar Project  LLC_(CHSP),2013
+S,QFER placeholder for company name ,0,0,1622,S9089 ,Charles R. Crain Jr.,2013
+S,QFER placeholder for company name ,0,0,1622,S9090 ,City of Atwater,2013
+S,QFER placeholder for company name ,0,0,1622,S9021 ,City of Chico,2013
+S,QFER placeholder for company name ,0,0,1622,S9060 ,City of Dinuba,2013
+S,QFER placeholder for company name ,0,0,3649,S9145 ,City of Fresno - Fresno Yosemite Airport,2013
+S,QFER placeholder for company name ,0,0,1622,S9061 ,City of Hollister,2013
+S,QFER placeholder for company name ,0,0,1622,S9048 ,City of Madera,2013
+S,QFER placeholder for company name ,0,0,1638,S9094 ,City of San Jose,2013
+S,QFER placeholder for company name ,0,0,1646,S9095 ,City of Santa Clara,2013
+S,QFER placeholder for company name ,0,0,2108,S9124 ,City of Santa Cruz Wastewater Treatment Plant,2013
+S,QFER placeholder for company name ,0,0,4865,S9150 ,City of Stockton - Wastewater Control Facility,2013
+S,QFER placeholder for company name ,0,0,2595,S9134 ,City of Sunnyvale Wastewater Treatment Plant,2013
+S,QFER placeholder for company name ,0,0,1662,S9099 ,City of Yuba,2013
+S,QFER placeholder for company name ,0,0,1622,S9055 ,Clos Du Bois Wines Inc.,2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9305 ,Cloverdale Solar 1  LLC_(FSEC1),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9306 ,Cloverdale Solar 2  LLC_(FSEC2),2013
+S,QFER placeholder for company name ,0,0,1622,S9010 ,Co. Inc. #21 Walgreens,2013
+S,QFER placeholder for company name ,0,0,1622,S9024 ,Codding Enterprises,2013
+S,QFER placeholder for company name ,0,0,1622,S9057 ,Codding Enterprises Ltd Partnership,2013
+S,QFER placeholder for company name ,0,0,1622,S9016 ,College District Contra Costa Community 1,2013
+S,QFER placeholder for company name ,0,0,1622,S9017 ,College District Contra Costa Community 2,2013
+S,QFER placeholder for company name ,0,0,1622,S9045 ,College District Kern Community,2013
+S,QFER placeholder for company name ,0,0,1622,S9039 ,Community College District Chabot Las Positas,2013
+S,QFER placeholder for company name ,0,0,1622,S9052 ,Community College Mendocino,2013
+S,QFER placeholder for company name ,0,0,1622,S9063 ,Community Hospital of Monterey Peninsula,2013
+S,QFER placeholder for company name ,0,0,1987,S9117 ,Contra Costa Community College - DVC,2013
+S,QFER placeholder for company name ,0,0,2003,S9118 ,Contra Costa Community College - Los Medanos,2013
+S,QFER placeholder for company name ,0,0,1622,S9079 ,County of Kern,2013
+S,QFER placeholder for company name ,0,0,1622,S9015 ,County of Lake,2013
+S,QFER placeholder for company name ,0,0,1687,S9101 ,County of Santa Clara,2013
+S,QFER placeholder for company name ,0,0,1711,S9103 ,County of Santa Clara,2013
+S,QFER placeholder for company name ,0,0,2126,S9125 ,County of Sonoma,2013
+S,QFER placeholder for company name ,0,0,1622,S9027 ,CSU Bakersfield,2013
+S,QFER placeholder for company name ,0,0,1622,S9028 ,CSU Monterey Bay - PV,2013
+S,QFER placeholder for company name ,0,0,1974,S9116 ,Dependable Highway Express Inc,2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9288 ,Descanso Solar - CRE,2013
+S,QFER placeholder for company name ,0,0,1622,S9035 ,E & J Gallo Winery,2013
+S,QFER placeholder for company name ,0,0,1622,S9056 ,E&J Gallo Winery,2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9290 ,Ecos Energy   LLC_(Bear Creek Solar Project),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9291 ,Ecos Energy   LLC_(Kettleman Solar Project),2013
+S,QFER placeholder for company name ,0,0,2432,S9131 ,Equity Office Property,2013
+S,QFER placeholder for company name ,0,0,1652,S9097 ,FAA Norcal TRACON,2013
+S,QFER placeholder for company name ,0,0,1621,S9004 ,Farm ACW,2013
+S,QFER placeholder for company name ,0,0,1622,S9008 ,Foods Inc. United Natural,2013
+S,QFER placeholder for company name ,0,0,2604,S9135 ,Foothill - De Anza Community College District,2013
+S,QFER placeholder for company name ,0,0,2781,S9136 ,Foothill College - Pv Capstone,2013
+S,QFER placeholder for company name ,0,0,1622,S9013 ,Fosters Wine Estates Inc.,2013
+S,QFER placeholder for company name ,0,0,0.119999997317791,S9194 ,Fotowatio Renewable Ventures,2013
+S,QFER placeholder for company name ,0,0,1622,S9085 ,Fowler Packing Company Inc.,2013
+S,QFER placeholder for company name ,0,0,1622,S9086 ,Fowler Packing Company Inc.,2013
+S,QFER placeholder for company name ,0,0,1619,S9001 ,FPUD - Sanitary,2013
+S,QFER placeholder for company name ,0,0,1622,S9064 ,Fremont Group  50 Beale/DG Cogen Partners LLC,2013
+S,QFER placeholder for company name ,0,0,1897,S9113 ,Fremont Group Inc.  50 Beale/DG Cogen Partners LLC,2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9182 ,Fresh Air Energy  LLC_(Pioneer 1),2013
+S,QFER placeholder for company name ,0,0,1622,S9065 ,General Chemical Corp/Chevron Energy Solutions,2013
+S,QFER placeholder for company name ,0,0,1622,S9076 ,George Jackson,2013
+S,QFER placeholder for company name ,0,0,1622,S9066 ,Ghiradelli Chocolate,2013
+S,QFER placeholder for company name ,0,0,1622,S9012 ,Golden State Vintners,2013
+S,QFER placeholder for company name ,0,0,1622,S9005 ,Google Inc.,2013
+S,QFER placeholder for company name ,0,0,1622,S9031 ,Google Inc.,2013
+S,QFER placeholder for company name ,0,0,1703,S9102 ,Granite Construction Company,2013
+S,QFER placeholder for company name ,0,0,1622,S9087 ,Grimmway Enterprises  Inc.,2013
+S,QFER placeholder for company name ,0,0,1622,S9088 ,Grimmway Enterprises  Inc.,2013
+S,QFER placeholder for company name ,0,0,1622,S9091 ,Grimmway Enterprises Inc.,2013
+S,QFER placeholder for company name ,0,0,1622,S9014 ,Grundfos Pumps,2013
+S,QFER placeholder for company name ,0,0,1622,S9037 ,Health Plan Inc. Kaiser Foundation,2013
+S,QFER placeholder for company name ,0,0,1622,S9049 ,Health Plan Inc. Kaiser Foundation,2013
+S,QFER placeholder for company name ,0,0,1620,S9003 ,Hewlett Packard,2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9300 ,Ignite Solar LLC_(Achomawi),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9301 ,Ignite Solar LLC_(Ahjumawi),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9195 ,Ignite Solar LLC_(Alkali Gardner A),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9196 ,Ignite Solar LLC_(Merced Ave A),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9197 ,Ignite Solar LLC_(Merced Ave B),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9198 ,Ignite Solar LLC_(Merced Ave C),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9320 ,ImModo California 1 LLC_(Alta 1),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9321 ,ImModo California 1 LLC_(Alta 3),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9322 ,ImModo California 1 LLC_(Alta 4),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9323 ,ImModo California 1 LLC_(Alta 5),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9324 ,ImModo California 1 LLC_(Alta 6),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9325 ,ImModo California 1 LLC_(East Orosi 1),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9326 ,ImModo California 1 LLC_(East Orosi 2),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9327 ,ImModo California 1 LLC_(East Orosi 3),2013
+S,QFER placeholder for company name ,0,0,1865,S9112 ,Independence HS,2013
+S,QFER placeholder for company name ,0,0,1622,S9067 ,Inergy Propoane LLC,2013
+S,QFER placeholder for company name ,0,0,1622,S9050 ,Ingomar Packing Co.,2013
+S,QFER placeholder for company name ,0,0,1651,S9096 ,Intel Corporation,2013
+S,QFER placeholder for company name ,0,0,1653,S9098 ,Intel Corporation,2013
+S,QFER placeholder for company name ,0,0,2027,S9122 ,Irrigation District South San Joaquin,2013
+S,QFER placeholder for company name ,0,0,1622,S9033 ,Jackson Michael,2013
+S,QFER placeholder for company name ,0,0,1712,S9104 ,JATCO,2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9199 ,KDW Solar 2  LLC,2013
+S,QFER placeholder for company name ,0,0,1784,S9106 ,Kern County Water Agency,2013
+S,QFER placeholder for company name ,0,0,6689,S9152 ,Kern County Water Agency,2013
+S,QFER placeholder for company name ,0,0,105,S9181 ,Kingsburg 1 & 2,2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9268 ,Lincoln Solar Millenium Fund LLC_(Lincoln Solar #A),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9269 ,Lincoln Solar Millenium Fund LLC_(Lincoln Solar #B),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9270 ,Lincoln Solar Millenium Fund LLC_(Nicholas Solar #C),2013
+S,QFER placeholder for company name ,0,0,1622,S9032 ,Lomo Cold Storage LLC,2013
+S,QFER placeholder for company name ,0,0,1622,S9053 ,Los Gatos Tomato Products,2013
+S,QFER placeholder for company name ,0,0,1622,S9059 ,Madera Community Hospital,2013
+S,QFER placeholder for company name ,0,0,1622,S9009 ,Mariani Packing Co. Inc.,2013
+S,QFER placeholder for company name ,0,0,1622,S9068 ,Market & Second Inc/Real Energy,2013
+S,QFER placeholder for company name ,0,0,1622,S9034 ,Maxco Supply Inc.,2013
+S,QFER placeholder for company name ,0,0,2432,S9132 ,Mid Valley Dairy,2013
+S,QFER placeholder for company name ,0,0,1907,S9114 ,MTA,2013
+S,QFER placeholder for company name ,0,0,1622,S9023 ,Napa Valley College,2013
+S,QFER placeholder for company name ,0,0,2277,S9128 ,Network Appliance,2013
+S,QFER placeholder for company name ,0,0,1622,S9069 ,Network Appliance/Chevron Energy Solutions,2013
+S,QFER placeholder for company name ,0,0,5638,S9177 ,Nickel 1 (NLH1),2013
+S,QFER placeholder for company name ,0,0,1796,S9107 ,Nilsen Farms,2013
+S,QFER placeholder for company name ,0,0,1670,S9100 ,Norvartis Pharmaceuticals Corp,2013
+S,QFER placeholder for company name ,0,0,851,S9170 ,Oakley Solar Project,2013
+S,QFER placeholder for company name ,0,0,1622,S9081 ,Ohlone Community College District,2013
+S,QFER placeholder for company name ,0,0,2192,S9126 ,Olam West Coast,2013
+S,QFER placeholder for company name ,0,0,2449,S9133 ,Oro Loma Sanitary District,2013
+S,QFER placeholder for company name ,0,0,1622,S9011 ,Paramount Farms Inc.,2013
+S,QFER placeholder for company name ,0,0,1622,S9043 ,Peralta Community College Dist,2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9307 ,Petaluma Solar Millennium Fund LLC_(Petaluma Solar #1101),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9308 ,Petaluma Solar Millennium Fund LLC_(Petaluma Solar #1102),2013
+S,QFER placeholder for company name ,0,0,1622,S9070 ,Pokka Bottling,2013
+S,QFER placeholder for company name ,0,0,1622,S9042 ,Pollution Control Monterey Reg'l Water,2013
+S,QFER placeholder for company name ,0,0,1622,S9030 ,Port of Oakland,2013
+S,QFER placeholder for company name ,0,0,1622,S9019 ,Power Agency Northern CA,2013
+S,QFER placeholder for company name ,0,0,1622,S9051 ,Power Agency Northern California,2013
+S,QFER placeholder for company name ,0,0,1622,S9044 ,Primex Farms LLC,2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9294 ,Pristine Sun Fund 1  LLC_(2056_Jardine),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9296 ,Pristine Sun Fund 1  LLC_(2059_Scherz),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9184 ,Pristine Sun Fund 1  LLC_(2094_Buzzelle),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9183 ,Pristine Sun Fund 1  LLC_(2125_Jarvis),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9189 ,Pristine Sun Fund 10 Fresno PGE LLC_(2081_Terzian),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9267 ,Pristine Sun Fund 10 Fresno PGE LLC_(2097_Helton),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9190 ,Pristine Sun Fund 10 Fresno PGE LLC_(2102_Christensen),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9317 ,Pristine Sun Fund 5 LLC_(2020_Rolf),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9312 ,Pristine Sun Fund 5 LLC_(2021_Doran),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9315 ,Pristine Sun Fund 5 LLC_(2039_Flournoy),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9313 ,Pristine Sun Fund 5 LLC_(2040_Alvares),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9319 ,Pristine Sun Fund 5 LLC_(2041_Alvares),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9318 ,Pristine Sun Fund 5 LLC_(2065_Rogers),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9302 ,Pristine Sun Fund 5 LLC_(2113_Fritzjarrell),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9314 ,Pristine Sun Fund 5 LLC_(2119_Lvvorn),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9316 ,Pristine Sun Fund 5 LLC_(2158_Stroing),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9185 ,Pristine Sun Fund 6 Butte PGE LLC_(2096_Cotton),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9186 ,Pristine Sun Fund 6 Butte PGE LLC_(2129_Ballard),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9298 ,Pristine Sun Fund 7 San Luis Obispo PGE LLC_(2050_Gomez),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9293 ,Pristine Sun Fund 7 San Luis Obispo PGE LLC_(2052_Cossa),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9299 ,Pristine Sun Fund 7 San Luis Obispo PGE LLC_(2053_Pisciotta),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9297 ,Pristine Sun Fund 7 San Luis Obispo PGE LLC_(2103_Hill),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9295 ,Pristine Sun Fund 7 San Luis Obispo PGE LLC_(2163_Bray),2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9311 ,Pristine Sun Fund 8 Sutter PGE LLC_(2179_Smotherman),2013
+S,QFER placeholder for company name ,0,0,1622,S9007 ,Rice Mill Inc. Far West,2013
+S,QFER placeholder for company name ,0,0,2019,S9120 ,Roplast Industries Inc.,2013
+S,QFER placeholder for company name ,0,0,1618,S9000 ,Ruiz Foods,2013
+S,QFER placeholder for company name ,0,0,1622,S9071 ,Salinas Valley Memorial Hospital,2013
+S,QFER placeholder for company name ,0,0,2011,S9119 ,San Francisco State University,2013
+S,QFER placeholder for company name ,0,0,2237,S9127 ,San Jose Evergreen Community College,2013
+S,QFER placeholder for company name ,0,0,1622,S9054 ,San Miguel Winery,2013
+S,QFER placeholder for company name ,0,0,1622,S9036 ,Services  Inc. #345 Ikea Distribution,2013
+S,QFER placeholder for company name ,0,0,1620,S9002 ,Shasta College,2013
+S,QFER placeholder for company name ,0,0,1624,S9092 ,Siemens Industry Inc.,2013
+S,QFER placeholder for company name ,0,0,29184.099609375,S9174 ,Silver Ridge Mount Signal (Imperial Valley Solar 1),2013
+S,QFER placeholder for company name ,0,0,3243,S9140 ,Southeast Wastwater Treatment Plant/CCSF,2013
+S,QFER placeholder for company name ,0,0,4865,S9151 ,Spansion LLC,2013
+S,QFER placeholder for company name ,0,0,2311,S9129 ,Stocker Resources/ Plains Exploration & Production Company,2013
+S,QFER placeholder for company name ,0,0,1802,S9108 ,Superior Packing Co.,2013
+S,QFER placeholder for company name ,0,0,1622,S9020 ,The Gap Inc,2013
+S,QFER placeholder for company name ,0,0,1622,S9022 ,Tony's Fine Foods,2013
+S,QFER placeholder for company name ,0,0,1841,S9109 ,U.S. Coast Guard,2013
+S,QFER placeholder for company name ,0,0,4006,S9147 ,U.S. National Leasing LLC_(Depot Park),2013
+S,QFER placeholder for company name ,0,0,1622,S9029 ,UC Merced,2013
+S,QFER placeholder for company name ,0,0,1622,S9041 ,Unified School District Morgan Hill,2013
+S,QFER placeholder for company name ,0,0,3195,S9138 ,University of San Francisco,2013
+S,QFER placeholder for company name ,0,0,0.00999999977648258,S9304 ,Vaca Solar Millenium Fund LLC (Vaca Solar #100),2013
+S,QFER placeholder for company name ,0,0,1946,S9115 ,Vallejo Sanitation and Flood Control District,2013
+S,QFER placeholder for company name ,0,0,334,S9178 ,Valley Center 1 & 2,2013
+S,QFER placeholder for company name ,0,0,1622,S9080 ,Vaquero Energy Inc.,2013
+S,QFER placeholder for company name ,0,0,1622,S9084 ,Wal-Mart,2013
+S,QFER placeholder for company name ,0,0,1622,S9018 ,Warmer Packing LLC,2013
+S,QFER placeholder for company name ,0,0,1635,S9093 ,Wastewater District West County,2013
+S,QFER placeholder for company name ,0,0,3568,S9143 ,Wawona Frozen Foods / Alluvial Project,2013
+S,QFER placeholder for company name ,0,0,3568,S9144 ,Wawona Frozen Foods / Cedar Project,2013
+S,QFER placeholder for company name ,0,0,1622,S9058 ,West Valley Mission Community College,2013
+S,QFER placeholder for company name ,0,0,1622,S9040 ,Wines US Inc. Constellation,2013
+S,QFER placeholder for company name ,0,0,1622,S9078 ,Yuba College,2013
+S,Quintas Energy ,0,0,1573,S0261 ,Radiance Solar 4,2013
+S,Quintas Energy ,0,0,1571,S0262 ,Radiance Solar 5,2013
+S,Quintas Energy ,0,0,81,S9175 ,Sonora 1,2013
+S,Recurrent Energy LLC ,0,0,12920,S0284 ,RE Bruceville Solar 1,2013
+S,Recurrent Energy LLC ,0,0,12971,S0285 ,RE Bruceville Solar 2,2013
+S,Recurrent Energy LLC ,0,0,13131,S0286 ,RE Bruceville Solar 3,2013
+S,Recurrent Energy LLC ,0,0,754.109985351562,S0294 ,RE Columbia 3,2013
+S,Recurrent Energy LLC ,0,0,7841,S0280 ,RE Dillard Road 1,2013
+S,Recurrent Energy LLC ,0,0,7781,S0281 ,RE Dillard Road 2,2013
+S,Recurrent Energy LLC ,0,0,7619,S0282 ,RE Dillard Road 3,2013
+S,Recurrent Energy LLC ,0,0,942,S0283 ,RE Dillard Road 4,2013
+S,Recurrent Energy LLC ,0,0,13013,S0205 ,RE Kammerer Road 1,2013
+S,Recurrent Energy LLC ,0,0,13222,S0206 ,RE Kammerer Road 2,2013
+S,Recurrent Energy LLC ,0,0,13084,S0207 ,RE Kammerer Road 3,2013
+S,Recurrent Energy LLC ,0,0,13135,S0211 ,RE McKenzie 1,2013
+S,Recurrent Energy LLC ,0,0,12917,S0212 ,RE McKenzie 2,2013
+S,Recurrent Energy LLC ,0,0,13129,S0213 ,RE McKenzie 3,2013
+S,Recurrent Energy LLC ,0,0,12858,S0214 ,RE McKenzie 4,2013
+S,Recurrent Energy LLC ,0,0,13061,S0215 ,RE McKenzie 5,2013
+S,Recurrent Energy LLC ,0,0,12929,S0216 ,RE McKenzie 6,2013
+S,Recurrent Energy LLC ,0,0,2017,S0220 ,RE Mohican,2013
+S,Recurrent Energy LLC ,0,0,2105,S0222 ,RE North Face,2013
+S,Recurrent Energy LLC ,0,0,351,S0278 ,RE Rio Grande,2013
+S,Recurrent Energy LLC ,0,0,978.109985351562,S0288 ,RE Rosamond One,2013
+S,Recurrent Energy LLC ,0,0,807.109985351562,S0287 ,RE Rosamond Two,2013
+S,Recurrent Energy LLC ,0,0,2272.11010742188,S0279 ,RE Victor Phelan Solar One,2013
+S,Sacramento Municipal Utility District (SMUD) ,0,0,45,S0090 ,Hedge PV,2013
+S,Sacramento Municipal Utility District (SMUD) ,0,0,0.0199999995529652,S0063 ,Rancho Seco Solar PV - (Shutdown 3/31/2013),2013
+S,Sacramento PV Energy LLC ,0,0,6309,S0157 ,Boessow (Van Connett Solar Farm),2013
+S,Sacramento PV Energy LLC ,0,0,37676,S0156 ,Grundman-Wilkinson Solar Farm (Bruceville Road),2013
+S,Sacramento PV Energy LLC ,0,0,6399,S0155 ,Kost (Fleshman Solar Farm),2013
+S,Sacramento PV Energy LLC ,0,0,2137,S0154 ,Point Pleasant (Lawrence Solar Farm),2013
+S,Sol Orchard ,0,0,180,S0305 ,Ramona 1 & 2,2013
+S,Solar Partners I II VIII LLC ,0,0,2057.11010742188,S0078 ,Ivanpah I (Solar Partners II),2013
+S,Solar Partners I II VIII LLC ,0,0,689.109985351562,S0079 ,Ivanpah II (Solar Partners I),2013
+S,Solar Partners I II VIII LLC ,0,0,2178.11010742188,S0080 ,Ivanpah III (Solar Partners VIII),2013
+S,Solar Power Inc ,0,0,5116.22998046875,S0250 ,North Palm Springs 1A,2013
+S,Solar Power Inc ,0,0,7478,S0251 ,North Palm Springs 4A,2013
+S,Solar Tax Partners I LLC ,0,0,7187,S0116 ,Aerojet I (3.6MW) Solar Plant,2013
+S,Solar Tax Partners II ,0,0,4743,S0130 ,Aerojet II (2.4MW) Solar Plant,2013
+S,South San Joaquin Irr District ,0,0,3067,S0120 ,Robert O. Schulz Solar Farm #1 and #2,2013
+S,Southern California Edison (SCE) ,0,0,951,S0118 ,SPVP002 Chino Rooftop Solar,2013
+S,Southern California Edison (SCE) ,-0,0,-114,S0128 ,SPVP003 Rialto,2013
+S,Southern California Edison (SCE) ,0,0,3570,S0158 ,SPVP005 Redlands,2013
+S,Southern California Edison (SCE) ,0,0,3478,S0136 ,SPVP006 Ontario,2013
+S,Southern California Edison (SCE) ,0,0,3636,S0185 ,SPVP007 Redlands,2013
+S,Southern California Edison (SCE) ,0,0,3494,S0186 ,SPVP008 Ontario,2013
+S,Southern California Edison (SCE) ,0,0,1837,S0187 ,SPVP009 Ontario,2013
+S,Southern California Edison (SCE) ,0,0,3020,S0188 ,SPVP010 Fontana (Etiwanda),2013
+S,Southern California Edison (SCE) ,0,0,1344,S0189 ,SPVP011 Redlands RDC 4,2013
+S,Southern California Edison (SCE) ,0,0,539,S9167 ,SPVP012 Ontario,2013
+S,Southern California Edison (SCE) ,0,0,2139,S0190 ,SPVP013 Redlands,2013
+S,Southern California Edison (SCE) ,0,0,1697,S0191 ,SPVP015 Fontana (Etiwanda) includes SPVP001,2013
+S,Southern California Edison (SCE) ,0,0,2377,S0192 ,SPVP016 Redlands,2013
+S,Southern California Edison (SCE) ,0,0,2257,S0193 ,SPVP017 Fontana (Etiwanda),2013
+S,Southern California Edison (SCE) ,0,0,2839,S0194 ,SPVP018 Fontana (Etiwanda),2013
+S,Southern California Edison (SCE) ,0,0,3620,S0195 ,SPVP022 Redlands,2013
+S,Southern California Edison (SCE) ,0,0,5427,S0196 ,SPVP023 Fontana (Etiwanda),2013
+S,Southern California Edison (SCE) ,0,0,3818,S0197 ,SPVP026 Rialto,2013
+S,Southern California Edison (SCE) ,0,0,1294,S0227 ,SPVP027 Rialto,2013
+S,Southern California Edison (SCE) ,0,0,2890,S0198 ,SPVP028 San Bernardino (Vista 28),2013
+S,Southern California Edison (SCE) ,0,0,1080,S0199 ,SPVP032 Ontario - Kennedy 2,2013
+S,Southern California Edison (SCE) ,0,0,715,S0200 ,SPVP033 Ontario - Kennedy 3,2013
+S,Southern California Edison (SCE) ,0,0,9366,S0201 ,SPVP042 Porterville (Vestal),2013
+S,Southern California Edison (SCE) ,0,0,6406,S0202 ,SPVP044 Perris (Valley),2013
+S,SS San Antonio West LLC ,0,0,3206,S0210 ,SS San Antonio West  LLC,2013
+S,Sunray Energy Inc ,0,0,11982,S0069 ,SEGS I,2013
+S,Sunray Energy Inc ,0,0,34283,S0070 ,SEGS II,2013
+S,TA-High Desert LLC ,0,0,45413,S0239 ,TA High Desert Antelope Power Plant,2013
+S,Temescal Canyon RV LLC ,0,0,2649,S0133 ,Temescal Canyon RV  LLC,2013
+S,Topaz Solar Farms LLC ,0,0,428561,S0245 ,Topaz Solar Farms LLC,2013
+S,University of California San Diego ,0,0,1901,S0129 ,UCSD Solar PV System,2013
+S,Yolo County General Services ,0,0,2182,S0115 ,Yolo County Solar Project,2013
+T,Bottle Rock Power LLC ,0,0,72877,T0080 ,Bottle Rock Power,2013
+T,CE Turbo LLC ,0,0,54805,T0073 ,CE Turbo LLC,2013
+T,Coso Operating Company LLC ,0,0,373191,T0009 ,Coso Energy Developers (BLM),2013
+T,Coso Operating Company LLC ,0,0,492796,T0010 ,Coso Finance Partners (NAVY I),2013
+T,Coso Operating Company LLC ,0,0,488709,T0011 ,Coso Power Developers (NAVY II),2013
+T,Del Ranch L P ,0,0,308984,T0012 ,Del Ranch Company (formerly A W Hoch),2013
+T,Elmore LP ,0,0,312895,T0015 ,J J Elmore,2013
+T,Geysers Power Company LLC ,0,0,112148,T0023 ,Aidlin #1,2013
+T,Geysers Power Company LLC ,0,0,94786,T0005 ,Bear Canyon #2 (Retired January 2016),2013
+T,Geysers Power Company LLC ,0,0,439554,T0060 ,Big Geysers #13,2013
+T,Geysers Power Company LLC ,0,0,470898,T0050 ,Calistoga #19,2013
+T,Geysers Power Company LLC ,0,0,428532,T0059 ,Cobb Creek #12,2013
+T,Geysers Power Company LLC ,0,0,565293,T0058 ,Eagle Rock #11,2013
+T,Geysers Power Company LLC ,0,0,329348,T0030 ,Grant #20,2013
+T,Geysers Power Company LLC ,0,0,506450,T0028 ,Lakeview #17,2013
+T,Geysers Power Company LLC ,0,0,640069,T0055 ,McCabe #5-#6,2013
+T,Geysers Power Company LLC ,0,0,381150,T0027 ,Quick Silver #16,2013
+T,Geysers Power Company LLC ,0,0,670775,T0056 ,Ridge Line #7-#8,2013
+T,Geysers Power Company LLC ,0,0,374886,T0029 ,Socrates #18,2013
+T,Geysers Power Company LLC ,0,0,332408,T0046 ,Sonoma #3,2013
+T,Geysers Power Company LLC ,0,0,448878,T0061 ,Sulphur Springs #14,2013
+T,Geysers Power Company LLC ,0,0,207478,T0007 ,West Ford Flat #4,2013
+T,Heber Geothermal Co ,0,0,301463.720000029,T0033 ,Heber Geothermal Co,2013
+T,Heber Geothermal Co ,0,0,342858,T0051 ,Second Imperial Geothermal Co SIGC Plant,2013
+T,Hudson Ranch Energy Services LLC ,0,0,386399,T0082 ,John L Featherstone Plant -formerly Hudson Ranch Power I LLC,2013
+T,Leathers LP ,0,0,310477,T0034 ,J M Leathers,2013
+T,Mammoth Pacific LP ,0,0,3057.93994140625,T0035 ,Mammoth Pacific I,2013
+T,Mammoth Pacific LP ,0,0,90652,T0036 ,Mammoth Pacific II,2013
+T,Mammoth Pacific LP ,0,0,96571,T0038 ,Ples I,2013
+T,North Brawley Geothermal ,0,0,188940,T0081 ,North Brawley,2013
+T,North Brawley Geothermal ,0,0,131040,T0043 ,Ormesa Geothermal II,2013
+T,Northern California Power Agency ,0,0,417949,T0039 ,Geothermal 1,2013
+T,Northern California Power Agency ,0,0,398908.119999997,T0040 ,Geothermal 2,2013
+T,Ormat ,0,0,36664,T0066 ,Ormesa 1H,2013
+T,Ormat Nevada Inc ,0,0,85033,T0021 ,GEM II,2013
+T,Ormat Nevada Inc ,0,0,103924,T0022 ,GEM III,2013
+T,Ormesa Geothermal ,0,0,95041,T0062 ,Ormesa I,2013
+T,Salton Sea 4 Fish Lake Pwr Gen ,0,0,310981,T0016 ,Salton Sea Unit 4,2013
+T,Salton Sea Power Generatn LP 1 ,0,0,64473,T0047 ,Salton Sea Unit 1,2013
+T,Salton Sea Power Generatn LP 2 ,0,0,108417,T0048 ,Salton Sea Unit 2,2013
+T,Salton Sea Power Generatn LP 3 ,0,0,323577,T0049 ,Salton Sea Unit 3,2013
+T,Salton Sea Power LLC ,0,0,293853,T0017 ,Salton Sea Unit 5,2013
+T,Star Group 1E Geothermal Partn ,0,0,0.119999997317791,T0063 ,Ormesa 1 E,2013
+T,Terra-Gen Dixie Valley LLC ,0,0,495129,T0077 ,Terra-Gen Dixie Valley (NV),2013
+T,Vulcan/BN Geothermal Power Co ,0,0,281428,T0053 ,Vulcan,2013
+W,Los Angeles Department of Water & Power (LADWP) ,0,0,258555,W9996 ,Non-CAISO California Wind Generation (Pine Tree - CA),2013
+W,QFER placeholder for company name ,0,0,11705700,W9999 ,CAISO In-State Wind Generation,2013
+W,SunEdison ,0,0,338474,W9997 ,Non-California Wind Generation (Milford 1 - NV),2013
+W,SunEdison ,0,0,155261,W9998 ,Non-California Wind Generation (Milford 2 - NV),2013
