@@ -13,6 +13,7 @@ require(data.table)
 #path_data = "/Users/bloh356/Documents/fuzzy-waffle/data/"
 path_data = "C:/Users/bloh356/Documents/GitHub/fuzzy-waffle/data/"
 # Local path to the cloned data folder in the repository
+
 cap.raw = read.table(paste(path_data, "capacity_eia.txt.gz", sep=""), sep="\t", header=TRUE, comment.char="")
 cap.raw$summer_capacity = as.numeric(as.character(cap.raw$summer_capacity))
 
@@ -140,23 +141,7 @@ cap.eia = cap.raw %>%
   left_join(eia.dict.4) %>%
   left_join(eia.dict.5) %>%
   left_join(eia.dict.6)
-# Add three columns for the primary, secondary, and tertiary fuel used by each unit
-
-gz1 = gzfile(paste(path_data,"capacity_eia_fueluse_productiontechnology_1990_2014.txt.gz", sep=""), "w")
-write.table(cap.eia, file = gz1, sep="\t",col.names = TRUE, row.names = FALSE)
-close(gz1)
-# Output the cleaned up data to the data folder as a .txt.gz file
-
-cap.eia.total = cap.eia %>%
-  group_by(year, prime_mover, fuel_1, prime_mover_text, fuel_1_text) %>%
-  # Add three new columns explaining the fuel type abbreviation
-  summarize(total_summer_capacity = sum(summer_capacity, na.rm=TRUE))
-# Generate a new dataframe that is the sum of summer capacity by primary fuel and production technology
-
-gz1 = gzfile(paste(path_data,"total_annual_capacity_eia_fueluse_technology_1990_2014.txt.gz", sep=""), "w")
-write.table(cap.eia.total, file = gz1, sep="\t", col.names=TRUE, row.names=FALSE)
-close(gz1)
-# Output the total capacity by fuel and production technology to the data folder as a .txt.gz file
+  # Add three columns for the primary, secondary, and tertiary fuel used by each unit
 
 eia.mapping = unique(cap.eia[, c('prime_mover', 'fuel_1', 'prime_mover_text', 'fuel_1_text')])
 # Grab the unique combinations of primary fuel and production technology (this set will need to be mapped to the overnight costs)
@@ -227,10 +212,11 @@ eia.mapping = eia.mapping %>%
 cap.eia = cap.eia %>%
   left_join(eia.mapping)
 
-gz1 = gzfile(paste(path_data,"clean_capacity_eia_860_overnight_cost.txt.gz", sep=""), "w")
-write.table(cap.eia, file = gz1, sep="\t",col.names = TRUE, row.names = FALSE)
-close(gz1)
-# Output the cleaned up data to the data folder as a .txt.gz file
+cap.eia.total = cap.eia %>%
+  group_by(year, prime_mover, fuel_1, prime_mover_text, fuel_1_text) %>%
+  # Add three new columns explaining the fuel type abbreviation
+  summarize(total_summer_capacity = sum(summer_capacity, na.rm=TRUE))
+# Generate a new dataframe that is the sum of summer capacity by primary fuel and production technology
 
 summary.cap.eia = cap.eia %>%
   group_by(overnight_category, fuel_1, year) %>%
@@ -249,12 +235,6 @@ summary.cap.eia = cap.eia %>%
   ungroup() %>%
   arrange(overnight_category, fuel_1, year)
 # Order the data
-
-
-gz1 = gzfile(paste(path_data,"summary_summer_cap_eia_860_overnight_cost.txt.gz", sep=""), "w")
-write.table(summary.cap.eia, file = gz1, sep="\t",col.names = TRUE, row.names = FALSE)
-close(gz1)
-# Output the cleaned up data to the data folder as a .txt.gz file
 
 summary.cap.eia.year = cap.eia %>%
   group_by(overnight_category, year, fuel_1, fuel_1_text) %>%
@@ -293,61 +273,25 @@ summary.cap.eia.year = summary.cap.eia.year %>%
   arrange(overnight_category, fuel_1, year)
 
 
-path_data = "C:/Users/bloh356/Desktop/generation/"
-# Local path to the cloned data folder in the repository
-data = fread(paste0(path_data, dir(path_data)[1]))
-data$year = 2004
-z = tolower(colnames(data)) 
+gz1 = gzfile(paste(path_data,"capacity_eia_fueluse_productiontechnology_1990_2014.txt.gz", sep=""), "w")
+write.table(cap.eia, file = gz1, sep="\t",col.names = TRUE, row.names = FALSE)
+close(gz1)
+# Output the cleaned up data to the data folder as a .txt.gz file
 
+gz1 = gzfile(paste(path_data,"total_annual_capacity_eia_fueluse_technology_1990_2014.txt.gz", sep=""), "w")
+write.table(cap.eia.total, file = gz1, sep="\t", col.names=TRUE, row.names=FALSE)
+close(gz1)
+# Output the total capacity by fuel and production technology to the data folder as a .txt.gz file
 
-a = dim(data)[1]
-data.2 = data.frame(fread(paste0(path_data, dir(path_data)[11])))
-y = tolower(colnames(data.2)) %in% z
-data.2 = data.2[, y]
-data.2$year = 2014
-dim(data.2)[2] == 9
-data = rbind(data, data.2)
-dim(data)[1] == (dim(data.2)[1] + a)
+gz1 = gzfile(paste(path_data,"clean_capacity_eia_860_overnight_cost.txt.gz", sep=""), "w")
+write.table(cap.eia, file = gz1, sep="\t",col.names = TRUE, row.names = FALSE)
+close(gz1)
+# Output the cleaned up data to the data folder as a .txt.gz file
 
-write.table(data, file = "util_id.txt", sep = "\t")
-
-data.3 = data.frame(fread(paste0(path_data, dir(path_data)[6])))
-z = tolower(colnames(data.3)[tolower(colnames(data.3)) %in% tolower(c('UTILITY_ID', 'utility_name',"PLANT_CODE","PLANT_NAME", "STATE","GENERATOR_ID", 
-                                           'unit_code', "PRIME_MOVER", 'year'))])
-x = tolower(colnames(data.3)) %in% tolower(c('UTILITY_ID', 'utility_name',"PLANT_CODE","PLANT_NAME", "STATE","GENERATOR_ID", 
-                                     'unit_code', "PRIME_MOVER", 'year'))
-data.3 = data.3[, x]
-data.3$year = 2009
-
-
-a = dim(data.3)[1]
-data.2 = data.frame(fread(paste0(path_data, dir(path_data)[8])))
-y = tolower(colnames(data.2)) %in% z
-data.2 = data.2[, y]
-data.2$year = 2011
-dim(data.2)[2] == 9
-data.3 = rbind(data.3, data.2)
-dim(data.3)[1] == (dim(data.2)[1] + a)
-
-data.4 = data.frame(fread(paste0(path_data, dir(path_data)[9])))
-z = tolower(colnames(data.4)[tolower(colnames(data.3)) %in% tolower(c('UTILITY.ID', 'utility.name',"PLANT.CODE","PLANT.NAME", "STATE",
-                                                                      "GENERATOR.ID", 'unit.code', "PRIME.MOVER", 'year'))])
-x = tolower(colnames(data.4)) %in% tolower(c('UTILITY.ID', 'utility.name',"PLANT.CODE","PLANT.NAME", "STATE",
-                                             "GENERATOR.ID", 'unit.code', "PRIME.MOVER", 'year'))
-data.4 = data.4[, x]
-data.4$year = 2012
-
-a = dim(data.4)[1]
-data.2 = data.frame(fread(paste0(path_data, dir(path_data)[10])))
-y = tolower(colnames(data.2)) %in% x
-data.2 = data.2[, y]
-data.2$year = 2013
-dim(data.2)[2] == 9
-data.3 = rbind(data.3, data.2)
-dim(data.3)[1] == (dim(data.2)[1] + a)
-
-
-
+gz1 = gzfile(paste(path_data,"summary_summer_cap_eia_860_overnight_cost.txt.gz", sep=""), "w")
+write.table(summary.cap.eia, file = gz1, sep="\t",col.names = TRUE, row.names = FALSE)
+close(gz1)
+# Output the cleaned up data to the data folder as a .txt.gz file
 
 gz1 = gzfile(paste(path_data,"summary_year_summer_cap_eia_860_overnight_cost.txt.gz", sep=""), "w")
 write.table(summary.cap.eia.year, file = gz1, sep="\t",col.names = TRUE, row.names = FALSE)
