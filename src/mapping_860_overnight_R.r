@@ -64,12 +64,19 @@ eia.dict.5 = data.frame(fuel_2 = c("AB", "ANT", "BFG", "BIO", "BIT", "BL", "BLQ"
                                         'black liquor', 'coke oven gas', 'coal generic', 'coal oil mixture', 'crude oil', 'coal water mixture', 'distillate fuel oil', 'no 1 fuel oil', 
                                         'no 2 fuel oil', 'no 3 fuel oil', 'no 4 fuel oil', 'no 5 fuel oil', 'no 6 fuel oil', 'gas generic', 'geothermal', 'geothermal steam', 
                                         'jet fuel', 'kerosene', 'landfill gas', 'lignite', 'liquified natural gas', 'liquified propane gas', 'multifueled', 'municipal solid waste',
-                                        'methane', 'megawatt hour', 'methanol', 'natural gas', 'nuclear', 'other biomass gases', 'other biomass liquids', 'other biomass solids', 'other gas', 
-                                        'not defined', "other",  'petroleum coke', 'petroleum generic', 'plutonium', 'propane', 'refuse, bagasse and all other nonwood waste', 
+                                        'methane', 'megawatt hour', 'methanol', 'natural gas', 'nuclear', 'other biomass gases', 'other biomass liquids', 'other biomass solids', 
+                                        'other gas', 'not defined', "other",  'petroleum coke', 'petroleum generic', 'plutonium', 'propane', 'refuse, bagasse and all other nonwood waste', 
                                         'refinery gas', 're refined motor oil', 'synthetic natural gas', 'steam', 'subbituminous coal', 'sun', 'thorium',  'topped crude oil', 'uranium', 
                                         'water', 'waste coal', 'wood and wood waste', 'waste heat', 'wind', 'other', 'not available', 'propane', 'purchased steam', 'refined coal', 
                                         "residual fuel oil", 'coal synfuel', 'synthetic gas other than coal derived', 'coal-derived synthetic gas', 'synthetic gas from petroleum coke', 
-                                        'sludge waste', 'not defined', 'tires', 'not defined', 'wood waste liquids', 'wood and wood waste solids', 'oil-other and waste oil', 'not defined'))
+                                        'sludge waste', 'not defined', 'tires', 'not defined', 'wood waste liquids', 'wood and wood waste solids', 'oil-other and waste oil', 'not defined'),
+                        fuel_general = c("biomass", "coal", "other gas", "biomass", "coal", NA, "black liquor", "other gas", "coal", "oil", 'oil', 'coal', 'oil', 'oil', 'oil',
+                                         'oil', 'oil','oil', 'oil', 'natural gas', 'geothermal', 'geothermal', 'kerosene', 'kerosene', 'natural gas', 'coal', 'lng', 'lpg', NA, 
+                                         'natural gas','natural gas','MWh','','natural gas','uranium','natural gas','oil','biomass','other gas',NA,NA,'coal','oil','uranium','propane',
+                                         'biomass','other gas','oil','natural gas','','coal','solar','uranium','oil','uranium','water','coal','biomass','','wind',NA,NA,'propane','',
+                                         'coal','oil','coal','natural gas','natural gas', 'natural gas','',NA,'',NA,'','biomass','oil',NA))
+
+
 
 eia.dict.6 = data.frame(fuel_3 = c("AB", "ANT", "BFG", "BIO", "BIT", "BL", "BLQ", "COG", "COL", "COM", "CRU", "CWM", "DFO", "FO1", "FO2", "FO3", "FO4",
                                    "FO5", "FO6", "GAS", "GEO", "GST", "JF", "KER", "LFG", "LIG", "LNG", "LPG", "MF", "MSW", "MTE", "MWH", "MTH", "NG", "NUC", 
@@ -196,7 +203,9 @@ eia.mapping = eia.mapping %>%
 cap.eia = cap.eia %>%
   left_join(eia.mapping, by = c("prime_mover", "fuel_1", "prime_mover_text", "fuel_1_text"))
 
-gz1 = gzfile(paste(path_data,"clean_capacity_eia_860_overnight_cost.txt.gz", sep=""), "w")
+
+
+gz1 = gzfile(paste(path_data,"mapping_860_overnight_R.txt.gz", sep=""), "w")
 write.table(cap.eia, file = gz1, sep="\t",col.names = TRUE, row.names = FALSE)
 close(gz1)
 # Output the cleaned up data to the data folder as a .txt.gz file
