@@ -15,4 +15,3 @@ path_data = "C:/Users/bloh356/Documents/GitHub/fuzzy-waffle/data/"
 
 source(paste0(path_code,"mapping_860_overnight_R.r"))
 source(paste0(path_code, "ca_almanac_R.r"))
-       
