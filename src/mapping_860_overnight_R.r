@@ -97,6 +97,9 @@ eia.dict.6 = data.frame(fuel_3 = c("AB", "ANT", "BFG", "BIO", "BIT", "BL", "BLQ"
 
 
 cap.eia = cap.raw %>%
+  mutate(generator_code = tolower(generator_code)) %>%
+  mutate(generator_code = gsub(" ","", generator_code)) %>%
+  mutate(generator_code = gsub("[^a-zA-Z0-9]","", generator_code)) %>%
   mutate(fuel_1 = replace(fuel_1, fuel_1=="BL", "BLQ")) %>%
   # We are assuming that BL was incorrectly entered BLQ
   filter(summer_capacity != 0) %>%
