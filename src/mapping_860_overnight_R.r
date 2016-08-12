@@ -53,7 +53,12 @@ eia.dict.4 = data.frame(fuel_1 = c("AB", "ANT", "BFG", "BIO", "BIT", "BL", "BLQ"
                                         'refinery gas', 're refined motor oil', 'synthetic natural gas', 'steam', 'subbituminous coal', 'sun', 'thorium',  'topped crude oil', 'uranium', 
                                         'water', 'waste coal', 'wood and wood waste', 'waste heat', 'wind', 'other', 'not available', 'propane', 'purchased steam', 'refined coal', 
                                         "residual fuel oil", 'coal synfuel', 'synthetic gas other than coal derived', 'coal-derived synthetic gas', 'synthetic gas from petroleum coke', 
-                                        'sludge waste', 'not defined', 'tires', 'not defined', 'wood waste liquids', 'wood and wood waste solids', 'oil-other and waste oil', 'not defined'))
+                                        'sludge waste', 'not defined', 'tires', 'not defined', 'wood waste liquids', 'wood and wood waste solids', 'oil-other and waste oil', 'not defined'),
+                        fuel_1_general = c("biomass", "coal",NA, "biomass", "coal", NA, "black liquor",NA, "coal", "oil", 'oil', 'coal', 'oil', 'oil', 'oil',
+                                         'oil', 'oil','oil', 'oil', 'natural gas', 'geothermal', 'geothermal', 'kerosene', 'kerosene', 'natural gas', 'coal', 'lng', 'lpg',NA, 
+                                         NA,'natural gas','MWh',NA,'natural gas','uranium','natural gas','oil','biomass',NA,NA,NA,'coal','oil','uranium','propane',
+                                         'biomass',NA,'oil','natural gas',NA,'coal','solar','uranium','oil','uranium','water','coal','biomass',NA,'wind',NA,NA,'propane',NA,
+                                         'coal','oil','coal','natural gas','natural gas', 'natural gas',NA,NA,NA,NA,'biomass','biomass','oil',NA))
 
 eia.dict.5 = data.frame(fuel_2 = c("AB", "ANT", "BFG", "BIO", "BIT", "BL", "BLQ", "COG", "COL", "COM", "CRU", "CWM", "DFO", "FO1", "FO2", "FO3", "FO4",
                                    "FO5", "FO6", "GAS", "GEO", "GST", "JF", "KER", "LFG", "LIG", "LNG", "LPG", "MF", "MSW", "MTE", "MWH", "MTH", "NG", "NUC", 
@@ -69,12 +74,7 @@ eia.dict.5 = data.frame(fuel_2 = c("AB", "ANT", "BFG", "BIO", "BIT", "BL", "BLQ"
                                         'refinery gas', 're refined motor oil', 'synthetic natural gas', 'steam', 'subbituminous coal', 'sun', 'thorium',  'topped crude oil', 'uranium', 
                                         'water', 'waste coal', 'wood and wood waste', 'waste heat', 'wind', 'other', 'not available', 'propane', 'purchased steam', 'refined coal', 
                                         "residual fuel oil", 'coal synfuel', 'synthetic gas other than coal derived', 'coal-derived synthetic gas', 'synthetic gas from petroleum coke', 
-                                        'sludge waste', 'not defined', 'tires', 'not defined', 'wood waste liquids', 'wood and wood waste solids', 'oil-other and waste oil', 'not defined'),
-                        fuel_general = c("biomass", "coal", "other gas", "biomass", "coal", NA, "black liquor", "other gas", "coal", "oil", 'oil', 'coal', 'oil', 'oil', 'oil',
-                                         'oil', 'oil','oil', 'oil', 'natural gas', 'geothermal', 'geothermal', 'kerosene', 'kerosene', 'natural gas', 'coal', 'lng', 'lpg', NA, 
-                                         'natural gas','natural gas','MWh','','natural gas','uranium','natural gas','oil','biomass','other gas',NA,NA,'coal','oil','uranium','propane',
-                                         'biomass','other gas','oil','natural gas','','coal','solar','uranium','oil','uranium','water','coal','biomass','','wind',NA,NA,'propane','',
-                                         'coal','oil','coal','natural gas','natural gas', 'natural gas','',NA,'',NA,'','biomass','oil',NA))
+                                        'sludge waste', 'not defined', 'tires', 'not defined', 'wood waste liquids', 'wood and wood waste solids', 'oil-other and waste oil', 'not defined'))
 
 
 
@@ -94,6 +94,7 @@ eia.dict.6 = data.frame(fuel_3 = c("AB", "ANT", "BFG", "BIO", "BIT", "BL", "BLQ"
                                         "residual fuel oil", 'coal synfuel', 'synthetic gas other than coal derived', 'coal-derived synthetic gas', 'synthetic gas from petroleum coke', 
                                         'sludge waste', 'not defined', 'tires', 'not defined', 'wood waste liquids', 'wood and wood waste solids', 'oil-other and waste oil', 'not defined'))
 # Abbreviations explained
+
 
 cap.eia = cap.raw %>%
   mutate(fuel_1 = replace(fuel_1, fuel_1=="BL", "BLQ")) %>%
@@ -132,7 +133,7 @@ cap.eia = cap.raw %>%
   left_join(eia.dict.4) %>%
   left_join(eia.dict.5) %>%
   left_join(eia.dict.6)
-  # Add three columns for the primary, secondary, and tertiary fuel used by each unit
+  # Add three columns for the primary, secondary, and tertiary fuel used by each unit (could use a mutate operation here)
 
 eia.mapping = unique(cap.eia[, c('prime_mover', 'fuel_1', 'prime_mover_text', 'fuel_1_text')])
 # Grab the unique combinations of primary fuel and production technology (this set will need to be mapped to the overnight costs)
