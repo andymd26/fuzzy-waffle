@@ -1,28 +1,12 @@
-summary.cap.eia = cap.eia %>%
-  group_by(overnight_category, fuel_1, year) %>%
-  summarize(capacity_tw = sum(summer_capacity)/1000000, 
-            # Capacity (TW) by overnight category, fuel, and year
-            n = n(), 
-            # Count of plants (same divisions)
-            avg_size_mw = sum(summer_capacity)/n(),
-            # Average size of the plants (same divisions)
-            heat_rate = mean(heat_rate, na.rm=TRUE)) %>%
-  # Average heat rate (same divisions)
-  ungroup() %>%
-  group_by(overnight_category, fuel_1) %>%
-  complete(year = seq(from = 1990, to =2014, by = 1)) %>%
-  # Fill in the missing years for the unique combination of overnight category and primary fuel in the database
-  ungroup() %>%
-  arrange(overnight_category, fuel_1, year)
-# Order the data
-
 summary.cap.eia.year = cap.eia %>%
-  group_by(overnight_category, year, fuel_1, fuel_1_text) %>%
+  filter(is.na(fuel_1_general) == FALSE) %>%
+  group_by(overnight_category, year, fuel_1_general) %>%
   summarize(capacity_mw = sum(summer_capacity),
             n = n(), 
             avg_size_mw = sum(summer_capacity)/n(),
             avg_age = mean(age),
             heat_rate = mean(heat_rate, na.rm=TRUE)) %>%
+  arrange(overnight_category, fuel_1_general, year) %>%
   ungroup() %>%
   group_by(overnight_category, fuel_1, fuel_1_text) %>%
   complete(year = seq(from = 1990, to = 2014, by = 1)) %>%
@@ -64,4 +48,23 @@ gz1 = gzfile(paste(path_data,"summary_year_summer_cap_eia_860_overnight_cost.txt
 write.table(summary.cap.eia.year, file = gz1, sep="\t",col.names = TRUE, row.names = FALSE)
 close(gz1)
 # Output the cleaned up data to the data folder as a .txt.gz file
+
+
+summary.cap.eia = cap.eia %>%
+  group_by(overnight_category, fuel_1, year) %>%
+  summarize(capacity_tw = sum(summer_capacity)/1000000, 
+            # Capacity (TW) by overnight category, fuel, and year
+            n = n(), 
+            # Count of plants (same divisions)
+            avg_size_mw = sum(summer_capacity)/n(),
+            # Average size of the plants (same divisions)
+            heat_rate = mean(heat_rate, na.rm=TRUE)) %>%
+  # Average heat rate (same divisions)
+  ungroup() %>%
+  group_by(overnight_category, fuel_1) %>%
+  complete(year = seq(from = 1990, to =2014, by = 1)) %>%
+  # Fill in the missing years for the unique combination of overnight category and primary fuel in the database
+  ungroup() %>%
+  arrange(overnight_category, fuel_1, year)
+# Order the data
 
