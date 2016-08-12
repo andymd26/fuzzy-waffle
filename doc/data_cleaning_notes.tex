@@ -1,6 +1,7 @@
 \documentclass[10pt]{report}
 \usepackage{graphicx} 
-\usepackage{hyperref}
+\usepackage[draft]{hyperref} 
+% without [draft] this was happening http://tex.stackexchange.com/questions/148411/url-in-footnote-spans-two-pages
 \usepackage{amsmath}
 \usepackage{tabularx}
 \usepackage{endnotes}
@@ -21,7 +22,7 @@
 In this document we document the steps necessary to create the underlying dataset to the analysis. 
 
 \chapter{Merging EIA overnight cost estimates with Form 860 generator level data}
-In this document we discuss how we merged information from the EIA overnight cost assumptions for electricity production plants with generator level data from the EIA Form-860 survey.  
+In this section we discuss the process used to merge information from the EIA overnight cost assumptions for electricity production plants with generator level data from the EIA Form-860 survey.  
 We discuss the time dimension of the overnight costs in subsequent chapters. 
 The result of this work is a dataset to be used in the multinomial logit.
 
@@ -186,38 +187,38 @@ There are a total of 33,126 coal generators in the dataset with a total installe
 
 \chapter{Heat rate}
 The marginal cost of producing power not only depends on the price of fuel but also the efficiency of the production process (i.e., how much fuel is required to produce 1 kWh of electricity). 
+To correct the cost of the input fuel for the efficiency of the conversion technology we first need to know the efficiency of the production technology.
 The heat rate is a commonly used measure to assess the efficiency of a power plant in turning fuel into electricity. 
 The equation for the heat rate is Heat rate $(\frac{BTU}{kWh})$ = $\frac{Input\ energy (\frac{BTU}{hr})}{Output\ power (kW)}$.\footnote{The heat rate statistic is meaningful statistic for fossil fuel-fired and nuclear power generators only.}  
-We can also calculate the efficiency of a power plant as the equivalent Btu content of a kWh of electricity divided by the heat rate, which changes the units to an efficiency percentage.
-To correct the cost of the input fuel for the efficiency of the conversion technology we first need to know the efficiency of the production technology. 
+Once we have the heat rate we can also calculate power plant efficiency, as the equivalent Btu content of a kWh of electricity divided by the heat rate, which changes the units to an efficiency percentage.
 In this section, we discuss the data sources available and interpolation methods required to accomplish this. 
 
 \section{Data sources}
 The EIA Form 860 does not have a complete record of heat rates for each generator over the entire period of analysis. 
 Instead, it has generator level, heat rate data for the period 1990 to 1995. 
-To bridge the gap in data we supplement it with data from the California energy almanac.
-In July of 2007 the California Energy Commission adopted the Quartery Fuel and Energy Report (QFER) requirement, which provide for the collection of information concerning electric generation, amongst other data \parencite{cec2016}. 
-As a result, we have generator level, heat rate data for the period 2007 to present.  
-Two additional sources of heat rate data are available but represent averages, as opposed to generator level data: the underlying assumptions of the Annual energy outlook (AEO) and the Electric Power Annual.\footnote{Archived AEO's and supplementary tables are available at  \url{https://www.eia.gov/forecasts/aeo/archive.cfm}.}
+Another source of heat rate data is the publicly available California energy almanac.
+In July of 2007 the California Energy Commission adopted the Quartery Fuel and Energy Report (QFER) requirement, which provided for the collection of information concerning electric generation, amongst other data \parencite{cec2016}. 
+The energy almanac contains generator level, heat rate data for the period 2007 to present for all resources located in the state.  
 
+Two additional sources of heat rate data are available but do not contain generator level data (i.e., provide heat rates for various aggregations of production technology or primary fuel): the underlying assumptions of the Annual energy outlook (AEO) and the Electric Power Annual.\footnote{Archived AEO's and supplementary tables are available at  \url{https://www.eia.gov/forecasts/aeo/archive.cfm}.}
 The AEO makes assumptions about the present state of technology both in cost (i.e., investment and marginal costs), as well as efficiency (i.e., heat rate) for purposes of incorporation into the NEMS modeling framework \parencite{eiaaeo2016}.
-Usually, two heat rates are provided: the heat rate in that year and the nth of its kind heat rate. 
+Usually, two heat rates are provided in the supplementary data tables: the heat rate in that year and the nth of its kind heat rate. 
 The difference between the two values is a function of technological maturity.
 In the case of a new technology we would expect the two values to be further apart than in the case of an established power production technology. 
 
-Finally, the Electric Power Annual provides an extremely aggregated heat rate statistic by fuel type for the period of the analysis. 
+Finally, the Electric Power Annual provides an aggregated heat rate statistic by fuel type for the entire period of analysis. 
 The average operating heat rate for selected energy sources averages across conversion technology by fuel type.
 As a result, it is too aggregated to be used outside of a check on our interpolation methods (detailed below). 
 
 \section{Aggregating primary fuel source values}
-The heat rate data, which is at the generator level, is at a finer resolution than we have for input fuel prices.
-For example, we only have one price for coal available in the Electric power monthly documentation, Electric Utility Receipts of and Average Cost for Fossil Fuels while EIA Form 860 has 10 possible coal primary fuel categories.   
-While it may seem odd to discuss the fuel price data in the heat rate section, we can increase the sample size for the linear regression (and generally stop abusing our data) undertaken to predict missing heat rate values if we preprocess the data by aggregating the existing primary fuel categories to the available primary fuel price data.\footnote{We initially ran the regression for each unique prime mover, primary fuel pairing. However, for a number of pairings we don't have the degrees of freedom to have any certainty in the output. Through aggregation we can increase our sample size and address this issue.} 
+The EIA Form 860 data has a finer resolution than the available input fuel price data (i.e., EIA tracks power plant spending for coal, oil and natural gas); meanwhile, the primary fuel category has 60 unique values.
+For example, we have a single price for coal available in the Electric Utility Receipts of and Average Cost for Fossil Fuels Table \parencite{}(EIA Power Monthly) while EIA Form 860 has 10 possible coal primary fuel designations.   
 
-The primary fuel source category has 60 unique values in the EIA Form 860 database.
-However, the EIA tracks electric utility fuel purchases for a much smaller set of fuels including, coal, oil, and natural gas).
-Historical fuel price information is available for kerosene, uranium, and propane.
-For renewable technologies, the AEO supplemental tables contain marginal cost data (i.e., wind, photovoltaic, solar thermal, hydropower, geothermal).
+While it may seem odd to discuss the fuel price data in the heat rate section, it is possible to increase the sample size of the linear regression model (and generally stop abusing our data) that we implement to predict the missing heat rate values for the period 1996 to 2014, if we preprocess the data by aggregating the existing primary fuel categories to the available primary fuel price data.
+
+We initially ran the regression for each unique prime mover, primary fuel pairing (~190 unique pairings). 
+However, as might be expected, we don't have the degrees of freedom necessary to have any certainty in the output for a number of the pairings. 
+Through aggregation we can increase our sample size and address this issue.
 In this section, we discuss the aggregation of the EIA Form 860 values to the available fuel price data.
 Each primary fuel is accompanied by three values: total installed capacity, number of units, and the average age of the units.
  
@@ -226,9 +227,10 @@ We map the following primary fuels to their respective marginal costs associated
 
 \subsection{Biomass}
 We map the following primary fuel categories to biomass: agriculture crop byproducts, straw, energy crops (AB)(605 MW, 44 units, 17 years old), other biomass solids (OBS)(213 MW, 9 units, 11 years old), refuse, bagasse, and all other nonwood waste (REF)(369 MW, 28 units, 24 years old), wood and wood waste (WD)(403 MW, 20 units, 33 years old), and wood and wood waste solids (WDS)(6,756 MW, 370 units, 20 years old). 
+At this time we don't have price data for biomass as an input. 
 
 \subsection{Natural gas}
-We map the following primary fuel categories to natural gas: landfill gas (LFG)(3,268 MW, 2,436 units, 5 years old), municipal solid waste (MSW)(3,426.41 MW, 154 units, 15 years old), methane (MTE)(3.4 MW, 5 units, 0 years old), natural gas (NG)(835,301 MW, 11,235 units, 16 years old), other biomass gases (OBG)(466 MW, 286 units, 6.3 years old), synthetic natural gas (SNG)(360 MW, 4 units, 15 years old), synthetic gas other than coal derived (SG)(274 MW, 2 units, 37 years old), coal-derived synthetic gas (SGC)(1,110 MW, 7 units, 29 years old), and synthetic gas from petroleum coke (SGP)(274 MW, 2 units, 38 years old). 
+We map the following primary fuel categories to natural gas: landfill gas (LFG)(3,268 MW, 2,436 units, 5 years old), methane (MTE)(3.4 MW, 5 units, 0 years old), natural gas (NG)(835,301 MW, 11,235 units, 16 years old), other biomass gases (OBG)(466 MW, 286 units, 6.3 years old), synthetic natural gas (SNG)(360 MW, 4 units, 15 years old), synthetic gas other than coal derived (SG)(274 MW, 2 units, 37 years old), coal-derived synthetic gas (SGC)(1,110 MW, 7 units, 29 years old), and synthetic gas from petroleum coke (SGP)(274 MW, 2 units, 38 years old). 
 
 \subsection{Oil}
 We map the following primary fuel categories to oil prices: distillate fuel oil (DFO)(51,917 MW, 5,911 units, 22 years old), no 1 fuel oil (FO1)(497 MW, 404 units, 9 years old), no 2 fuel oil (FO2)(39,625 MW, 3,880 units, 24 years old), no 4 fuel oil (FO4)(713 MW, 21 units, 21 years old), no 5 fuel oil (FO5)(6.7 MW, 2 units, 43 years old), no 6 fuel oil (FO6)(56,508 MW, 351 units, 33 years old), other biomass liquids (OBL)(127 MW, 6 units, 7 years old), residual fuel oil (RFO)(71,157 MW, 419 units, 38 years old), and, oil other and waste oil (WO)(252 MW, 48 units, 11 years old).
@@ -244,12 +246,11 @@ We map the following primary fuel categories to uranium fuel prices: nuclear (NU
 We assume that both primary fuel categories use uranium as the primary fuel source given expert elicitation (check with Sonny to satisfy the expert elicitation).
 
 \subsection{Unassigned and potentially ignored}
-We are unsure of how to map the following primary fuels to the available fuel price data: black liquor (BLQ)(6,570 MW, 306 units, 34 years old), liquified propane (LPG)(374.5 MW, 8 units, 19 years old), steam (STM)(61 MW, 3 units, 52 years old), waste heat (WH)(25,270 MW, 436, 16.5 years old), purchased steam (PUR)(651.8 MW, 33 units, 35 years old), sludge waste (SLW)(15 MW, 9 units, 10 years old), tires (TDF)(189 MW, 8 units, 9.5 years old), wood waste liquids (WDL)(125 MW, 8 units, 36 years old), blast furnace gas (BFG)(2,236 total MW, 65 units, 45 years old), other gas (OG)(3,694 MW, 178 units, 29 years old), and refinery gas (RG)(52.1 MW, 3 units, 10 years old). 
-We don't list the previously listed, undefined categories. 
-In many of these cases the primary fuel represents an extremely small portion of the total installed capacity in the data set. 
+We are unsure of how to map the following primary fuels to the available fuel price data: multi-fueled (MF)(209 MW, 7 units, 49 years old), municipal solid waste (MSW)(3,426 MW, 154 units, 15 years old), black liquor (BLQ)(6,570 MW, 306 units, 34 years old), liquified propane (LPG)(374.5 MW, 8 units, 19 years old), steam (STM)(61 MW, 3 units, 52 years old), waste heat (WH)(25,270 MW, 436, 16.5 years old), purchased steam (PUR)(652 MW, 33 units, 35 years old), sludge waste (SLW)(15 MW, 9 units, 10 years old), tires (TDF)(189 MW, 8 units, 9.5 years old), wood waste liquids (WDL)(125 MW, 8 units, 36 years old), blast furnace gas (BFG)(2,236 total MW, 65 units, 45 years old), other gas (OG)(3,694 MW, 178 units, 29 years old), and refinery gas (RG)(52 MW, 3 units, 10 years old). 
+Not considering the undefined primary fuel categories (undefined meaning either doesn't exist in the documentation, missing data, or not available), discussed earlier, the total installed MW ignored is 35,800 MW (~ 2\% of total installed summer capacity).\footnote{Waste heat is far and away the largest portion of the unassigned category.} 
 
 \subsection{Ignored categories}
-We ignore the following primary fuel categories: biomass generic (BIO), gas generic (GAS), re refined motor oil (RRO), topped crude oil (TOP), petroleum generic (PET), no 3 fuel oil (FO3), crude oil (CRU), coal oil mixture (COM), propane (PRO), coal water mixture (CWM), plutonium (PL), thorium (TH), coke oven gas (COG), liquefied natural gas (LNG), methanol (MTH) because there are no units in the dataset using these fuels in the data set. We also ignore propane (PG)(2.5 MW, 25 units, 0 years old), which does have a very small amount of installed capacity. 
+We ignore the following primary fuel categories because there are no units in the data set using these fuels: biomass generic (BIO), gas generic (GAS), re refined motor oil (RRO), topped crude oil (TOP), petroleum generic (PET), no 3 fuel oil (FO3), crude oil (CRU), coal oil mixture (COM), propane (PRO), coal water mixture (CWM), plutonium (PL), thorium (TH), coke oven gas (COG), liquefied natural gas (LNG), and methanol (MTH). We also ignore propane (PG)(2.5 MW, 25 units, 0 years old), which does have a very small amount of installed capacity. 
 
 \section{Interpolation of missing heat rate values}
 We use a simple linear regression model to identify any trends that exist for the available heat rate data (i.e., 1990-1995) and project it forward for each subgrouping (i.e., prime mover and primary fuel). 
@@ -262,6 +263,9 @@ In both these cases we remove the outlier values so that the linear regression m
 \chapter{Marginal costs: Input fuel prices}
 The predominant marginal cost for fossil fuel fired power plants is the cost of fuel \parencite{}. 
 
+In addition to the fuels found in the Electric Utility Receipts of and Average Cost for Fossil Fuels Table, fuel price information is available for kerosene, uranium, and propane.
+For renewable technologies, the AEO supplemental tables contain marginal cost data (i.e., wind, photovoltaic, solar thermal, hydropower, geothermal).
+
 \section{Data sources}
 The EIA, Electric power monthly provides Electric Utility Receipts of and Average Cost for Fossil Fuels for the period 1985 to 2016.
 We stitch together three issues June 1996 (Table 26, p39); January 2010 (Table 4.2, p73); and, 
@@ -269,4 +273,6 @@ May 2016 (Table 4.2, p73) to create the final data set.
 The prices are in dollars per $10^6$ btu and are nominal (i.e., unadjusted for inflation).
 For continuity purposes we use total petroleum price, instead of heavy oil, in the June 1996 document, and the petroleum liquid price in all other cases.
 
+
+blast furnace gas (BFG)
 \end{document}
