@@ -198,7 +198,23 @@ The EIA Form 860 does not have a complete record of heat rates for each generato
 Instead, it has generator level, heat rate data for the period 1990 to 1995. 
 Another source of heat rate data is the publicly available California energy almanac.
 In July of 2007 the California Energy Commission adopted the Quartery Fuel and Energy Report (QFER) requirement, which provided for the collection of information concerning electric generation, amongst other data \parencite{cec2016}. 
-The energy almanac contains generator level, heat rate data for the period 2007 to present for all resources located in the state.  
+The energy almanac contains plant level (i.e., one level higher than generator), heat rate data for the period 2007 to present for all resources located in the state.  
+To make this point more explicit, the heat rate values from the energy almanac are plant level averages (i.e., average of all generators at the plant), whereas the heat rate data in Form 860 for the period 1990 to 1995 are generator level data.   
+
+Unfortunately, the California energy almanac and the EIA use different unique identifier systems for the identification of power units. 
+While documentation is available that maps the identifiers between the two systems; there are approximately 500 units in the energy almanac where an equivalent EIA identifier is not listed.\footnote{The identifier table, which bridges the CA energy almanac and EIA Form 860 can be found here \url{http://energyalmanac.ca.gov/electricity/web_qfer/}.} 
+As a result, we cannot map these entries to our EIA Form 860 database, and they are subsequently ignored.
+In addition 6 plants with a mapping had plant codes that were subsequently, not found in the EIA database.\footnote{Plant codes: 10780, 16657,50786, 55105, 56508, 101694.}
+
+We merge the two data sets using the plant code variable. 
+The EIA Form 860 has 8,716 unique plant codes over the entire period of record.
+For the period 1990 to 1995 there are 3,339 unique plant codes of which 1,953 are fossil fuel generators (i.e., primary fuel of coal, natural gas, oil, propane, biomass, or kerosene).
+Of this set, we have heat rate data (i.e., non zero and non missing) for 87\% of the entries.
+
+The California energy almanac has plant level heat rate data beginning in 2001 until present.
+The EIA Form 860 has 8,082 unique plant codes for this period of record, of which, 4,421 plants are fossil fuel generators (i.e., primary fuel of coal, natural gas, oil, propane, biomass, or kerosene).
+Of this set, we have heat rate data for 10,714 entries (~ 7\% of all entries for this period). 
+Once again, it is important to note that the California energy almanac data represents plant level average heat rate, instead of the generator heat rate found in the EIA Form 860 for the years 1990 to 1995. 
 
 Two additional sources of heat rate data are available but do not contain generator level data (i.e., provide heat rates for various aggregations of production technology or primary fuel): the underlying assumptions of the Annual energy outlook (AEO) and the Electric Power Annual.\footnote{Archived AEO's and supplementary tables are available at  \url{https://www.eia.gov/forecasts/aeo/archive.cfm}.}
 The AEO makes assumptions about the present state of technology both in cost (i.e., investment and marginal costs), as well as efficiency (i.e., heat rate) for purposes of incorporation into the NEMS modeling framework \parencite{eiaaeo2016}.
