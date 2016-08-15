@@ -21,7 +21,9 @@ ca.elec.almanac = ca.elec.almanac %>%
 
 cap.eia = read.table(paste0(path_data, "mapping_860_overnight_R.txt.gz"), header=TRUE, sep ="\t")
 cap.eia = cap.eia %>%
-  left_join(ca.elec.almanac, by=c("plant_code", "year")) 
+  mutate(heat_rate = replace(heat_rate, heat_rate == 0, NA)) %>%
+  left_join(ca.elec.almanac, by=c("plant_code", "year")) %>%
+  mutate(heat_rate = ifelse(is.na(heat_rate)==FALSE, heat_rate, heat.rate))
 
 
 gz1 = gzfile(paste(path_data,"ca_almanac_R.txt.gz", sep=""), "w")
