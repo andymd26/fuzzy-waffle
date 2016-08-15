@@ -127,15 +127,15 @@ cap.eia = cap.raw %>%
   # For years 1990 to 2000 summer capacity is in kW, which we change to MW
   mutate(summer_capacity = ifelse(summer_capacity < 0, summer_capacity*-1, summer_capacity)) %>%
   # It appears that some capacity values were mistakenly entered as negative, which we correct
-  left_join(eia.dict.3) %>%
+  left_join(eia.dict.3, by = 'prime_mover') %>%
   # Add a new column that includes an explanation of the prime mover variable
-  left_join(eia.dict.1) %>%
+  left_join(eia.dict.1, by = 'status_code_1') %>%
   # Add a new column that includes an explanation of the status_code_1
-  left_join(eia.dict.2) %>%
+  left_join(eia.dict.2, by = 'status_code_2') %>%
   # Add a column that includes an explanation of the status_code_2
-  left_join(eia.dict.4) %>%
-  left_join(eia.dict.5) %>%
-  left_join(eia.dict.6)
+  left_join(eia.dict.4, by = 'fuel_1') %>%
+  left_join(eia.dict.5, by = 'fuel_2') %>%
+  left_join(eia.dict.6, by = 'fuel_3')
   # Add three columns for the primary, secondary, and tertiary fuel used by each unit (could use a mutate operation here)
 
 eia.mapping = unique(cap.eia[, c('prime_mover', 'fuel_1', 'prime_mover_text', 'fuel_1_text')])
@@ -213,3 +213,5 @@ gz1 = gzfile(paste(path_data,"mapping_860_overnight_R.txt.gz", sep=""), "w")
 write.table(cap.eia, file = gz1, sep="\t",col.names = TRUE, row.names = FALSE)
 close(gz1)
 # Output the cleaned up data to the data folder as a .txt.gz file
+
+rm(cap.raw, eia.dict.6, eia.dict.5, eia.dict.4, eia.dict.3, eia.dict.2, eia.dict.1, eia.mapping)
