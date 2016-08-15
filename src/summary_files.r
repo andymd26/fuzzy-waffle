@@ -36,7 +36,9 @@ summary.cap.eia.year = summary.cap.eia.year %>%
 
 energy.prices = read.table(paste0(path_data, "energy.prices.txt.gz"), header=TRUE, sep ="\t")
 summary.cap.eia.year = summary.cap.eia.year %>%
-  left_join(energy.prices, by = c('fuel_1_general','year'))
+  left_join(energy.prices, by = c('fuel_1_general','year')) %>%
+  mutate(adj.fuel.price = (fuel.price/10^6)*pred.heat.rate)
+# Fuel price is in $ per 10^6 btu, which we convert to $ per kWh using the heat rate and fuel price.
 
 gz1 = gzfile(paste(path_data,"summary_files.txt.gz", sep=""), "w")
 write.table(summary.cap.eia.year, file = gz1, sep="\t",col.names = TRUE, row.names = FALSE)
