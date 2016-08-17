@@ -2,7 +2,7 @@ summary.cap.eia.year = read.table(paste0(path_data, "summary_files.txt.gz"), hea
 
 p1 = ggplot(summary.cap.eia.year) +
   geom_point(aes(x = year, y = heat_rate), size = 0.75, colour = 'blue') +
-  geom_line(aes(x = year, y = pred)) +
+  geom_line(aes(x = year, y = pred.heat.rate)) +
   facet_wrap(~overnight_category + fuel_1_general) +
   theme(axis.text.x = element_text(size=4), axis.text.y = element_text(size = 4), axis.title = element_text(size = 4),
         strip.text.x = element_text(size = 4))
