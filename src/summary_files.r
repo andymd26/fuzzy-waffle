@@ -18,10 +18,31 @@ summary.cap.eia.year = cap.eia %>%
   ungroup() %>%
   arrange(overnight_category, fuel_1_general, year) 
 
+theoretical.limits = data.frame(overnight_category = c("biomass", "coal", "conventional combined cycle", "conventional combined cycle", 
+                                                       "conventional combustion turbine", "conventional combustion turbine", "igcc"),
+                                fuel_1_general = c("biomass", "coal", "natural gas", "oil", "natural gas", "oil", "coal"), 
+                                year.2050 = c(0.31,0.45,0.57,0.59,0.38,0.39,0.48),
+                                year.2100 = c(0.36,0.51,0.62,0.64,0.42,0.44,0.54)
+                                )
+# Source: The data is from Table 5 of 'Cost of power or power of cost: a US modeling perspective' by Muratori, Ledna, McJeon, et al.
+# We can use this data to put some upper bounds on the heat rate gains by power plant type
+theoretical.limits = melt(theoretical.limits, id.vars = c("overnight_category", "fuel_1_general"))
+colnames(theoretical.limits) = c("overnight_category", "fuel_1_general", "year", "efficiency")
+theoretical.limits = theoretical.limits %>%
+  mutate(year = as.character(year)) %>%
+  mutate(year = replace(year, year=="year.2050", 2050)) %>%
+  mutate(year = replace(year, year=="year.2100", 2100)) %>%
+  mutate(year = as.numeric(year)) %>%
+  mutate(heat_rate = 3412/efficiency)
+  # We can convert the efficiency back to a heat rate using the equivalent btu content of a kWh (~3,412 btu). This is also in the documentation. 
+
+summary.cap.eia.year = summary.cap.eia.year %>%
+  plyr::rbind.fill(theoretical.limits)
+
 h.r.model = summary.cap.eia.year %>%
   filter(heat_rate > 0) %>%
   group_by(overnight_category, fuel_1_general) %>%
-  complete(year = seq(from = 1990, to = 2014, by = 1)) %>% 
+  complete(year = seq(from = 1990, to = 2100, by = 1)) %>% 
   ungroup() %>%
   group_by(overnight_category, fuel_1_general) %>%
   do({mod <- lm(heat_rate ~ year, data = .)
