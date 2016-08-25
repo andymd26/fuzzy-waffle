@@ -19,7 +19,8 @@
 \maketitle
 
 \chapter{Introduction}
-In this document we document the steps necessary to create the underlying dataset to the analysis. 
+In this document we document the steps necessary to create the multinomial logit dataset. 
+For the multinomial dataset we would like a data set that contains a column with the positive change in capacity for each fuel and primary mover combination, the heat rate adjusted fuel price data, marginal cost of operation data (for renewable resources and hydro), and overnight capital cost data. 
 
 The remainder of the document describes the process for creating the data set for the discrete choice model.
 
@@ -293,6 +294,8 @@ The predominant marginal cost for fossil fuel fired power plants is the cost of 
 
 In addition to the fuels found in the Electric Utility Receipts of and Average Cost for Fossil Fuels Table, fuel price information is available for kerosene, uranium, and propane.
 For renewable technologies, the AEO supplemental tables contain marginal cost data (i.e., wind, photovoltaic, solar thermal, hydropower, geothermal).
+The uranium marketing annual report, Table S1B. 'Weighted-average price of uranium purchased by owners and operators of U.S. civilian nuclear power reactors, has data on the average purchase price for the period 1994 to 2015 \parencite{eiauranium2016}. 
+It is not clear from the data source if the units are nominal. 
 
 \section{Data sources}
 The EIA, Electric power monthly provides Electric Utility Receipts of and Average Cost for Fossil Fuels for the period 1985 to 2016.
@@ -301,9 +304,31 @@ May 2016 (Table 4.2, p73) to create the final data set.
 The prices are in dollars per $10^6$ btu and are nominal (i.e., unadjusted for inflation).
 For continuity purposes we use total petroleum price, instead of heavy oil, in the June 1996 document, and the petroleum liquid price in all other cases.
 
+
+
 \chapter{Overnight cost data}
+We use the Annual Energy Outlooks (AEOs) for overnight capital cost, fixed operations and maintenance cost, and variable operations and maintenance costs. 
+\cite{} (Matteo's paper) show that the costs of climate change adaptation are highly sensitive to overnight capital cost assumptions of power plant technologies. 
+\cite{} (Matteo's paper) in their work focus on nth of its kind plants for nuclear, pulverized coal, natural gas combined cycle, and wind power plants (and excludes carbon capture and energy storage). 
+
+There are criticisms in the literature of these costs that suggest AEO estimates lag behind actual costs by a few years \parencite{}.
+Other cost indexes are available including the Handy-Whitman index of public utility construction cost (HWI), Chemical Engineering Plant Cost Index (CEPI), IHS-CERA North American Power Plant Cost Index (PCCI), \ldots.
+For the period 1970 to 2000 the HWI and CEPI show that power plant construction costs for nuclear, coal and natural gas plants increased at about the rate of inflation \parencite{} (Matteos paper though might want to cite original source [8]). 
+These trends are not supported by all of the literature, as \cite{} found that the overnight cost for coal-fired power plants was decreasing between 1930 to 1970, increasing for the period 1970 to 1987 and plateaued between 1987 to 2006. 
+The early 2000s marked a turning point a variety of different power plants, as reported construction costs began to accelerate (behavior captured by the HWI) \parencite{} (Matteo's paper). 
+Between 2003 and 2007 \cite{du2009update} found that the real total overnight cost in the US for nuclear, coal and natural gas plants increased by 74 percent, 55 percent, and 48 percent, respectively. 
+The EIA's AEO fails to capture a notable increase in overnight cost for the early 2000s, instead the estimates tend to lag behind real-world conditions by a few years (approximately three years) \parencite{}(Matteo's paper).
+At present, we are using the AEO data but could just as easily incorporate any of these other sources given access to their dataset. 
+  
 As technologies have changed so too have the categories of available power production technologies used in the NEMS modeling framework (and listed in the supplemental tables of each Annual Energy Outlook). 
 In this section, we identify the length of record available, in addition to the means and data sources for extending the record to match the length of other available data. 
+
+Each of the years of the overnight cost database contains the following variables: online year, size (MW), lead time (years), first of its kind overnight capital cost (USD per kW), Nth of its kind overnight capital cost (USD per kW), variable operations and maintenance (USD per kWh), fixed operations and maintenance (USD per kW), present heat rate, and future heat rate. 
+The complexity of the overnight cost database has changed over time, in that the database now includes both project contingency factors and technological optimism factors that can be included in the total overnight cost. 
+Further, the database makes clear assumed learning rates for individual technology options. 
+
+The overnight cost dataset is available beginning with the supplemental tables to the 1997 Annual Energy Outlook (AEO). 
+We extrapolate the overnight capital cost, fixed operations and maintenance, and variable operations and maintenance cost data to 1990 using index cost data in \parencite{}(Matteo's paper). 
 
 \section{Categories in the model}
 These are the categories that we include as choice options in the model.

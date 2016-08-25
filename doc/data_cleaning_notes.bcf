@@ -2099,6 +2099,8 @@
   <bcf:section number="0">
     <bcf:citekey order="1">cec2016</bcf:citekey>
     <bcf:citekey order="3">eiaaeo2016</bcf:citekey>
-    <bcf:citekey order="6">mcnerney2011historical</bcf:citekey>
+    <bcf:citekey order="6">eiauranium2016</bcf:citekey>
+    <bcf:citekey order="13">du2009update</bcf:citekey>
+    <bcf:citekey order="16">mcnerney2011historical</bcf:citekey>
   </bcf:section>
 </bcf:controlfile>
