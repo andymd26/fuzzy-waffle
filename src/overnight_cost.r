@@ -16,6 +16,17 @@ overnight = overnight %>%
            tech_abbrev == "geothermal" | tech_abbrev == "solar thermal" | tech_abbrev == "photovoltaic" | tech_abbrev == "wind" |
            tech_abbrev == "igcc" | tech_abbrev == "hydro" | tech_abbrev == "nuclear")
   # keep the overnight categories in our model framework
+colnames(overnight)[names(overnight)=="tech_abbrev"]= "overnight_category"
+colnames(overnight)[names(overnight)=="aeo_year"]= "year"
+# For consistency with the other data set column names. 
+
+summary.cap.eia.year = read.table(paste0(path_data, "summary_files.txt.gz"), header=TRUE, sep ="\t")
+summary.cap.eia.year  = summary.cap.eia.year %>%
+  mutate(overnight_category = as.character(overnight_category)) %>%
+  mutate(fuel_1_general = as.character(fuel_1_general)) %>%
+  left_join(overnight, by = c("overnight_category", "year"))
+  
+
 
 ggplot(overnight) +
   geom_point(aes(x = aeo_year, y = overnight_nth), size = 1.5) +

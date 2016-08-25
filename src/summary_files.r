@@ -56,10 +56,21 @@ summary.cap.eia.year = summary.cap.eia.year %>%
   arrange(overnight_category, fuel_1_general, year)
 
 energy.prices = read.table(paste0(path_data, "energy.prices.txt.gz"), header=TRUE, sep ="\t")
+
+uranium.prices = read.table(paste0(path_data, "uranium.prices.txt.gz"), header=TRUE, sep ="\t")
+uranium.prices = uranium.prices[,1:2] %>%
+  # grab the year column and weighted average price across all sources
+  mutate(fuel_1_general = "uranium")
+  # add the necessary identifier
+colnames(uranium.prices)[names(uranium.prices) == "weighted.avg.price.nominal"] = "fuel.price"
+energy.prices = rbind(energy.prices, uranium.prices)
+
 summary.cap.eia.year = summary.cap.eia.year %>%
   left_join(energy.prices, by = c('fuel_1_general','year')) %>%
   mutate(adj.fuel.price = (fuel.price/10^6)*pred.heat.rate)
 # Fuel price is in $ per 10^6 btu, which we convert to $ per kWh using the heat rate and fuel price.
+
+  
 
 gz1 = gzfile(paste(path_data,"summary_files.txt.gz", sep=""), "w")
 write.table(summary.cap.eia.year, file = gz1, sep="\t",col.names = TRUE, row.names = FALSE)
