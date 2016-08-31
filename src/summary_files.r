@@ -72,8 +72,10 @@ energy.prices = rbind(energy.prices, uranium.prices)
 
 summary.cap.eia.year = summary.cap.eia.year %>%
   left_join(energy.prices, by = c('fuel_1_general','year')) %>%
-  mutate(adj.fuel.price = (fuel.price/10^6)*pred.heat.rate)
-# Fuel price is in $ per 10^6 btu, which we convert to $ per kWh using the heat rate and fuel price.
+  mutate(adj.fuel.price = (fuel.price/10^6)*pred.heat.rate) %>%
+  # Fuel price is in $ per 10^6 btu, which we convert to $ per kWh using the heat rate and fuel price.
+  mutate(adj.fuel.price = adj.fuel.price*1000)
+  # Convert units from dollars per kWh to dollars per MWh (done this way for readability)
 
   
 
