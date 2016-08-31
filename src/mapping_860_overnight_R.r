@@ -1,5 +1,20 @@
 cap.raw = read.table(paste(path_data, "capacity_eia.txt.gz", sep=""), sep="\t", header=TRUE, comment.char="")
 cap.raw$summer_capacity = as.numeric(as.character(cap.raw$summer_capacity))
+retirement = read.table(paste(path_data, "retirement.eia860.txt", sep=""), sep="\t", header=TRUE, comment.char="", as.is = TRUE)
+retirement = retirement %>%
+  mutate(retirement = as.integer(retirement)) %>%
+  mutate(retirement = replace(retirement, retirement == 9999, NA)) %>%
+  # Missing value indicator in some years
+  mutate(retirement = replace(retirement, retirement == 1, NA)) %>%
+  # No idea what the one means
+  mutate(retirement = replace(retirement, which(retirement > year), NA)) %>%
+  # If the retirement year is greater than the actual year then this is a planned retirement year. If it actually retires then we'll care otherwise not.
+  mutate(retirement = replace(retirement, retirement == 95, 1995)) %>%
+  # The mistake seems to be an abbreviated date, it only applies to 21 entries across 95, 96, 97 so we can undo the correction if we want.
+  mutate(retirement = replace(retirement, retirement == 96, 1996)) %>%
+  mutate(retirement = replace(retirement, retirement == 97, 1997)) %>%
+  mutate(retirement = replace(retirement, retirement == 0, NA))
+
 
 eia.dict.1 = data.frame(status_code_1 = c("BU", "OA", "OP", "OS", "RE", "SB", "SC", "SD", "TS", "A", "CN", "CO", "D", "FC", "IP", "L", 
                                           "LE", "M", "MO", "OT", "P", "PL", "RA", "RP", "RT", "T", "U", "V"), 
@@ -95,7 +110,6 @@ eia.dict.6 = data.frame(fuel_3 = c("AB", "ANT", "BFG", "BIO", "BIT", "BL", "BLQ"
                                         'sludge waste', 'not defined', 'tires', 'not defined', 'wood waste liquids', 'wood and wood waste solids', 'oil-other and waste oil', 'not defined'))
 # Abbreviations explained
 
-
 cap.eia = cap.raw %>%
   mutate(generator_code = tolower(generator_code)) %>%
   mutate(generator_code = gsub(" ","", generator_code)) %>%
@@ -104,8 +118,8 @@ cap.eia = cap.raw %>%
   # We are assuming that BL was incorrectly entered BLQ
   filter(summer_capacity != 0) %>%
   # Remove plants with no summer time capacity (not sure why they exist in the data anyway)
-  filter(status_code_1 != "RE" & status_code_2 != "RE") %>%
-  # Remove retired plants
+  # filter(status_code_1 != "RE" & status_code_2 != "RE") %>%
+  # If we keep the retired plants in the database we can backout capacity additions for each year using the retired date (which is available)
   filter(status_code_2 != "RA") %>%
   # Remove not yet reactivated plants
   filter(status_code_2 != "CN") %>%
@@ -135,8 +149,11 @@ cap.eia = cap.raw %>%
   # Add a column that includes an explanation of the status_code_2
   left_join(eia.dict.4, by = 'fuel_1') %>%
   left_join(eia.dict.5, by = 'fuel_2') %>%
-  left_join(eia.dict.6, by = 'fuel_3')
+  left_join(eia.dict.6, by = 'fuel_3') %>%
   # Add three columns for the primary, secondary, and tertiary fuel used by each unit (could use a mutate operation here)
+  left_join(retirement, by = c('utility_code', 'plant_code', 'generator_code', 'year'))
+
+
 
 eia.mapping = unique(cap.eia[, c('prime_mover', 'fuel_1', 'prime_mover_text', 'fuel_1_text')])
 # Grab the unique combinations of primary fuel and production technology (this set will need to be mapped to the overnight costs)
