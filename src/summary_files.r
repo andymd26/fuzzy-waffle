@@ -1,5 +1,6 @@
 cap.eia = read.table(paste0(path_data, "ca_almanac_R.txt.gz"), header=TRUE, sep ="\t")
 summary.cap.eia.year = cap.eia %>%
+  filter(overnight_category != 'undefined') %>%
   filter(is.na(fuel_1_general) == FALSE) %>%
   group_by(overnight_category, year, fuel_1_general) %>%
   mutate(retirement.ind = ifelse(is.na(retirement)==FALSE, summer_capacity, NA)) %>%
