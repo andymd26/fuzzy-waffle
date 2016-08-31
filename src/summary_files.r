@@ -2,7 +2,9 @@ cap.eia = read.table(paste0(path_data, "ca_almanac_R.txt.gz"), header=TRUE, sep 
 summary.cap.eia.year = cap.eia %>%
   filter(is.na(fuel_1_general) == FALSE) %>%
   group_by(overnight_category, year, fuel_1_general) %>%
+  mutate(retirement.ind = ifelse(is.na(retirement)==FALSE, summer_capacity, NA)) %>%
   summarize(capacity_mw = sum(summer_capacity),
+            retirement_mw = sum(retirement.ind, na.rm = TRUE),
             n = n(), 
             avg_size_mw = sum(summer_capacity)/n(),
             avg_age = mean(age),
@@ -11,10 +13,8 @@ summary.cap.eia.year = cap.eia %>%
   ungroup() %>%
   group_by(overnight_category, fuel_1_general) %>%
   complete(year = seq(from = 1990, to = 2014, by = 1)) %>%
-  mutate(diff_mw = capacity_mw - lag(capacity_mw)) %>%
-  mutate(outlier = ifelse(heat_rate <= mean(heat_rate, na.rm=TRUE) - 2*sd(heat_rate, na.rm=TRUE) |
-                            heat_rate >= mean(heat_rate, na.rm=TRUE) + 2*sd(heat_rate, na.rm=TRUE), 1, 0)) %>%
-  # Identify potential outliers (most of the outliers identified are a simple case of no variance (i.e., identical values))
+  mutate(summer_cap_WOR = capacity_mw - retirement_mw) %>%
+  mutate(diff_mw = summer_cap_WOR - lag(summer_cap_WOR)) %>%
   ungroup() %>%
   arrange(overnight_category, fuel_1_general, year) 
 
@@ -44,9 +44,13 @@ h.r.model = summary.cap.eia.year %>%
   group_by(overnight_category, fuel_1_general) %>%
   complete(year = seq(from = 1990, to = 2100, by = 1)) %>% 
   ungroup() %>%
+  mutate(time = year - 1989) %>%
+  mutate(time_sq = time^2) %>%
   group_by(overnight_category, fuel_1_general) %>%
-  do({mod <- lm(heat_rate ~ year, data = .)
-  pred.heat.rate <- predict(mod, newdata = .["year"])
+  # do({mod <- lm(heat_rate ~ year, data = .)
+  do({mod <- lm(heat_rate ~ time + time_sq, data = .)
+  # The model is the same as heat_rate ~ time + time_sq + time*overnight_category + time_sq*overnight_category because of the group_by
+  pred.heat.rate <- predict(mod, newdata = .[c("time", "time_sq")])
   data.frame(., pred.heat.rate)}) %>%
   select(c(overnight_category, fuel_1_general, year, pred.heat.rate))
 # We still have overnight category, general fuel combinations with low sample sizes (even after implementing the aggregation measures). 
