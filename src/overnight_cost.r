@@ -1,41 +1,21 @@
-overnight = read.table(paste0(path_data, "overnight.cost.longform.txt.gz"), header=TRUE, sep ="\t")
-
+overnight = read.table(paste0(path_data, "overnight.cost.txt"), header=TRUE, sep ="\t", as.is = TRUE)
+# wind = read.table(paste0(path_data, "overnight.cost.longform.txt.gz"), header=TRUE, sep ="\t")
+# Wind data from Bollinger 2009 could be incorporated here to extend the data further back in time
 overnight = overnight %>%
-  mutate(tech_abbrev = as.character(tech_abbrev)) %>%
-  mutate(tech_abbrev = replace(tech_abbrev, tech_abbrev=="fuell cell", "fuel cells")) %>%
-  # Spelling in 1997 is off
-  mutate(tech_abbrev = replace(tech_abbrev, tech_abbrev=="fuel cell", "fuel cells")) %>%
-  mutate(tech_abbrev = replace(tech_abbrev, tech_abbrev=="cc", "conventional combined cycle")) %>%
-  mutate(tech_abbrev = replace(tech_abbrev, tech_abbrev=="ct", "conventional combustion turbine")) %>%
-  mutate(tech_abbrev = replace(tech_abbrev, tech_abbrev=="conv gas cc", "conventional combined cycle")) %>%
-  mutate(tech_abbrev = replace(tech_abbrev, tech_abbrev=="conv ct", "conventional combustion turbine")) %>%
-  mutate(tech_abbrev = replace(tech_abbrev, tech_abbrev=="adv nuc", "nuclear")) %>%
-  mutate(tech_abbrev = replace(tech_abbrev, tech_abbrev=="steam", "steam turbine")) %>%
-  filter(tech_abbrev == "coal" | tech_abbrev == "steam turbine" | tech_abbrev == "conventional combined cycle" |
-           tech_abbrev == "conventional combustion turbine" | tech_abbrev == "fuel cell" | tech_abbrev == "biomass" |
-           tech_abbrev == "geothermal" | tech_abbrev == "solar thermal" | tech_abbrev == "photovoltaic" | tech_abbrev == "wind" |
-           tech_abbrev == "igcc" | tech_abbrev == "hydro" | tech_abbrev == "nuclear")
-  # keep the overnight categories in our model framework
-colnames(overnight)[names(overnight)=="tech_abbrev"]= "overnight_category"
-colnames(overnight)[names(overnight)=="aeo_year"]= "year"
-# For consistency with the other data set column names. 
+  mutate(variable.o.m = variable.o.m*.001)
+  # The original units are Mills per kWh, which we convert to dollars per kWh. A mill is equal to 1/10 of a cent. 
+Source: http://www.eia.gov/tools/faqs/faq.cfm?id=19&t=5
 
-summary.cap.eia.year = read.table(paste0(path_data, "summary_files.txt.gz"), header=TRUE, sep ="\t")
+summary.cap.eia.year = read.table(paste0(path_data, "summary_files.txt.gz"), header=TRUE, sep ="\t", as.is = TRUE)
 summary.cap.eia.year  = summary.cap.eia.year %>%
-  mutate(overnight_category = as.character(overnight_category)) %>%
-  mutate(fuel_1_general = as.character(fuel_1_general)) %>%
-  left_join(overnight, by = c("overnight_category", "year"))
+  filter(year != 2100 & year != 2050) %>%
+  left_join(overnight, by = c("overnight_category", "year")) %>%
+  arrange(overnight_category, fuel_1_general, year)
   
-
-
-ggplot(overnight) +
-  geom_point(aes(x = aeo_year, y = overnight_nth), size = 1.5) +
-  facet_wrap(~tech_abbrev, ncol = 3) +
-  ylim(0, 8000) +
-  theme(axis.text.x = element_text(size=8), 
-        axis.text.y = element_text(size = 8),
-        strip.text.x = element_text(size = 8))
- 
-gz1 = gzfile(paste(path_data,"overnight.cost.longform.txt.gz", sep=""), "w")
+gz1 = gzfile(paste0(path_data,"overnight.cost.longform.txt.gz"), "w")
 write.table(overnight, file = gz1, sep="\t",col.names = TRUE, row.names = FALSE)
+close(gz1) 
+
+gz1 = gzfile(paste0(path_data,"processed.overnight.txt.gz"), "w")
+write.table(summary.cap.eia.year, file = gz1, sep="\t",col.names = TRUE, row.names = FALSE)
 close(gz1) 
