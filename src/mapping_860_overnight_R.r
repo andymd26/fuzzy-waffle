@@ -2,6 +2,9 @@ cap.raw = read.table(paste(path_data, "capacity_eia.txt.gz", sep=""), sep="\t", 
 cap.raw$summer_capacity = as.numeric(as.character(cap.raw$summer_capacity))
 retirement = read.table(paste(path_data, "retirement.eia860.txt", sep=""), sep="\t", header=TRUE, comment.char="", as.is = TRUE)
 retirement = retirement %>%
+  mutate(generator_code = tolower(generator_code)) %>%
+  mutate(generator_code = gsub(" ","", generator_code)) %>%
+  mutate(generator_code = gsub("[^a-zA-Z0-9]","", generator_code)) %>%
   mutate(retirement = as.integer(retirement)) %>%
   mutate(retirement = replace(retirement, retirement == 9999, NA)) %>%
   # Missing value indicator in some years
@@ -70,7 +73,7 @@ eia.dict.4 = data.frame(fuel_1 = c("AB", "ANT", "BFG", "BIO", "BIT", "BL", "BLQ"
                                         "residual fuel oil", 'coal synfuel', 'synthetic gas other than coal derived', 'coal-derived synthetic gas', 'synthetic gas from petroleum coke', 
                                         'sludge waste', 'not defined', 'tires', 'not defined', 'wood waste liquids', 'wood and wood waste solids', 'oil-other and waste oil', 'not defined'),
                         fuel_1_general = c("biomass", "coal",NA, "biomass", "coal", NA, "black liquor",NA, "coal", "oil", 'oil', 'coal', 'oil', 'oil', 'oil',
-                                         'oil', 'oil','oil', 'oil', 'natural gas', 'geothermal', 'geothermal', 'kerosene', 'kerosene', 'natural gas', 'coal', 'lng', 'lpg',NA, 
+                                         'oil', 'oil','oil', 'oil', 'natural gas', 'geothermal', 'geothermal', 'kerosene', 'kerosene', 'natural gas', 'coal', 'lng', 'lpg','msw', 
                                          NA,'natural gas','MWh',NA,'natural gas','uranium','natural gas','oil','biomass',NA,NA,NA,'coal','oil','uranium','propane',
                                          'biomass',NA,'oil','natural gas',NA,'coal','solar','uranium','oil','uranium','water','coal','biomass',NA,'wind',NA,NA,'propane',NA,
                                          'coal','oil','coal','natural gas','natural gas', 'natural gas',NA,NA,NA,NA,'biomass','biomass','oil',NA))
@@ -151,7 +154,10 @@ cap.eia = cap.raw %>%
   left_join(eia.dict.5, by = 'fuel_2') %>%
   left_join(eia.dict.6, by = 'fuel_3') %>%
   # Add three columns for the primary, secondary, and tertiary fuel used by each unit (could use a mutate operation here)
-  left_join(retirement, by = c('utility_code', 'plant_code', 'generator_code', 'year'))
+  left_join(retirement, by = c('utility_code', 'plant_code', 'generator_code', 'year')) %>%
+  mutate(retirement = ifelse(is.na(retirement)==TRUE & status_code_1=='RE', 1989, retirement)) %>%
+  mutate(retirement = ifelse(is.na(retirement)==TRUE & status_code_2 == 'RE', 1989, retirement))
+  # There are a number of retired plants that don't have a retirement date. We assign these plants the year before our dataset begins.
 
 
 
