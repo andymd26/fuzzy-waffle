@@ -33,6 +33,23 @@ The likelihood function then is $\mathcal{L(\beta)} = \prod_{n=1}^N \prod_{i} \l
 
 
 \section{Data}
+[Discussion of EIA Form 860 and AEO supplemental tables].
+The dependent variable of our analysis is the estimated annual capacity addition by prime mover and primary fuel type weighted by its capacity factor.
+We generate the variable using information from the EIA Form 860, which is a survey of electric utilities and contains detailed information down to the generator level.
+The variable is calculated as the difference in summer capacity across all unique pairings of primary fuel and prime mover technology.
+One issue that remains in the data, having accounted for retirements and primary fuel changes, is the continued existence of negative values (a negative value in this situation would imply a negative capacity expansion, which should be impossible given the removal of retired and fuel switching plants).
+A survey of the data appears to show that this could be an issue of plant derating.\footnote{For example, Utility 13781 operates Plant 3982, Generator 4, which has an installed summer capacity of 22 MW and a steam turbine to convert biomass to electricity. The unit exists in the database for the period 1990 to 1995 but in 1992 the installed capacity drops to 20 MW. By 1995 the capacity returns to 22 MW before the unit then drops out of the survey for the period 1996 to 2004. When it returns in 2004 it has a capacity of 22.6, which declines to 22 MW in 2005. By 2010, the installed summer capacity is 15 MW, which remains its capacity to present. During this period there is no change in the operating status of the unit nor was it retired and brought back online.} 
+
+As a result of these issues, we instead use the in service date for each unit. 
+Only a small number (~50) of the approximately 375,000 entries in the data are missing the in service date.
+One potential issue with using this date, as opposed to backing out the capacity addition in the process above is that it will not pick up repowering or derating in the data.
+However, given the purpose of this exercise this should not be a problem. 
+  
+
+
+Fixed operations and maintenance costs are expenses that don't vary with production such as routine preventive and predictive maintenance, general and administrative expenses, fees required to participate in NERC and other regulatory bodies, etc. \parencite{eiaupdatedcapital2010}.
+Variable operation and maintenance costs are expenses that by definition vary with production such as, water, disposal expenses, power purchases, consumable materials and supplies, etc. \parencite{eiaupdatedcapital2010}.   
+
 We assume the predominant operation cost for a fossil fuel generator is the fuel cost. 
 For renewable sources we assume \ldots. 
 Fuel price data for the period (1/1986-5/2016) is from the Energy Information Administration (EIA) sources.
