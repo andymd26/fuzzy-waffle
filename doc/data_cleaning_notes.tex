@@ -1,11 +1,17 @@
 \documentclass[10pt]{report}
 \usepackage{graphicx} 
+\usepackage{tabu}
 \usepackage[draft]{hyperref} 
 % without [draft] this was happening http://tex.stackexchange.com/questions/148411/url-in-footnote-spans-two-pages
+% seems to be a bug between hyperref and tabu (need to load hyperref after tabu)
 \usepackage{amsmath}
-\usepackage{tabularx}
+\usepackage{ulem}
+\usepackage{xcolor}
 \usepackage{endnotes}
 \usepackage{verbatimbox}
+\usepackage{longtable}
+\usepackage{pdflscape}
+\usepackage{geometry}
 \usepackage{float} % necessary for placement of figures
 \usepackage[style = authoryear, sorting = nyt, backend = biber]{biblatex}
 % \addbibresource[location = local, type = file]{C:/Users/bloh356/Google Drive/Library/Library.bib}
@@ -22,10 +28,326 @@
 In this document we document the steps necessary to create the multinomial logit dataset. 
 For the multinomial dataset we would like a data set that contains a column with the positive change in capacity for each fuel and primary mover combination, the heat rate adjusted fuel price data, marginal cost of operation data (for renewable resources and hydro), and overnight capital cost data. 
 
+There are several available means to complete the data processing, as well as some alternative to increase the quality of the data set (each with a varying degree of effort required):
+\begin{enumerate}
+\item 
+\item Overnight costs estimates currently run from 1997 to present and are derived from the supplemental tables of the Annual Energy Outlooks (AEOs). 
+Ignoring for the moment a discussion of the quality of the the data, we could supplement the AEO estimates with other data sources including trends in fossil fuel and nuclear power plant overnight costs from available cost indexes (see Chapter \ref{overnight} for more discussion of available data sources), as well as wind cost estimates from Figure 8 in \cite{bolinger2009wind}. 
+\item Incorporate criticisms from the literature of AEO overnight cost estimates 
+\item Incorporate theoretical heat rate limits into the regression model for technologies that presently lack them
+\item \sout{Further analysis of the linear regression model, specifically, where we might be abusing the sample sizes, additional variables, etc.
+Some of the predicted values are pretty wonky.} 
+\begingroup
+\color{red} 
+The simple linear regression model with heat rate as a function of time was having trouble with immature technologies (i.e., biomass).
+These technologies experienced a period with rapid changes in efficiency before then experiencing a period with slower changes.  
+We added the nonlinear term, which improves the fit. 
+For some technologies there is a large discrepancy between the 1990 to 1995 EIA Form 860 data and the California Almanac data for 2001 to 2015 that the model has a hard time fitting (i.e., biomass)
+\endgroup
+\item Marginal cost estimates for biomass, uranium, \ldots
+\item Heat rate data missing for combined cycle (coal), combustion turbine (coal) 
+\item \sout{Use the annual capacity additions data in place of the difference in MW installed summer capacity data (retirements hide capacity additions).}
+\begingroup
+\color{red}
+We incorporated the retirement date into the analysis by subtracting retired assets from the total installed summer capacity before taking the difference between years (i.e., year - lag(year)). 
+In this way, the dependent variable for the analysis now contains our best guess at capacity additions by primary fuel and production technology for each year. 
+\endgroup
+\item \ldots
+\end{enumerate}
+
 The remainder of the document describes the process for creating the data set for the discrete choice model.
 
+Fixed operations and maintenance costs are expenses that don't vary with production such as routine preventive and predictive maintenance, general and administrative expenses, fees required to participate in NERC and other regulatory bodies, etc. \parencite{eiaupdatedcapital2010}.
+Variable operation and maintenance costs are expenses that by definition vary with production such as, water, disposal expenses, power purchases, consumable materials and supplies, etc. \parencite{eiaupdatedcapital2010}.   
 
-\chapter{Merging EIA overnight cost estimates with Form 860 generator level data}
+
+\newpage
+\newgeometry{margin=0.5cm}
+\begingroup	
+\begin{scriptsize}
+\begin{landscape}
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{longtable}{|lllllllll|}
+\caption{Data sources by production technology and primary fuel} \\
+\hline 
+\textbf{Year} & \textbf{Biomass} & \textbf{Coal} & \textbf{Conv CC} & \textbf{Conv CC} & \textbf{Conv CC} & \textbf{Conv CC} & \textbf{Conv CC} & \textbf{Conv CT} \\
+ & \textbf{biomass} & \textbf{coal} & \textbf{biomass} & \textbf{coal} & \textbf{kerosene} & \textbf{ng} & \textbf{oil} & \textbf{coal} \\
+\hline
+\endfirsthead
+\multicolumn{9}{c}%
+{\tablename\ \thetable\ -- \textit{Continued from previous page}} \\
+\hline
+\textbf{Year} & \textbf{Biomass} & \textbf{Coal} & \textbf{Conv CC} & \textbf{Conv CC} & \textbf{Conv CC} & \textbf{Conv CC} & \textbf{Conv CC} & \textbf{Conv CT} \\
+ & \textbf{biomass} & \textbf{coal} & \textbf{biomass} & \textbf{coal} & \textbf{kerosene} & \textbf{ng} & \textbf{oil} & \textbf{coal} \\
+\hline 
+\endhead
+\hline \multicolumn{9}{r}{\textit{Continued on next page}} \\
+\endfoot
+%%
+\hline \\
+%% biomass
+1990 & \shortstack{Heatrate (Form 860)\footnote{EIA Form 860 provides generator level heat rate data} \\ Capacity (Form 860)\footnote{Chapter \ref{ch_mapping} contains more information on the data processing and assumptions undertaken here.}} &
+%% coal
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860) \\ Coal price (EIA)\footnote{Energy prices for fossil fuels are from the Electric Power Monthly. More information is available in Chapter \ref{ch_fuelcost}}} &
+%% conv cc biomass
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860)} &
+%% conv cc coal
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860) \\ Energy price (EIA)\footnote{Energy prices for fossil fuels are from the Electric Power Monthly. More information is available in Chapter \ref{ch_fuelcost}}} &
+%% conv cc kerosene
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860)} &
+%% conv cc ng
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860) \\ Energy price (EIA)\footnote{Energy prices for fossil fuels are from the Electric Power Monthly. More information is available in Chapter \ref{ch_fuelcost}}} &
+%% conv cc oil
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860) \\ Energy price (EIA)\footnote{Energy prices for fossil fuels are from the Electric Power Monthly. More information is available in Chapter \ref{ch_fuelcost}}} &
+%% conv ct coal
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860) \\ Energy price (EIA)\footnote{Energy prices for fossil fuels are from the Electric Power Monthly. More information is available in Chapter \ref{ch_fuelcost}}}\\
+\hline \\
+%% biomass
+1991 & \shortstack{Heatrate (Form 860) \\ Capacity (Form 860) \\ Energy price (EIA)} &
+%% coal
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860) \\ Coal price (EIA)} &
+%% conv cc biomass
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860)} &
+%% conv cc coal
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860) \\ Energy price (EIA)} &
+%% conv cc kerosene
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860)} &
+%% conv cc ng
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860) \\ Energy price (EIA)} &
+%% conv cc oil
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860) \\ Energy price (EIA)} &
+%% conv ct coal
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860) \\ Energy price (EIA)} \\
+\hline \\
+%% biomass
+1992 & \shortstack{Heatrate (Form 860) \\ Capacity (Form 860)}  &
+%% coal
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860) \\ Coal price (EIA)} &
+%% conv cc biomass
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860)} &
+%% conv cc coal
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860) \\ Energy price (EIA)} &
+%% conv cc kerosene
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860)} &
+%% conv cc ng
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860) \\ Energy price (EIA)} &
+%% conv cc oil
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860) \\ Energy price (EIA)} &
+%% conv ct coal
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860) \\ Energy price (EIA)}\\
+\hline \\
+%% biomass
+1993 & \shortstack{Heatrate (Form 860) \\ Capacity (Form 860)}  &
+%% coal
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860) \\ Coal price (EIA)} &
+%% conv cc biomass
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860)} &
+%% conv cc coal
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860) \\ Energy price (EIA)} &
+%% conv cc kerosene
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860)} &
+%% conv cc ng
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860) \\ Energy price (EIA)} &
+%% conv cc oil
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860) \\ Energy price (EIA)} &
+%% conv ct coal
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860) \\ Energy price (EIA)} \\
+\hline \\
+%% biomass
+1994 & \shortstack{Heatrate (Form 860) \\ Capacity (Form 860)}  &
+%% coal
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860) \\ Coal price (EIA)} &
+%% conv cc biomass
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860)} &
+%% conv cc coal
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860) \\ Energy price (EIA)} &
+%% conv cc kerosene
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860)} &
+%% conv cc ng
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860) \\ Energy price (EIA)} &
+%% conv cc oil
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860) \\ Energy price (EIA)} &
+%% conv ct coal
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860) \\ Energy price (EIA)} \\
+\hline \\
+%% biomass
+1995 & \shortstack{Heatrate (Form 860) \\ Capacity (Form 860)}  &
+%% coal
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860) \\ Coal price (EIA)} &
+%% conv cc biomass
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860)} &
+%% conv cc coal
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860) \\ Energy price (EIA)} &
+%% conv cc kerosene
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860)} &
+%% conv cc ng
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860) \\ Energy price (EIA)} &
+%% conv cc oil
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860) \\ Energy price (EIA)} &
+%% conv ct coal
+\shortstack{Heatrate (Form 860) \\ Capacity (Form 860) \\ Energy price (EIA)}\\
+\hline \\
+%% biomass
+1996 & Capacity (Form 860) &
+%% coal
+\shortstack{Capacity (Form 860) \\ Coal price (EIA)} &
+%% conv cc biomass
+\shortstack{Capacity (Form 860)} &
+%% conv cc coal
+\shortstack{Capacity (Form 860) \\ Energy price (EIA)} &
+%% conv cc kerosene
+\shortstack{Capacity (Form 860)} &
+%% conv cc ng
+\shortstack{Capacity (Form 860) \\ Energy price (EIA)} &
+%% conv cc oil
+\shortstack{Capacity (Form 860) \\ Energy price (EIA)} &
+%% conv ct coal
+\shortstack{Capacity (Form 860) \\ Energy price (EIA)} \\
+\hline \\
+%% biomass
+1997 & \shortstack{Capacity (Form 860) \\ Biomass overnight cost (AEO)} &
+%% coal 
+\shortstack{Capacity (Form 860) \\ Coal plant overnight cost (AEO) \\ Coal price (EIA)} &
+%% conv cc biomass
+\shortstack{Capacity (Form 860)} &
+%% conv cc coal
+\shortstack{Capacity (Form 860) \\ Energy price (EIA)} &
+%% conv cc kerosene
+\shortstack{Capacity (Form 860)} &
+%% conv cc ng
+\shortstack{Capacity (Form 860) \\ Energy price (EIA)} &
+%% conv cc oil
+\shortstack{Capacity (Form 860) \\ Energy price (EIA)} &
+%% conv ct coal
+\shortstack{Capacity (Form 860) \\ Energy price (EIA)} \\
+\hline \\
+%% biomass
+1998 & Capacity (Form 860) &
+%% coal
+\shortstack{Capacity (Form 860) \\ Coal price (EIA)} &
+%% conv cc biomass
+\shortstack{Capacity (Form 860)} &
+%% conv cc coal
+\shortstack{Capacity (Form 860) \\ Energy price (EIA)} &
+%% conv cc kerosene
+\shortstack{Capacity (Form 860)} &
+%% conv cc ng
+\shortstack{Capacity (Form 860) \\ Energy price (EIA)} &
+%% conv cc oil
+\shortstack{Capacity (Form 860) \\ Energy price (EIA)} &
+%% conv ct coal
+\shortstack{Capacity (Form 860) \\ Energy price (EIA)}  \\
+\hline \\
+%% biomass
+1999 & \shortstack{Capacity (Form 860) \\ Biomass overnight cost (AEO)} &
+%% coal
+\shortstack{Capacity (Form 860) \\ Coal overnight cost (AEO) \\ Coal price (EIA)} &
+%% conv cc biomass
+\shortstack{Capacity (Form 860)} &
+%% conv cc coal
+\shortstack{Capacity (Form 860) \\ Energy price (EIA)} &
+%% conv cc kerosene
+\shortstack{Capacity (Form 860)} &
+%% conv cc ng
+\shortstack{Capacity (Form 860) \\ Energy price (EIA)} &
+%% conv cc oil
+\shortstack{Capacity (Form 860) \\ Energy price (EIA)} &
+%% conv ct coal
+\shortstack{Capacity (Form 860) \\ Energy price (EIA)}  \\
+\hline \\
+%% biomass 
+2000 & \shortstack{Capacity (Form 860) \\ Biomass overnight cost (AEO) } &
+%% coal
+\shortstack{Capacity (Form 860) \\ Coal overnight cost (AEO) \\ Coal price (EIA)} & \\
+\hline \\
+%%biomass
+2001 & \shortstack{Heatrate (CA Almanac) \\ Capacity (Form 860) \\ Biomass overnight cost (AEO)} &
+%% coal
+\shortstack{Heatrate (CA Almanac) \\ Capacity (Form 860) \\ Coal overnight cost (AEO) \\ Energy price (EIA)} & \\
+\hline \\
+%% biomass
+2002 & \shortstack{Heatrate (CA Almanac) \\ Capacity (Form 860) \\ Biomass overnight cost (AEO)}  &
+%% coal
+\shortstack{Heatrate (CA Almanac) \\ Capacity (Form 860) \\ Coal overnight cost (AEO) \\ Coal price (EIA) } & \\
+\hline \\
+%% biomass
+2003 & \shortstack{Heatrate (CA Almanac) \\ Capacity (Form 860) \\ Biomass overnight cost (AEO)}  &
+%% coal
+\shortstack{Heatrate (CA Almanac) \\ Capacity (Form 860) \\ Coal overnight cost (AEO) \\ Coal price (EIA)} & \\
+\hline \\
+%% biomass
+2004 & \shortstack{Heatrate (CA Almanac) \\Capacity (Form 860) \\ Biomass overnight cost (AEO)}  &
+%% coal
+\shortstack{Heatrate (CA Almanac) \\ Capacity (Form 860) \\ Coal overnight cost (AEO) \\ Coal price (EIA)} & \\
+\hline \\
+%% biomass
+2005 & \shortstack{Heatrate (CA Almanac) \\ Capacity (Form 860) \\ Biomass overnight cost (AEO)}  &
+%% coal
+\shortstack{Capacity (Form 860) \\ Coal price (EIA) \\ Coal overnight cost (AEO)} & \\
+\hline \\
+%% biomass
+2006 & \shortstack{Heatrate (CA Almanac) \\ Capacity (Form 860) \\ Biomass overnight cost (AEO)} &
+%% coal
+\shortstack{Capacity (Form 860) \\ Coal price (EIA) \\ Coal overnight cost (AEO)} & \\
+\hline \\
+%% biomass
+2007 & \shortstack{Heatrate (CA Almanac) \\ Capacity (Form 860) \\ Biomass overnight cost (AEO)} &
+%% coal
+\shortstack{Capacity (Form 860) \\ Coal price (EIA) \\ Coal overnight cost (AEO)} & \\
+\hline \\
+%% biomass
+2008 & \shortstack{Heatrate (CA Almanac) \\ Capacity (Form 860) \\ Biomass overnight cost (AEO)} &
+%% coal
+\shortstack{Coal overnight cost (AEO) \\ Capacity (Form 860) \\ Coal price (EIA)} & \\
+\hline \\
+%% biomass
+2009 & \shortstack{Heatrate (CA Almanac) \\ Capacity (Form 860) \\ Biomass overnight cost (AEO) } &
+%% coal
+\shortstack{Coal overnight cost (AEO) \\ Capacity (Form 860) \\ Coal price (EIA)} & \\
+\hline \\
+%% biomass
+2010 & \shortstack{Overnight cost (AEO) \\ Heatrate (CA Almanac) \\ Capacity (Form 860)} &
+%% coal
+\shortstack{Coal plant overnight cost (AEO) \\ Capacity (Form 860) \\ Coal price (EIA)} & \\
+\hline \\
+%% biomass
+2011 & \shortstack{Overnight cost (AEO) \\ Heatrate (CA Almanac) \\ Capacity (Form 860)} &
+%% coal
+\shortstack{Coal plant overnight cost (AEO) \\ Capacity (Form 860) \\ Coal price (EIA)} & \\
+\hline \\
+%% biomass
+2012 & \shortstack{Overnight cost (AEO) \\ Heatrate (CA Almanac) \\ Capacity (Form 860)} &
+%% coal
+\shortstack{Coal plant overnight cost (AEO) \\ Capacity (Form 860) \\ Coal price (EIA)} & \\
+\hline \\
+%% biomass
+2013 & \shortstack{Overnight cost (AEO) \\ Heatrate (CA Almanac) \\ Capacity (Form 860)} &
+%% coal
+\shortstack{Coal plant overnight cost (AEO) \\ Capacity (Form 860) \\ Coal price (EIA)} & \\
+\hline \\
+%% biomass
+2014 & \shortstack{Overnight cost (AEO) \\ Heatrate (CA Almanac) \\ Capacity (Form 860)} &
+%% coal
+\shortstack{Coal plant overnight cost (AEO) \\ Capacity (Form 860) \\ Coal price (EIA)} & \\
+\hline \\
+%% biomass
+2015 & \shortstack{Overnight cost (AEO) \\ Heatrate (CA Almanac) \\ Capacity (Form 860)} &
+%% coal
+\shortstack{Coal plant overnight cost (AEO) \\ Capacity (Form 860) \\ Coal price (EIA)} & \\
+\\
+
+\hline 
+\end{longtable}
+\end{center}
+\end{landscape}
+\end{scriptsize}
+\endgroup
+\newpage
+\restoregeometry
+
+
+\chapter{Merging EIA overnight cost estimates with Form 860 generator level data}\label{ch_mapping}
 In this section we discuss the process used to merge information from the EIA overnight cost assumptions for electricity production plants with generator level data from the EIA Form-860 survey.  
 We discuss the time dimension of the overnight costs in subsequent chapters. 
 The result of this work is a dataset to be used in the multinomial logit.
@@ -143,7 +465,7 @@ There are 1,383 municipal solid waste generators in the dataset with a total ins
 
 \subsubsection{Distributed generation}
 The overnight cost dataset includes two cost estimates for distributed generation: peak and non peak.
-We assign all generators with megawatt hour (MWH) as the primary fuel to distributed generation (i.e,. battery energy storage (BA) and flywheel energy storage (FW)). 
+We assign all generators with megawatt hour (MWH) as the primary fuel to peak distributed generation (i.e,. battery energy storage (BA) and flywheel energy storage (FW)). 
 In addition, we assign generators with compressed energy storage (CE) prime mover designation.
 There are 81 distributed generators in the dataset with a total installed summer capacity of 0.002875 TW. 
 
@@ -289,7 +611,7 @@ In 1993 the average heat rate for the 3 steam turbines using FO4 is 16,200, whic
 
 In both these cases we remove the outlier values so that the linear regression model is not unduly influenced by their presence. 
 
-\chapter{Marginal costs: Input fuel prices}
+\chapter{Marginal costs: Input fuel prices}\label{ch_fuelcost}
 The predominant marginal cost for fossil fuel fired power plants is the cost of fuel \parencite{}. 
 
 In addition to the fuels found in the Electric Utility Receipts of and Average Cost for Fossil Fuels Table, fuel price information is available for kerosene, uranium, and propane.
@@ -306,8 +628,8 @@ For continuity purposes we use total petroleum price, instead of heavy oil, in t
 
 
 
-\chapter{Overnight cost data}
-We use the Annual Energy Outlooks (AEOs) for overnight capital cost, fixed operations and maintenance cost, and variable operations and maintenance costs. 
+\chapter{Overnight cost data}\label{overnight}
+We use the Annual Energy Outlooks (AEOs) base overnight capital cost estimates, fixed operations and maintenance cost, and variable operations and maintenance costs. 
 \cite{} (Matteo's paper) show that the costs of climate change adaptation are highly sensitive to overnight capital cost assumptions of power plant technologies. 
 \cite{} (Matteo's paper) in their work focus on nth of its kind plants for nuclear, pulverized coal, natural gas combined cycle, and wind power plants (and excludes carbon capture and energy storage). 
 
