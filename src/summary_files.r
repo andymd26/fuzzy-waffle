@@ -2,32 +2,23 @@ cap.eia = read.table(paste0(path_data, "ca_almanac_R.txt.gz"), header=TRUE, sep 
 summary.cap.eia.year = cap.eia %>%
   filter(overnight_category != 'undefined') %>%
   filter(is.na(fuel_1_general) == FALSE) %>%
-  filter(retirement >= 1990 | is.na(retirement)==TRUE) %>%
-  group_by(utility_code, plant_code, generator_code) %>%
-  mutate(retirement.ind = ifelse(is.na(retirement)==FALSE, summer_capacity, NA)) %>%
-  mutate(prime_mover = tolower(prime_mover)) %>%
-  mutate(prime_mover = gsub(" ","", prime_mover)) %>%
-  mutate(prime_mover = gsub("[^a-zA-Z0-9]","", prime_mover)) %>%
-  mutate(prime.mover.change = ifelse(prime_mover == lag(prime_mover), NA, summer_capacity)) %>%
-  mutate(fuel.change = ifelse(fuel_1_general == lag(fuel_1_general), NA, summer_capacity)) %>%
-  ungroup() %>%
-  group_by(overnight_category, year, fuel_1_general) %>%
-  summarize(capacity_mw = sum(summer_capacity),
-            retirement_mw = sum(retirement.ind, na.rm = TRUE),
-            prime_mover_change_mw = sum(prime.mover.change, na.rm = TRUE),
-            fuel_change_mw = sum(fuel.change, na.rm=TRUE),
+  filter(is.na(in_service) == FALSE) %>%
+  # Remove entries that don't have the inservice date
+  filter(in_service >= 1990) %>%
+  group_by(overnight_category, in_service, fuel_1_general) %>%
+  summarize(capacity_mw = sum(summer_capacity, na.rm=TRUE),
             n = n(), 
             avg_size_mw = sum(summer_capacity)/n(),
             avg_age = mean(age),
             heat_rate = mean(heat_rate, na.rm=TRUE)) %>%
-  arrange(overnight_category, fuel_1_general, year) %>%
+  arrange(overnight_category, fuel_1_general, in_service) %>%
   ungroup() %>%
   group_by(overnight_category, fuel_1_general) %>%
-  complete(year = seq(from = 1990, to = 2014, by = 1)) %>%
-  mutate(summer_cap_WOR = capacity_mw - retirement_mw) %>%
-  mutate(diff_mw = summer_cap_WOR - lag(summer_cap_WOR)) %>%
+  complete(in_service = seq(from = 1990, to = 2014, by = 1)) %>%
   ungroup() %>%
-  arrange(overnight_category, fuel_1_general, year) 
+  mutate(capacity_mw = replace(capacity_mw, is.na(capacity_mw)==TRUE, 0)) %>%
+  arrange(overnight_category, fuel_1_general, in_service) 
+colnames(summary.cap.eia.year)[colnames(summary.cap.eia.year)=='in_service'] = 'year'
 
 theoretical.limits = data.frame(overnight_category = c("biomass", "coal", "conventional combined cycle", "conventional combined cycle", 
                                                        "conventional combustion turbine", "conventional combustion turbine", "igcc"),
