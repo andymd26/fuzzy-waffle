@@ -2,10 +2,20 @@ cap.eia = read.table(paste0(path_data, "ca_almanac_R.txt.gz"), header=TRUE, sep 
 summary.cap.eia.year = cap.eia %>%
   filter(overnight_category != 'undefined') %>%
   filter(is.na(fuel_1_general) == FALSE) %>%
-  group_by(overnight_category, year, fuel_1_general) %>%
+  filter(retirement >= 1990 | is.na(retirement)==TRUE) %>%
+  group_by(utility_code, plant_code, generator_code) %>%
   mutate(retirement.ind = ifelse(is.na(retirement)==FALSE, summer_capacity, NA)) %>%
+  mutate(prime_mover = tolower(prime_mover)) %>%
+  mutate(prime_mover = gsub(" ","", prime_mover)) %>%
+  mutate(prime_mover = gsub("[^a-zA-Z0-9]","", prime_mover)) %>%
+  mutate(prime.mover.change = ifelse(prime_mover == lag(prime_mover), NA, summer_capacity)) %>%
+  mutate(fuel.change = ifelse(fuel_1_general == lag(fuel_1_general), NA, summer_capacity)) %>%
+  ungroup() %>%
+  group_by(overnight_category, year, fuel_1_general) %>%
   summarize(capacity_mw = sum(summer_capacity),
             retirement_mw = sum(retirement.ind, na.rm = TRUE),
+            prime_mover_change_mw = sum(prime.mover.change, na.rm = TRUE),
+            fuel_change_mw = sum(fuel.change, na.rm=TRUE),
             n = n(), 
             avg_size_mw = sum(summer_capacity)/n(),
             avg_age = mean(age),
