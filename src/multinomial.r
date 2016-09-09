@@ -59,7 +59,7 @@ tt = data.frame()
 pb <- txtProgressBar(min = 0, max = nrow(capacity_1mw), style = 3)
 for (i in 1:nrow(capacity_1mw)) {
   Sys.sleep(0.1)
-  temp = categories[!categories$choice %in% data.final$choice[i], ]
+  temp = categories[!categories$choice %in% capacity_1mw$choice[i], ]
   temp['year'] = capacity_1mw[i, 'year']
   temp['capacity_mw'] = 0
   temp['id'] = capacity_1mw[i,'id']
@@ -68,6 +68,10 @@ for (i in 1:nrow(capacity_1mw)) {
   setTxtProgressBar(pb, i)
 }
 close(pb)
+
+my_func = function(row){
+  a = categories[!categories$choice %in% data.final$choice[i], ]
+}
 
 capacity_1mw = data.final %>%
   select(year,overnight_category, fuel_1_general, capacity_mw) %>%
