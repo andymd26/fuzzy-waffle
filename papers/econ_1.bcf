@@ -2097,9 +2097,11 @@
     <bcf:datasource type="file" datatype="bibtex">/Users/bloh356/Google Drive/Library/Library.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
-    <bcf:citekey order="1">eiaupdatedcapital2010</bcf:citekey>
+    <bcf:citekey order="1">eiapower2016</bcf:citekey>
+    <bcf:citekey order="1">eiapower2014</bcf:citekey>
     <bcf:citekey order="2">eiaupdatedcapital2010</bcf:citekey>
-    <bcf:citekey order="4">train:2009aa</bcf:citekey>
+    <bcf:citekey order="3">eiaupdatedcapital2010</bcf:citekey>
     <bcf:citekey order="5">train:2009aa</bcf:citekey>
+    <bcf:citekey order="6">train:2009aa</bcf:citekey>
   </bcf:section>
 </bcf:controlfile>
