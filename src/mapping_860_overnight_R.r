@@ -121,7 +121,7 @@ cap.eia = cap.raw %>%
   # We are assuming that BL was incorrectly entered BLQ
   filter(summer_capacity != 0) %>%
   # Remove plants with no summer time capacity (not sure why they exist in the data anyway)
-  # filter(status_code_1 != "RE" & status_code_2 != "RE") %>%
+  filter(status_code_1 != "RE" & status_code_2 != "RE") %>%
   # If we keep the retired plants in the database we can backout capacity additions for each year using the retired date (which is available)
   filter(status_code_2 != "RA") %>%
   # Remove not yet reactivated plants
