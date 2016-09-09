@@ -4,10 +4,18 @@
 \usepackage{tabularx}
 \usepackage{endnotes}
 \usepackage{verbatimbox}
+\usepackage{geometry}
+\usepackage{tikz}
+\usepackage{pdflscape}
+\usetikzlibrary{shapes, arrows, shadows}
 \usepackage{float} % necessary for placement of figures
 \usepackage[style = authoryear, sorting = nyt, backend = biber]{biblatex}
 % \addbibresource[location = local, type = file]{C:/Users/bloh356/Google Drive/Library/Library.bib}
 \addbibresource[location = local, type = file]{/Users/bloh356/Google Drive/Library/Library.bib}
+
+\tikzstyle{block} = [draw, rectangle, text centered, text width = 6em, minimum height = 15mm, node distance = 8em]
+\tikzstyle{elli} = [draw, ellipse, text centered, text width = 8em, minimum height = 15mm, node distance = 10em]
+\tikzstyle{decision} = [diamond, draw, node distance = 4em]
 
 \title{ECON\_1 Task}
 \author{Andrew Blohm}
@@ -45,7 +53,7 @@ Only a small number (~50) of the approximately 375,000 entries in the data are m
 One potential issue with using this date, as opposed to backing out the capacity addition in the process above is that it will not pick up repowering or derating in the data.
 However, given the purpose of this exercise this should not be a problem. 
   
-
+We weight the dependent variable by its capacity factor \parencite{eiapower2016,eiapower2014}.
 
 Fixed operations and maintenance costs are expenses that don't vary with production such as routine preventive and predictive maintenance, general and administrative expenses, fees required to participate in NERC and other regulatory bodies, etc. \parencite{eiaupdatedcapital2010}.
 Variable operation and maintenance costs are expenses that by definition vary with production such as, water, disposal expenses, power purchases, consumable materials and supplies, etc. \parencite{eiaupdatedcapital2010}.   
@@ -76,8 +84,28 @@ We use the following simple linear regression model to interpolate between these
 ln(IC_{kt}) = \beta_{0k} + \beta_{1kt} \cdot Year_{t} + \beta_{2kt} \cdot tech \cdot year \epsilon
 \end{equation}
 
+\newpage
+\newgeometry{margin=0.5cm}
+\begin{landscape}
+\begin{tikzpicture}
+\node[elli](market){Electricity market};
+% Fuel
+\node[block, left of=market, xshift=-5em, below of=market, yshift = 3em](fuel1){Coal}; 
+\node[block, right of=fuel1](fuel2){Natural gas};
+\node[block, right of=fuel2](fuel3){Oil};
+\node[block, right of=fuel3](fuel4){Geothermal};
+\node[block, right of=fuel4](fuel5){Water};
+\node[block, right of=fuel5](fuel6){Uranium};
+\node[block, right of=fuel6](fuel7){Solar};
+\node[block, right of=fuel7](fuel8){Wind};
+% Production technology
+\node[decision, below of=fuel1, yshift=-5em, xshift=-5em](tech1){Coal};
+\node[decision, right of=tech1](tech2){IGCC};
+\end{tikzpicture}
+\end{landscape}
+\restoregeometry
 
-
+\newpage
 \section{Model}
 These types of models are usually specified as a set of individuals ($n$) choosing between some alternatives ($j$).
 We propose that the total net change in capacity, which varies year by year, is the result of an exogenous process that exists outside the model. 
