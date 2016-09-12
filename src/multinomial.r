@@ -1,3 +1,11 @@
+my_func = function(x, y, z){
+  a = categories[!categories$choice %in% x, ]
+  a['id'] = z
+  a['year'] = y
+  return(data.frame(a))
+}
+# This function adds all of the choice alternatives to the dataset (not just the option that was selected)
+
 data.raw = read.table(paste0(path_data, "processed.overnight.txt.gz"), header=TRUE, sep ="\t", as.is = TRUE)
 
 data.final = data.raw %>%
@@ -27,70 +35,35 @@ data.final = data.raw %>%
   mutate(adj.overnight = base.overnight/capacity.factor.avg) %>%
   mutate(choice = paste(overnight_category, fuel_1_general, sep = " ")) %>%
   arrange(overnight_category, fuel_1_general, year) %>%
-  mutate(id.choice = NA) %>%
-  mutate(id.choice = replace(id.choice, choice == "coal coal", 1)) %>%
-  mutate(id.choice = replace(id.choice, choice == "conventional combined cycle natural gas", 2)) %>%
-  mutate(id.choice = replace(id.choice, choice == "conventional combined cycle oil", 3)) %>%
-  mutate(id.choice = replace(id.choice, choice == "conventional combustion turbine natural gas", 4)) %>%
-  mutate(id.choice = replace(id.choice, choice == "conventional combustion turbine oil", 5)) %>%
-  mutate(id.choice = replace(id.choice, choice == "geothermal geothermal", 6)) %>%
-  mutate(id.choice = replace(id.choice, choice == "hydro water", 7)) %>%
-  mutate(id.choice = replace(id.choice, choice == "igcc coal", 8)) %>%
-  mutate(id.choice = replace(id.choice, choice == "nuclear uranium", 9)) %>%
-  mutate(id.choice = replace(id.choice, choice == "photovoltaic solar", 10)) %>%
-  mutate(id.choice = replace(id.choice, choice == "solar thermal solar", 11)) %>%
-  mutate(id.choice = replace(id.choice, choice == "wind wind", 12)) %>%
-  mutate(choice.logic = capacity_mw > 0) %>%
-  select(year, id.choice, choice, overnight_category, fuel_1_general, capacity.factor.avg, capacity_mw, adj.fuel.price, variable.o.m, fixed.o.m, adj.overnight)
+  select(year, choice, overnight_category, fuel_1_general, capacity.factor.avg, capacity_mw, adj.fuel.price, variable.o.m, fixed.o.m, adj.overnight)
   
 gz1 = gzfile(paste0(path_data,"data.final.txt.gz"), "w")
 write.table(data.final, file = gz1, sep="\t", col.names = TRUE, row.names = FALSE)
 close(gz1) 
 
-
-categories = unique(data.final[, c('overnight_category', 'fuel_1_general')])
-categories['choice'] = paste(categories$overnight_category,categories$fuel_1_general, sep=" ")
-categories['year'] = NA
-categories['capacity_mw'] = NA
-categories['id'] = NA
-categories['year'] = NA
-
-tt = data.frame()
-pb <- txtProgressBar(min = 0, max = nrow(capacity_1mw), style = 3)
-for (i in 1:nrow(capacity_1mw)) {
-  Sys.sleep(0.1)
-  temp = categories[!categories$choice %in% capacity_1mw$choice[i], ]
-  temp['year'] = capacity_1mw[i, 'year']
-  temp['capacity_mw'] = 0
-  temp['id'] = capacity_1mw[i,'id']
-  temp['decision'] = FALSE
-  tt = rbind(temp, tt)
-  setTxtProgressBar(pb, i)
-}
-close(pb)
-
-my_func = function(row){
-  a = categories[!categories$choice %in% data.final$choice[i], ]
-}
+categories = unique(data.final[, c('overnight_category', 'fuel_1_general')]) %>%
+  mutate(choice = paste(categories$overnight_category,categories$fuel_1_general, sep=" ")) %>%
+  mutate(year = NA) %>%
+  mutate(id = NA) %>%
+  mutate(year = NA) %>%
+  mutate(decision = FALSE)
 
 capacity_1mw = data.final %>%
-  select(year,overnight_category, fuel_1_general, capacity_mw) %>%
+  select(year,overnight_category, fuel_1_general, choice, capacity_mw) %>%
   slice(rep(1:n(), round(capacity_mw))) %>%
-  mutate(id = seq(from=1, to = nrow(.), by = 1)) 
+  mutate(id = seq(from=1, to = nrow(.), by = 1)) %>%
+  mutate(decision = TRUE)
 
-
-
-%>%
-  mutate(choice = TRUE) %>%
-  group_by(1:nrow(test)) %>%
-  do(categories['year'] = year[1]
-     categories$id = .$id
-     ) %>%
-  bind_rows()
-  rbind.fill() 
+df = capacity_1mw %>%
+  group_by(id) %>%
+  do(my_func(x = .$choice, y = .$year, z = .$id)) %>%
+  ungroup() %>%
+  bind_rows(capacity_1mw) %>%
+  select(overnight_category, fuel_1_general, choice, year, id, decision) %>%
+  left_join(data.final, by = c('overnight_category', 'fuel_1_general', 'choice', 'year'))
   
 
-temp[]
+
 
 data = mlogit.data(data.final, shape = 'long', choice = 'choice', varying = 8:11, alt.levels = c(1,2), id = "year")
 capacity = mlogit.data(data.final, shape = 'long', varying = 8:11, choice = 'choice', 
@@ -157,3 +130,18 @@ R> # estimate the model with only one nest elasticity
                     er
                     '
                   )), un.nest.el = TRUE)
+
+
+mutate(id.choice = NA) %>%
+  mutate(id.choice = replace(id.choice, choice == "coal coal", 1)) %>%
+  mutate(id.choice = replace(id.choice, choice == "conventional combined cycle natural gas", 2)) %>%
+  mutate(id.choice = replace(id.choice, choice == "conventional combined cycle oil", 3)) %>%
+  mutate(id.choice = replace(id.choice, choice == "conventional combustion turbine natural gas", 4)) %>%
+  mutate(id.choice = replace(id.choice, choice == "conventional combustion turbine oil", 5)) %>%
+  mutate(id.choice = replace(id.choice, choice == "geothermal geothermal", 6)) %>%
+  mutate(id.choice = replace(id.choice, choice == "hydro water", 7)) %>%
+  mutate(id.choice = replace(id.choice, choice == "igcc coal", 8)) %>%
+  mutate(id.choice = replace(id.choice, choice == "nuclear uranium", 9)) %>%
+  mutate(id.choice = replace(id.choice, choice == "photovoltaic solar", 10)) %>%
+  mutate(id.choice = replace(id.choice, choice == "solar thermal solar", 11)) %>%
+  mutate(id.choice = replace(id.choice, choice == "wind wind", 12)) %>%
