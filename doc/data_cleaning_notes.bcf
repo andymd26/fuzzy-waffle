@@ -2098,12 +2098,10 @@
   </bcf:bibdata>
   <bcf:section number="0">
     <bcf:citekey order="1">bolinger2009wind</bcf:citekey>
-    <bcf:citekey order="2">eiaupdatedcapital2010</bcf:citekey>
-    <bcf:citekey order="3">eiaupdatedcapital2010</bcf:citekey>
-    <bcf:citekey order="4">cec2016</bcf:citekey>
-    <bcf:citekey order="6">eiaaeo2016</bcf:citekey>
-    <bcf:citekey order="9">eiauranium2016</bcf:citekey>
-    <bcf:citekey order="16">du2009update</bcf:citekey>
-    <bcf:citekey order="19">mcnerney2011historical</bcf:citekey>
+    <bcf:citekey order="2">cec2016</bcf:citekey>
+    <bcf:citekey order="4">eiaaeo2016</bcf:citekey>
+    <bcf:citekey order="7">eiauranium2016</bcf:citekey>
+    <bcf:citekey order="14">du2009update</bcf:citekey>
+    <bcf:citekey order="17">mcnerney2011historical</bcf:citekey>
   </bcf:section>
 </bcf:controlfile>
