@@ -17,12 +17,21 @@
 \tikzstyle{elli} = [draw, ellipse, text centered, text width = 8em, minimum height = 15mm, node distance = 10em]
 \tikzstyle{decision} = [diamond, draw, node distance = 4em]
 
+\graphicspath {{figures/}}
+
 \title{ECON\_1 Task}
 \author{Andrew Blohm}
 \date{\today}
 
 \begin{document}
 \maketitle
+
+\section{Abstract}
+In this paper we estimate improved parameter estimates for determining the market share of individual electricity production technologies using a multinomial logit regression model. 
+The contributions of this paper are two fold: first, the data cleaning process required for the subsequent analysis is significant and not likely to have been accomplished before.
+We make this data available online at \url{https://github.com/andymd26/fuzzy-waffle}. 
+Second, GCAM is an integrated assessment model, which presently uses historic data to parameterize the electricity production technology market shares, which are then nonvarying. 
+This work incorporates important determinants in the relationship between preferences, market factors, and market share into the GCAM framework and thus strengthens its output.  
 
 \section{Theory: Discrete choice models}
 An agent ($n$) faces a choice of technology alternatives ($j$).  
@@ -110,6 +119,19 @@ ln(IC_{kt}) = \beta_{0k} + \beta_{1kt} \cdot Year_{t} + \beta_{2kt} \cdot tech \
 These types of models are usually specified as a set of individuals ($n$) choosing between some alternatives ($j$).
 We propose that the total net change in capacity, which varies year by year, is the result of an exogenous process that exists outside the model. 
 The purpose of this model is to determine the factors that effect the technology choice, which is a discrete choice problem.
+
+The determinants of the choice made by each individual amongst the entire choice set can be classified according to three indexes: the properties of each alternative, the choice situation, and properties of the individual \cite{}(Croissant mlogit package). 
+While we do face a repeated choice situation we don't have any individual decision makers in our analysis (i.e., we don't have his/her income information). 
+We use the mlogit package in R for the data analysis \parencite{mlogit2013}. 
+
+At least three types of variables are possible in the multinomial logit framework: alternative specific variables ($x_{ij}$) with generic effects ($\beta$); individual specific variables ($z_i$) with an alternative specific coefficient ($\gamma_j$); and alternative specific variables ($w_j$) with alternative specific coefficients ($\lambda_j$)\parencite{mlogit2013}.  
+Are they properties of the choice set or the individual decision maker?
+In our case, 
+
+Our dataset is a repeated cross section, whereby we have capacity additions over time but we don't follow the individuals making the decisions. 
+The dependent variable of the analysis is the annual new capacity, weighted by the capacity factor, for each production technology, primary fuel pairing. 
+Given that our dependent variable is the annual new capacity, which is allocated across several different production technologies and fuel pairings, it is not mutually exclusive, which is an underlying assumption of the discrete choice modeling framework.
+To address this issue we could model the decision process for each 
 
 \subsection{Logistic implementation}
 If a random variable $Y_{i}$ can take one of several discrete values $1, 2, \ldots, J$ then the probability that the $i$-th response is in the $j$-th category is $\lambda_{ij}$ (i.e., $\lambda_{ij} = \Pr\{Y_{i} = j\})$. 
