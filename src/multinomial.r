@@ -29,8 +29,12 @@ data.final = data.raw %>%
   filter(choice != 'igcc coal') %>%
   filter(choice != 'nuclear uranium') %>%
   # Neither of these alternatives is ever selected in the mix, which seems to cause issues in the mlogit estimation
+  mutate(choice_id = seq(from=1,to=nrow(.), by = 1)) %>%
+  mutate(choice = as.factor(choice)) %>%
+  mutate(year = as.factor(as.character(year))) %>%
   arrange(overnight_category, fuel_1_general, year) %>%
-  select(year, choice, overnight_category, fuel_1_general, capacity.factor.avg, capacity_mw, adj.fuel.price, variable.o.m, fixed.o.m, adj.overnight)
+  select(choice_id, year, choice, overnight_category, fuel_1_general, capacity.factor.avg, capacity_mw, adj.fuel.price, variable.o.m, 
+         fixed.o.m, adj.overnight)
 
 gz1 = gzfile(paste0(path_data,"data.final.txt.gz"), "w")
 write.table(data.final, file = gz1, sep="\t", col.names = TRUE, row.names = FALSE)
