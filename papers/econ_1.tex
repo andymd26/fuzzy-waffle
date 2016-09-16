@@ -139,6 +139,8 @@ Assuming the categories are both mutually exclusive and exhaustive then $\sum_{j
 The log-odds as estimated by the multinomial logit model then is $log \frac{\lambda_{ij}}{\lambda_{iJ}} = x_{i}^T \beta_j$.
 The multinomial logit model estimates $J - 1$ equations that compare each of the $J - 1$ categories to the baseline category $J$ (i.e., the multinomial logit model reduces to the standard logistic regression in the case of $J=2$. 
 
+In the multinomial case (i.e., more than two choices) the \ldots
+
 The dependent variable of interest is the market share of each technology (or fuel type) \textit{$S_1, S_2, \ldots, S_B$} with each share defined as $S_b = \frac{Q_b}{\sum_B Q_B}$.
 We assume that $Q_b$ (i.e., total sales, production, etc.) follows some Cobb-Douglas type production function, $Q_B = e^{\alpha_b}p_{b}^{\beta_b}$, which can be rewritten as $Q_B = exp\left(\alpha_b + \beta_b \cdot ln(p_b)\right)$.
 We can rewrite the market share ($S_{bt}$) as a function of the factors of production (see Equation \ref{MCI}), where $S_{bt}$ is interpreted as the likelihood that a technology $b$ is selected at time period $t$.  
@@ -146,27 +148,38 @@ We can rewrite the market share ($S_{bt}$) as a function of the factors of produ
 For the logit specification the log likelihood function is $ln(\mathcal{L(\beta)})= \sum_{n} \sum_{i} y_{ni}\left(\beta^{T} x_{ni}\right) - \sum_{n} \sum_{i} y_{ni} ln\left(\sum_{j}e^{\beta^{T}x_{nj}}\right)$.
 The maximum likelihood estimates of the $\beta$ parameter is then $\frac{\partial ln\left(\mathcal{L(\beta)}\right)}{\partial \beta} = 0$, which is $\sum_{n}\sum_{i} \left(y_{ni} - P_{ni}\right)\cdot x_{ni}$, where $P_{ni} = \frac{e^{\beta^{T}x_{ni}}}{\sum_{j} e^{\beta^{T}x_{nj}}}$.
 
+The multinomial and Poisson models have an equivalence that we can exploit in order to model the market shares using a generalized linear model (rather than the multinomial logit framework).
+One advantage of this is our own familiarity with the GLM package in R, as compared to the mlogit package. 
+
 If we have a set of Poisson distributed random variables, such as the annual capacity additions in the power sector, \textit{$X_1 \sim P(\lambda_1$), $X_2 \sim P(\lambda_2$), \ldots, $X_k \sim P(\lambda_k$)} where $\lambda_1 \neq \lambda_2 \neq \ldots \neq \lambda_k$ (at least not necessarily equal) then the conditional distribution (i.e., probability distribution for a sub-population) of the random variables \textit{$X = (X_1, X_2, \ldots, x_k)$} is multinomial, $X \sim Mult(n, \pi)$, where \textit{$n = \sum_k X_k$} and \textit{$\pi_j = \frac{\lambda_j}{\sum_k \lambda_k}$}. 
 
 The relationship between the Poisson and multinomial model allows us to estimate a Poisson model using a generalized linear model and then calculate the log-odds from the resulting coefficients. 
-In this model our dependent variable is the capacity additions for each power production technology and fuel combination, which we assume are Poisson distributed.
-Then we estimate the dependent variable using the form specified in equation \ref{equation_poisson}.
+If we treat the random counts ($Y_{ij}$) (i.e., capacity additions by production technology and primary fuel) as Poisson random variables with mean ($\mu_{ij}$) then we can estimate the following log-linear model. 
 
 \begin{equation}\label{equation_poisson}
-log(u_{ij}) = 0 + p_i + c_j + x_{ij}^T\beta_j 
+log(\mu_{ij}) = \nu + \theta_i + \alpha_j + x_{ij}^T\beta_j 
 \end{equation}
 
-The no intercept model includes an indicator variable for each decision opportunity (i.e., a multinomial observation) and each alternative selected at the decision opportunity (i.e,. each response category).
+The model includes an indicator variable ($\theta_i$) for each group (i.e., a multinomial observation), which ensures that the denominator of the multinomial ($n_i$) is equivalent \parencite{} (Guzmans lecture notes).\footnote{Guzman points out that in the multinomial context the denominator ($n_i$) (i.e., the number of observations in the group) is known but in the Poisson model they are random).}
 These variables ensure that the equivalence of the multinomial and Poisson models through the denominator of the multinomial model (i.e., $\sum_k \lambda_k$). 
 The denominator of $\pi_j$ (i.e., $\sum_k \lambda_k$) is equal to $\sum_i p_i$ and the numerator for each $\pi_j$ (i.e., $\lambda_j$) is equal to $\sum_i c_j$.
+In our model, we include $\theta_i$ as 15 dummy variables representing the years of the data, 9 dummy variables for the power production technology and fuel combinations chosen,   
+ and each alternative selected at the decision opportunity (i.e,. each response category).
+The $x_{ij}$ terms are all interaction terms with the grouping variable.
 
-The log odds then can be calculated as demonstrated in equation \ref{equation_logodds}.
+Then the log odds that observation \textit{i} falls in power production technology/fuel pairing \textit{j} relative to another pairing can be calculated by equation \ref{equation_logodds}.
+The intercept, $\nu$, and group dummies $\theta_i$, cancel out.   
 
-\begin{equation}
-log\Big(\frac{u_{ij}}{u_{ik}}\Big) = (c_j-c_k) + x_{ij}^T(\beta_j - \beta_k)
+\begin{equation}\label{log_odds}
+log\Big(\frac{u_{ij}}{u_{ik}}\Big) = (\alpha_j-\alpha_k) + x_{ij}^T(\beta_j - \beta_k)
 \end{equation}
 This is the odds that the observation \textit{i} would be in category \textit{j} relative to the category \textit{k}.
 The parameters of the multinomial model then are $a_j = \alpha_j - \alpha_k$ and $b_j = \beta_j -\beta_k$. 
+This is equivalent to the multinomial logit model, which assumes a linear model for the log-odds of each response (see equation \ref{multinomial}). 
+
+\begin{equation}\label{multinomial}
+\gamma_{ij} = log\Big(\frac{u_{ij}}{u_{ik}}\Big) = \alpha_j + x_i^T\beta_j
+\end{equation}
 
 \subsection{Logit model specification assumptions}
 In the case of the logistic model the probability of choosing technology choice $i$ is equal to $Pr_{ni} = Pr(V_{ni} + \epsilon_{ni} > V_{nj} + \epsilon_{nj} \quad \forall \quad j \neq i)$. 
