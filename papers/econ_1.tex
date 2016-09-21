@@ -1,7 +1,9 @@
 \documentclass[10pt]{amsart}
-\usepackage{graphicx} 
+\usepackage{graphicx}
+\usepackage{subcaption} 
 \usepackage{amsmath}
 \usepackage{tabularx}
+\usepackage{xfrac}
 \usepackage{endnotes}
 \usepackage{verbatimbox}
 \usepackage{geometry}
@@ -27,15 +29,15 @@
 \maketitle
 
 \section{Abstract}
-In this paper we estimate improved parameter estimates for determining the market share of individual electricity production technologies using a multinomial logit regression model. 
+In this paper we estimate market shares for power production technologies using a multinomial regression framework. 
 The contributions of this paper are two fold: first, the data cleaning process required for the subsequent analysis is significant and not likely to have been accomplished before.
 We make this data available online at \url{https://github.com/andymd26/fuzzy-waffle}. 
 Second, GCAM is an integrated assessment model, which presently uses historic data to parameterize the electricity production technology market shares, which are then nonvarying. 
 This work incorporates important determinants in the relationship between preferences, market factors, and market share into the GCAM framework and thus strengthens its output.  
 
 \section{Theory: Discrete choice models}
-An agent ($n$) faces a choice of technology alternatives ($j$).  
-We assume that each agent is a utility maximizer ($U_{nj}$) in the selection of a technology alternative.
+An agent $n$ faces a choice of technology alternatives $j$.  
+We assume that each agent is attempting to maximize their own utility $U_{nj}$ through the selection of a technology alternative.
 However, $U_{nj}$ is unobservable and consequently unknown to the researcher.
 Instead, we can observe information about the available choice set ($x_{nj}$), as well as the agent ($s_{n}$).
 Using this information we can specify a representative utility function, which is $V_{nj} = V(x_{nj}, s_{n})$.\footnote{$U_{nj} \neq U_{nj}$ given the unobservable aspects of the utility function.} 
@@ -50,48 +52,166 @@ The likelihood function then is $\mathcal{L(\beta)} = \prod_{n=1}^N \prod_{i} \l
 
 
 \section{Data}
-[Discussion of EIA Form 860 and AEO supplemental tables].
-The dependent variable of our analysis is the estimated annual capacity addition by prime mover and primary fuel type weighted by its capacity factor.
+The dependent variable of our analysis is the annual summer capacity addition by prime mover and primary fuel type weighted by the associated capacity factor.
+Summer capacity represents the maximum capacity as determined by testing during the summer peak demand period (i.e., June 1st to September 30th) and is lower than the nameplate capacity since it includes electricity consumption by auxiliaries and the station itself \parencite{}(EIA Glossary, 2016). 
+
 We generate the variable using information from the EIA Form 860, which is a survey of electric utilities and contains detailed information down to the generator level.
-The variable is calculated as the difference in summer capacity across all unique pairings of primary fuel and prime mover technology.
-One issue that remains in the data, having accounted for retirements and primary fuel changes, is the continued existence of negative values (a negative value in this situation would imply a negative capacity expansion, which should be impossible given the removal of retired and fuel switching plants).
-A survey of the data appears to show that this could be an issue of plant derating.\footnote{For example, Utility 13781 operates Plant 3982, Generator 4, which has an installed summer capacity of 22 MW and a steam turbine to convert biomass to electricity. The unit exists in the database for the period 1990 to 1995 but in 1992 the installed capacity drops to 20 MW. By 1995 the capacity returns to 22 MW before the unit then drops out of the survey for the period 1996 to 2004. When it returns in 2004 it has a capacity of 22.6, which declines to 22 MW in 2005. By 2010, the installed summer capacity is 15 MW, which remains its capacity to present. During this period there is no change in the operating status of the unit nor was it retired and brought back online.} 
+The variable is calculated for all unique pairings of primary fuel and prime mover technology using the in-service date provided in the survey.\footnote{Fuel switching, plant derating and other issues lead to negative numbers if we try and calculate the capacity additions using the change in summer installed capacity even after accounting for plant retirements.}\footnote{A survey of the data appears to show that this could be an issue of plant derating. For example, Utility 13781 operates Plant 3982, Generator 4, which has an installed summer capacity of 22 MW and a steam turbine to convert biomass to electricity. The unit exists in the database for the period 1990 to 1995 but in 1992 the installed capacity drops to 20 MW. By 1995 the capacity returns to 22 MW before the unit then drops out of the survey for the period 1996 to 2004. When it returns in 2004 it has a capacity of 22.6, which declines to 22 MW in 2005. By 2010, the installed summer capacity is 15 MW, which remains its capacity to present. During this period there is no change in the operating status of the unit nor was it retired and brought back online.} 
+Only a small number ($\sim 50$) of the approximately 375,000 entries in the data are missing the in service date.
+However, one potential issue with using this approach is that it does not account for fuel switching behavior or derating in the data.
+However, given the purpose of this exercise this should not bias the results. 
 
-As a result of these issues, we instead use the in service date for each unit. 
-Only a small number (~50) of the approximately 375,000 entries in the data are missing the in service date.
-One potential issue with using this date, as opposed to backing out the capacity addition in the process above is that it will not pick up repowering or derating in the data.
-However, given the purpose of this exercise this should not be a problem. 
+In Figure \ref{fig:techfuelcapacityadds} we show how the unweighted annual summer capacity additions by electricity production technology and primary fuel is changing over time. 
+Over the past decade there has been significant investment in natural gas fired resources and renewable resources with little investment in coal fired resources.  
+
+\begin{figure}[!tbp]
+\begin{subfigure}[b]{0.4\textwidth}
+\includegraphics[scale = 0.350]{summary_stats_fuel.pdf}
+\label{fig:fuelcapacityadds}
+\caption{Capacity addtion by primary fuel, 2001-2014}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.4\textwidth}
+\includegraphics[scale = 0.350]{summary_stats_tech.pdf}
+\label{fig:techcapacityadds}
+\caption{Capacity addition by primary mover, 2001-2014}
+\end{subfigure}
+\caption{Capacity additions in the electricity production industry by primary fuel and primary mover \parencite{eiaform860}}
+\label{fig:techfuelcapacityadds}
+\end{figure}
   
-We weight the dependent variable by its capacity factor \parencite{eiapower2016,eiapower2014}.
+The capacity factor weighting is calculated using the annual survey results for Form EIA-923 \parencite{}, which surveys approximately 4,100 power plants each year.\footnote{Further information on the method can be found in the Supplemental Material.} 
+The form contains plant level data (i.e., one level higher than generator) on technology choice, environmental compliance, net generation, etc.
+We use the data to calculate the average capacity factor for each primary fuel $k$ and production technology $j$ pairing, which is 
+\begin{equation}
+\text{Avg. CF} = \frac{1}{n_{jk}} \sum_jk \frac{\text{Annual Net Generation (MWh)}}{\text{Size (MW)}*8760 (hrs)}
+\end{equation}
+Where, $n_jk$ is the number of plants with primary fuel $k$ and production technology $j$.
+Unfortunately, the size of the plant is not a variable captured by Form EIA-923.
+Instead, we identified the size using data from Form 860 and merged the two sources together.
+This process has the potential to introduce more error into our calculations, as Form EIA-860 and Form EIA-923 disagree on the number of generators active at each site. 
+The advantage of this approach is that the capacity factors are tailored to the primary fuel and production technology, as opposed to capacity factors found in the literature, which are solely based on production technology and tend to be available for a short amount of time.
 
+From the Annual Energy Outlook (AEO)series, specifically the underlying assumptions on characteristics of new and existing power plants, we gather cost estimates for various power production technologies.\footnote{Unfortunately, the types of power plants listed in the AEO do not directly map onto the information we have in Form 860.
+As a result, we created our own mappings that can be found in the supplemental material.}
+Each annual energy outlook estimates the characteristics of new generating plants, including operational characteristics and cost assumptions.
+Each year the AEO estimates project lead time, average size, heatrate, fixed and variable operation and maintenance costs, and overnight costs for a suite of first and $n^{th}$ of its kind power production technologies.\footnote{For mature technologies we would expect the first and $n^{th}$ cost estimate to be very similar, however, we would not expect this for emerging and immature technology.}
+
+We use the overnight capital cost assumptions from each AEO to approximate the investment cost for each technology in each year of the analysis.
+The earliest AEO for which the overnight cost is available is the 1997 AEO; having been published in each subsequent year.
+However, as new technologies emerge and existing technologies evolve the categories within the overnight cost database have necessarily changed. 
+Therefore, the database does not have consistent categories over time. 
+In our model we use the overnight cost, as well as the fixed and variable operations and maintenance costs. 
+We considered using the estimates of the heat rate from the AEO but ended up using other sources, which we will discuss later. 
+
+The overnight cost is the cost of a construction project with no interest incurred. 
+We weight the overnight cost by the reciprocal of the capacity factor in order to standardize the data across production technologies.\footnote{The transformed data now reflects the investment needed to achieve a standardized summer installed capacity of 1 MW.}
 Fixed operations and maintenance costs are expenses that don't vary with production such as routine preventive and predictive maintenance, general and administrative expenses, fees required to participate in NERC and other regulatory bodies, etc. \parencite{eiaupdatedcapital2010}.
-Variable operation and maintenance costs are expenses that by definition vary with production such as, water, disposal expenses, power purchases, consumable materials and supplies, etc. \parencite{eiaupdatedcapital2010}.   
+Variable operation and maintenance costs are expenses that by definition vary with production such as, water, disposal expenses, power purchases, consumable materials and supplies, etc. \parencite{eiaupdatedcapital2010}. 
+We adjust the overnight cost 
 
-We assume the predominant operation cost for a fossil fuel generator is the fuel cost. 
-For renewable sources we assume \ldots. 
+We assume that fuel costs are the predominant operating cost for fossil fuel generation plants and are thus, an important factor in power plant production technology selection.
 Fuel price data for the period (1/1986-5/2016) is from the Energy Information Administration (EIA) sources.
-We use the investment cost information (i.e., overnight cost) by electricity production technology from the Global Change Assessment Model (GCAM) to inform our model. 
-
-We assume that fuel costs are the predominant operating cost for fossil fuel generation plants.
 The Energy Information Administration (EIA) in the Electric Power Monthly report publishes electric utility receipts of and average cost for fossil fuels used in the power generation sector.
 We generate a monthly time-series dataset for the period 1/1986-5/2016 using the Electric Power Monthly reports from June 1996 (Table 26), January 2010 (Table 4.2), and May 2016 (Table 4.2). 
 The data includes price information for coal, petroleum liquids, and natural gas inputs.
 The prices listed are averages and in nominal units (i.e., unadjusted for inflation).
 For continuity purposes we use the total petroleum price from the June 1996 report instead of the heavy oil price.  
 
-The decision faced by decision-makers in our analysis is the choice amongst power generation input fuels (not yet focusing on the technology choice). 
-We use the monthly installed net summer capacity by fuel type as the dependent variable of our analysis. 
-Existing nameplate and net summer capacity by energy source, producer type, and state is provided by the EIA.
-Net summer capacity represents the maximum capacity as determined by testing during the summer peak demand period (i.e., June 1st to September 30th) and is lower than the nameplate capacity since it includes electricity consumption by auxiliaries and the station itself \parencite{}(EIA Glossary, 2016). 
-We consider the capacity change in the electric power industry (i.e., we ignore commercial and industrial power).  
-Also, we are only considering the positive change in net summer capacity in our discrete choice model (i.e., we ignore net summer capacity reductions). 
+We adjust the fuel price for the efficiency of each production technology using the heatrate.
+The heatrate is a measure of efficiency in converting fuel into electricity. 
+It is defined as the amount of fuel necessary to generate one kWh of electricity. 
+We calculate the average annual heat rate using the Form EIA-860 and the California Energy Almanac.
+For more information on the method please see the Supplemental Material.
 
-Investment cost data is from the GCAM model input data files.
-The model has overnight cost estimates in 2010 USD per kW for the time periods 1975, 1990, 2005, 2010, and 2015. 
-We use the following simple linear regression model to interpolate between these data points for each technology ($k$). 
+\section{Model}
+The probability of choosing technology choice $i$ is equal to $P_{ni} = P(V_{ni} + \epsilon_{ni} > V_{nj} + \epsilon_{nj} \quad \forall \quad j \neq i)$. 
+This can be rewritten as the following $P_{ni} = (\epsilon_{nj} <  \epsilon_{ni} + V_{ni} - V_{nj} \quad \forall \quad j \neq i)$.
+Given that the density of the unobserved utility is $f(\epsilon_{nj}) = e^{-\epsilon_{nj}}e^{-e^{-\epsilon_{nj}}}$ and the cumulative distribution function is $F(\epsilon_{nj}) = e^{-e^{-\epsilon_{nj}}}$ then the probability of choosing technology $i$ is $Pr_{ni} = \int \left(\prod_{j \neq i} e^{-e^{-(\epsilon_{nj} + V_{ni} - V_{nj}})}\right)e^{\epsilon_{ni}}e^{-e^{\epsilon_{ni}}} \,d\epsilon_{ni}.\ $\footnote{The $Pr_{ni}$ can be interpreted as the joint probability of not choosing alternative $i$ multiplied by the probability of choosing alternative $i$.} 
+The integral simplifies to $P_{ni} = \frac{e^{V_{ni}}}{\sum_{j} e^{V_{nj}}}$.\footnote{$V_{ni}$ is usually specified to be linear in parameters (i.e., not multiplicative).}\footnote{The multinomial logit model estimates $J - 1$ equations that compare each of the $J - 1$ categories to the baseline category $J$ (i.e., the multinomial logit model reduces to the standard logistic regression in the case of $J=2$.}\footnote{The multinomial and Poisson models have an equivalence that we can exploit in order to model the market shares using a generalized linear model (rather than the multinomial logit framework).
+One advantage of this is our own familiarity with the GLM package in R, as compared to the mlogit package. 
+
+If we have a set of Poisson distributed random variables, such as the annual capacity additions in the power sector, \textit{$X_1 \sim P(\lambda_1$), $X_2 \sim P(\lambda_2$), \ldots, $X_k \sim P(\lambda_k$)} where $\lambda_1 \neq \lambda_2 \neq \ldots \neq \lambda_k$ (at least not necessarily equal) then the conditional distribution (i.e., probability distribution for a sub-population) of the random variables \textit{$X = (X_1, X_2, \ldots, x_k)$} is multinomial, $X \sim Mult(n, \pi)$, where \textit{$n = \sum_k X_k$} and \textit{$\pi_j = \frac{\lambda_j}{\sum_k \lambda_k}$}. 
+
+The relationship between the Poisson and multinomial model allows us to estimate a Poisson model using a generalized linear model and then calculate the log-odds from the resulting coefficients. 
+If we treat the random counts ($Y_{ij}$) (i.e., capacity additions by production technology and primary fuel) as Poisson random variables with mean ($\mu_{ij}$) then we can estimate the following log-linear model.}
+
+We can normalize the model for the scale of the utility by setting the variance equal to $\frac{\pi^2}{6}$. 
+the scale of the utility is irrelevant to the alternative chosen  needs to be normalized as the alternative with the highest utility is the same no matter the scale (i.e., the alternative chosen is the same in these two formulations, $U^0_{nj} = V_{nj} + \epsilon_{nj}$ and $U^1_{nj} = \lambda V_{nj} + \lambda \epsilon_{nj}$).
+Researchers usually do this through the normalization of the variance of the error terms. 
+If we assume the error terms are iid then we can implement this by dividing the model coefficients by the standard deviation of the unobserved portion of utility.
+The coefficients now represent the 'effect of the observed variables relative to the standard deviation of the unobserved factors' \parencite[24]{train:2009aa}.  
+The error variances in a traditional logit are normalized to $\frac{\pi^2}{6}$ \parencite{train:2009aa}.\footnote{If we feel that we have heteroskedastic errors at any point then we need to review the discussion on p25 (basically just normalize one of the subpopulations and then the variance estimates for the other groups will be relative to that baseline).} 
+
+The absolute value of $U_{nj}$ does not matter only the difference in utility between alternatives since $Pr(U_{ni} -U_{nj} > 0, \quad \forall \quad j \neq i)$.
+This fact has implications on variable selection, in that we only include parameters that capture differences across the alternatives. 
+The absolute value of the constant term ($k_{j}$) does not matter only the difference.
+To do this we need to normalize the absolute value of one constant by setting it equal to zero.
+The remaining $J-1$ constants are then the difference in constant values for each alternative, as compared to the baseline.\footnote{This can be implemented in the mlogit R package through the 'reflevel' command.}    
+The same holds true for any variable that doesn't vary for an individual between alternatives (i.e., individual income).
+This issue can be addressed through the normalization of the variable or by interacting it with attributes of the alternatives. 
+
+The multinomial logit model imposes the restriction that the error distribution is independent and identical over alternatives (i.e., technology choice selected are iid extreme value (i.e., unobserved portion of the utility is uncorrelated over the choice set and have the same variance) \parencite{wen2001generalized}.\footnote{It should be noted that through proper model specification we could reduce the importance of the independence assumption. 
+If we specify the utility model well (i.e., $U_{nj} = V_{nj} + \epsilon_{nj}$), accounting for the important differences between alternatives, then the error term should be white noise (i.e., the error for one alternative provides little to no information about the error for another alternative).} 
+Should we believe correlation exists across alternatives then we either respecify the model to account for the correlation structure; explore other alternatives later that do not have this restrictive assumption (i.e., GEV, probit, and mixed logit); or continue with the logit specification as an approximation. 
+ 
+We assume that correlation exists between some technology alternatives, which necessarily violates the independence of irrelevant alternatives, which assumes that for two alternatives $coal$ and $ng$, we have $P_{coal}$ = $\frac{e^{V_{coal}}}{\sum_j e^V_j}$ and $P_{ng}$ = $\frac{e^{V_{ng}}}{\sum_j e^V_j}$, which means that the ratio of the two is $\frac{P_{coal}}{P_ng} = \frac{e^{V_{coal}}}{e^{V_{ng}}}$.
+The ratio is only a function of characteristics of each alternative and not related to other alternatives. 
+However, the choice between some options might violate this assumption, in that the error terms are correlated for alternatives in the same 'nest'.  
+The generalized extreme value model (GEV) allows for correlation in the unobserved factors over alternatives (if the correlation amongst these factors is zero then the GEV is equivalent to the logit model). 
+To estimate this model requires the nested logit model, which allows for error terms to be correlated within nests and uncorrelated between nests \parencite{mcfadden1978}.
+
+The Generalized Extreme Value model (GEV) also known as the nested logit model assumes that the error terms are distributed, whereby in Equation \ref{nestederror} if $\lambda_m = 1$ then we have no correlation and the model is equivalent to the multinomial logit discussed previously. 
+
+\begin{equation}\label{nestederror}
+exp\Big(- \sum_{m=1}^{M} \Big(\sum_{j\in B_m} e^{\frac{-\epsilon_j}{\lambda_m}} \Big)^{\lambda_m} \Big)
+\end{equation} 
+
+It can be shown then that the probability of choosing option $j$ in nest $l$ is 
 \begin{equation}
-ln(IC_{kt}) = \beta_{0k} + \beta_{1kt} \cdot Year_{t} + \beta_{2kt} \cdot tech \cdot year \epsilon
+P_j = P(j | l)P(l) = \frac{e^{\sfrac{{Z_j}}{\lambda_l}}}{\sum_{k\in B_l}e^{\sfrac{Z_k}{\lambda_l}}} \cdot \frac{e^{W_l+\lambda_l I_l}}{\sum_{m=l}^M e^{W_m+\lambda_m I_m}}
 \end{equation}
+whereby is generally referred to as the inclusive utility, which is calculated as the $I_l = ln\Big(\sum_{k\in B_l} e^{\sfrac{Z_k}{\lambda_l}}\Big)$ and is the link between the upper and lower model. 
+The first term of the nested logit structure represents the lower level of the model and is the conditional probability that an alternative is selected given that it is in that nest. 
+The second term represents the expected utility of the nest $m$ \parencite{} mlogit docs.
+We implement this nested logit structure using the mlogit package in R \parencite{mlogit2013}
+
+The determinants of the choice made by each individual amongst the entire choice set can be classified according to three indexes: the properties of each alternative, the choice situation, and properties of the individual \cite{}(Croissant mlogit package).
+At least three types of variables are possible in the multinomial logit framework: alternative specific variables ($x_{ij}$) with generic effects ($\beta$); individual specific variables ($z_i$) with an alternative specific coefficient ($\gamma_j$); and alternative specific variables ($w_j$) with alternative specific coefficients ($\lambda_j$)\parencite{mlogit2013}.  
+
+We consider the choice situation of our data (i.e., each year), as a repeated cross section. 
+In that we aren't accounting for any relationships (at least at this point) between the choices made in one year and any subsequent years.  
+In our case, we have information on each of the alternatives (i.e., cost, operational characteristics, etc.) but we consider the data as a repeated cross section. 
+For the analysis we use the mlogit package in R for the data analysis \parencite{mlogit2013}. 
+ 
+For a discrete choice model the choice set must be mutually exclusive, exhaustive, and finite from the decision makers point of view. In our particular circumstance, we can redefine the choice set, as it is possible to use more than one technology, to be any combination of the technology choices such that the set is then mutually exclusive (i.e., A only, B only, or both A and B). To ensure that the list is exhaustive might require that we include a none of the above option as well.
+An underlying assumption of discrete choice analysis is that the selection of a decision alternative is necessarily mutually exclusive (i.e., a decision maker may select one and only one alternative per choice situation). 
+However, the construction of our dependent variable is naturally at odds with this formulation since it does not preclude the selection of more than one technology (i.e., total capacity additions by primary mover and primary fuel).
+To address this issue, we create an artificial choice situation whereby we assume a decision maker is making a decision for each 1 MW block of installed summer capacity in that year.\footnote{For example, if in Year 1 there were capacity additions of 5 MW and 10 MW, respectively for coal and natural gas then we would reformulate the data set as 5 decisions where coal was selected over natural gas and 10 situations where the alternative held true.}\footnote{We can't use the percentage allocated to each technology in each year because the total investment between years varies.} 
+In this way, we achieve mutually exclusive decisions that account for differences in total investment between years.
+The drawbacks of the approach include, smaller standard errors than warranted, and a failure to account for the average size of each decision alternative (i.e., we violate the assumption of independence that exists between choice situations).
+
+\begin{equation}\label{log_odds}
+log\Big(\frac{u_{ij}}{u_{ik}}\Big) = (\alpha_j-\alpha_k) + x_{ij}^T(\beta_j - \beta_k)
+\end{equation}
+This is the odds that the observation \textit{i} would be in category \textit{j} relative to the category \textit{k}.
+The parameters of the multinomial model then are $a_j = \alpha_j - \alpha_k$ and $b_j = \beta_j -\beta_k$. 
+This is equivalent to the multinomial logit model, which assumes a linear model for the log-odds of each response (see equation \ref{multinomial}). 
+
+\begin{equation}\label{multinomial}
+\gamma_{ij} = log\Big(\frac{u_{ij}}{u_{ik}}\Big) = \alpha_j + x_i^T\beta_j
+\end{equation}
+
+the relationship between the logit probability and representative utility is S-shaped which means that if representative utility is very low (relatively), a small increase in the utility of the alternative has little effect on the probability of its being chosen (from a policy perspective this would be like choosing between investing in an area with poor bus service or an area with sufficient bus service: more impact in the area with sufficient service on bus ridership)
+
+\section{Results}
+
+\section{Discussion}
+
+
+\section{Next steps}
+We might consider the nested logit models to incorporate the specific technology choice once the fuel choice has been made. 
+glm implementation with percentage dependent variable and a weight equal to the change in installed MW because the percentages are not equivalent between the years (i.e., the absolute value is different than the relative percentage). 
 
 \newpage
 \newgeometry{margin=0.5cm}
@@ -115,139 +235,7 @@ ln(IC_{kt}) = \beta_{0k} + \beta_{1kt} \cdot Year_{t} + \beta_{2kt} \cdot tech \
 \restoregeometry
 
 \newpage
-\section{Model}
-These types of models are usually specified as a set of individuals ($n$) choosing between some alternatives ($j$).
-We propose that the total net change in capacity, which varies year by year, is the result of an exogenous process that exists outside the model. 
-The purpose of this model is to determine the factors that effect the technology choice, which is a discrete choice problem.
-
-The determinants of the choice made by each individual amongst the entire choice set can be classified according to three indexes: the properties of each alternative, the choice situation, and properties of the individual \cite{}(Croissant mlogit package). 
-While we do face a repeated choice situation we don't have any individual decision makers in our analysis (i.e., we don't have his/her income information). 
-We use the mlogit package in R for the data analysis \parencite{mlogit2013}. 
-
-At least three types of variables are possible in the multinomial logit framework: alternative specific variables ($x_{ij}$) with generic effects ($\beta$); individual specific variables ($z_i$) with an alternative specific coefficient ($\gamma_j$); and alternative specific variables ($w_j$) with alternative specific coefficients ($\lambda_j$)\parencite{mlogit2013}.  
-Are they properties of the choice set or the individual decision maker?
-In our case, 
-
-Our dataset is a repeated cross section, whereby we have capacity additions over time but we don't follow the individuals making the decisions. 
-The dependent variable of the analysis is the annual new capacity, weighted by the capacity factor, for each production technology, primary fuel pairing. 
-Given that our dependent variable is the annual new capacity, which is allocated across several different production technologies and fuel pairings, it is not mutually exclusive, which is an underlying assumption of the discrete choice modeling framework.
-To address this issue we could model the decision process for each 
-
-\subsection{Logistic implementation}
-If a random variable $Y_{i}$ can take one of several discrete values $1, 2, \ldots, J$ then the probability that the $i$-th response is in the $j$-th category is $\lambda_{ij}$ (i.e., $\lambda_{ij} = \Pr\{Y_{i} = j\})$. 
-Assuming the categories are both mutually exclusive and exhaustive then $\sum_{j=1}^J \lambda_{ij} = 1$.\footnote{The $i$ in this case would represent each time period so it should actually be $\lambda_{tj}$.} 
-The log-odds as estimated by the multinomial logit model then is $log \frac{\lambda_{ij}}{\lambda_{iJ}} = x_{i}^T \beta_j$.
-The multinomial logit model estimates $J - 1$ equations that compare each of the $J - 1$ categories to the baseline category $J$ (i.e., the multinomial logit model reduces to the standard logistic regression in the case of $J=2$. 
-
-In the multinomial case (i.e., more than two choices) the \ldots
-
-The dependent variable of interest is the market share of each technology (or fuel type) \textit{$S_1, S_2, \ldots, S_B$} with each share defined as $S_b = \frac{Q_b}{\sum_B Q_B}$.
-We assume that $Q_b$ (i.e., total sales, production, etc.) follows some Cobb-Douglas type production function, $Q_B = e^{\alpha_b}p_{b}^{\beta_b}$, which can be rewritten as $Q_B = exp\left(\alpha_b + \beta_b \cdot ln(p_b)\right)$.
-We can rewrite the market share ($S_{bt}$) as a function of the factors of production (see Equation \ref{MCI}), where $S_{bt}$ is interpreted as the likelihood that a technology $b$ is selected at time period $t$.  
-
-For the logit specification the log likelihood function is $ln(\mathcal{L(\beta)})= \sum_{n} \sum_{i} y_{ni}\left(\beta^{T} x_{ni}\right) - \sum_{n} \sum_{i} y_{ni} ln\left(\sum_{j}e^{\beta^{T}x_{nj}}\right)$.
-The maximum likelihood estimates of the $\beta$ parameter is then $\frac{\partial ln\left(\mathcal{L(\beta)}\right)}{\partial \beta} = 0$, which is $\sum_{n}\sum_{i} \left(y_{ni} - P_{ni}\right)\cdot x_{ni}$, where $P_{ni} = \frac{e^{\beta^{T}x_{ni}}}{\sum_{j} e^{\beta^{T}x_{nj}}}$.
-
-The multinomial and Poisson models have an equivalence that we can exploit in order to model the market shares using a generalized linear model (rather than the multinomial logit framework).
-One advantage of this is our own familiarity with the GLM package in R, as compared to the mlogit package. 
-
-If we have a set of Poisson distributed random variables, such as the annual capacity additions in the power sector, \textit{$X_1 \sim P(\lambda_1$), $X_2 \sim P(\lambda_2$), \ldots, $X_k \sim P(\lambda_k$)} where $\lambda_1 \neq \lambda_2 \neq \ldots \neq \lambda_k$ (at least not necessarily equal) then the conditional distribution (i.e., probability distribution for a sub-population) of the random variables \textit{$X = (X_1, X_2, \ldots, x_k)$} is multinomial, $X \sim Mult(n, \pi)$, where \textit{$n = \sum_k X_k$} and \textit{$\pi_j = \frac{\lambda_j}{\sum_k \lambda_k}$}. 
-
-The relationship between the Poisson and multinomial model allows us to estimate a Poisson model using a generalized linear model and then calculate the log-odds from the resulting coefficients. 
-If we treat the random counts ($Y_{ij}$) (i.e., capacity additions by production technology and primary fuel) as Poisson random variables with mean ($\mu_{ij}$) then we can estimate the following log-linear model. 
-
-\begin{equation}\label{equation_poisson}
-log(\mu_{ij}) = \nu + \theta_i + \alpha_j + x_{ij}^T\beta_j 
-\end{equation}
-
-The model includes an indicator variable ($\theta_i$) for each group (i.e., a multinomial observation), which ensures that the denominator of the multinomial ($n_i$) is equivalent \parencite{} (Guzmans lecture notes).\footnote{Guzman points out that in the multinomial context the denominator ($n_i$) (i.e., the number of observations in the group) is known but in the Poisson model they are random).}
-These variables ensure that the equivalence of the multinomial and Poisson models through the denominator of the multinomial model (i.e., $\sum_k \lambda_k$). 
-The denominator of $\pi_j$ (i.e., $\sum_k \lambda_k$) is equal to $\sum_i p_i$ and the numerator for each $\pi_j$ (i.e., $\lambda_j$) is equal to $\sum_i c_j$.
-In our model, we include $\theta_i$ as 15 dummy variables representing the years of the data, 9 dummy variables for the power production technology and fuel combinations chosen,   
- and each alternative selected at the decision opportunity (i.e,. each response category).
-The $x_{ij}$ terms are all interaction terms with the grouping variable.
-
-Then the log odds that observation \textit{i} falls in power production technology/fuel pairing \textit{j} relative to another pairing can be calculated by equation \ref{equation_logodds}.
-The intercept, $\nu$, and group dummies $\theta_i$, cancel out.   
-
-\begin{equation}\label{log_odds}
-log\Big(\frac{u_{ij}}{u_{ik}}\Big) = (\alpha_j-\alpha_k) + x_{ij}^T(\beta_j - \beta_k)
-\end{equation}
-This is the odds that the observation \textit{i} would be in category \textit{j} relative to the category \textit{k}.
-The parameters of the multinomial model then are $a_j = \alpha_j - \alpha_k$ and $b_j = \beta_j -\beta_k$. 
-This is equivalent to the multinomial logit model, which assumes a linear model for the log-odds of each response (see equation \ref{multinomial}). 
-
-\begin{equation}\label{multinomial}
-\gamma_{ij} = log\Big(\frac{u_{ij}}{u_{ik}}\Big) = \alpha_j + x_i^T\beta_j
-\end{equation}
-
-\subsection{Logit model specification assumptions}
-In the case of the logistic model the probability of choosing technology choice $i$ is equal to $Pr_{ni} = Pr(V_{ni} + \epsilon_{ni} > V_{nj} + \epsilon_{nj} \quad \forall \quad j \neq i)$. 
-This can be rewritten as the following $Pr_{ni} = (\epsilon_{nj} <  \epsilon_{ni} + V_{ni} - V_{nj} \quad \forall \quad j \neq i)$.
-Given that the density of the unobserved utility is $f(\epsilon_{nj}) = e^{-\epsilon_{nj}}e^{-e^{-\epsilon_{nj}}}$ and the cumulative distribution function is $F(\epsilon_{nj}) = e^{-e^{-\epsilon_{nj}}}$ then the probability of choosing technology $i$ is $Pr_{ni} = \int \left(\prod_{j \neq i} e^{-e^{-(\epsilon_{nj} + V_{ni} - V_{nj}})}\right)e^{\epsilon_{ni}}e^{-e^{\epsilon_{ni}}} \,d\epsilon_{ni}.\ $\footnote{The $Pr_{ni}$ can be interpreted as the joint probability of not choosing alternative $i$ multiplied by the probability of choosing alternative $i$.} 
-The integral simplifies to $Pr_{ni} = \frac{e^{V_{ni}}}{\sum_{j} e^{V_{nj}}}$.\footnote{$V_{ni}$ is usually specified to be linear in parameters (i.e., not multiplicative).}
-
-We can normalize the model for the scale of the utility by setting the variance equal to $\frac{\pi^2}{6}$. 
-the scale of the utility is irrelevant to the alternative chosen  needs to be normalized as the alternative with the highest utility is the same no matter the scale (i.e., the alternative chosen is the same in these two formulations, $U^0_{nj} = V_{nj} + \epsilon_{nj}$ and $U^1_{nj} = \lambda V_{nj} + \lambda \epsilon_{nj}$).
-Researchers usually do this through the normalization of the variance of the error terms. 
-If we assume the error terms are iid then we can implement this by dividing the model coefficients by the standard deviation of the unobserved portion of utility.
-The coefficients now represent the 'effect of the observed variables relative to the standard deviation of the unobserved factors' \parencite[24]{train:2009aa}.  
-The error variances in a traditional logit are normalized to $\frac{\pi^2}{6}$ \parencite{train:2009aa}. 
-If we feel that we have heteroskedastic errors at any point then we need to review the discussion on p25 (basically just normalize one of the subpopulations and then the variance estimates for the other groups will be relative to that baseline). 
-
-The absolute value of $U_{nj}$ does not matter only the difference in utility between alternatives since $Pr(U_{ni} -U_{nj} > 0, \quad \forall \quad j \neq i)$.
-This fact has implications on variable selection, in that we only include parameters that capture differences across the alternatives. 
-The absolute value of the constant term ($k_{j}$) does not matter only the difference.
-To do this we need to normalize the absolute value of one constant by setting it equal to zero.
-The remaining $J-1$ constants are then the difference in constant values for each alternative, as compared to the baseline.\footnote{This can be implemented in the mlogit R package through the 'reflevel' command.}    
-The same holds true for any variable that doesn't vary for an individual between alternatives (i.e., individual income).
-This issue can be addressed through the normalization of the variable or by interacting it with attributes of the alternatives. 
-
-The logit model assumes that $\epsilon_{ni} \quad \forall i$ (i.e., technology choice selected) are iid extreme value (i.e., unobserved portion of the utility is uncorrelated over the choice set and have the same variance).\footnote{The assumption of independence can be quite limiting.}  
-The dependence of decisions on prior decision making can also violate the independence assumption inherent to the logit model. 
-The logistic implementation makes the strong assumption that the unobserved portion of the utility function are independent across alternatives.
-Though it should be noted that through proper model specification we could reduce the importance of the independence assumption. 
-If we specify the utility model well (i.e., $U_{nj} = V_{nj} + \epsilon_{nj}$), accounting for the important differences between alternatives, then the error term should be white noise (i.e., the error for one alternative provides little to no information about the error for another alternative). 
-Should we believe correlation exists across alternatives then we either respecify the model to account for the correlation structure; explore other alternatives later that do not have this restrictive assumption (i.e., GEV, probit, and mixed logit); or continue with the logit specification as an approximation. 
-The generalized extreme value model (GEV) allows for correlation in the unobserved factors over alternatives (if the correlation amongst these factors is zero then the GEV is equivalent to the logit model).  
-
-We implement the model using the mlogit R package. 
-We implement this using the weights command in the mlogit R package.
-  
-\begin{enumerate}
-	\item set reflevel
-	\item the logit model is a misspecification if taste variation is at least partly random (a probit or mixed logit is a better alternative)
-	\item an implication of independence from irrelevant alternatives (IIA) is that the logit model substitutes proportionally across alternatives (nested logits, probits and mixed logit offer solutions to this problem); tests are available to test the IIA assumption
-	\item How to treat the capacity factors? Net summer capacity for wind equals nameplate capacity
-	\item as cross sectional or panel data? 
-	\item For a discrete choice model the choice set must be mutually exclusive, exhaustive, and finite from the decision makers point of view. In our particular circumstance, we can redefine the choice set, as it is possible to use more than one technology, to be any combination of the technology choices such that the set is then mutually exclusive (i.e., A only, B only, or both A and B). To ensure that the list is exhaustive might require that we include a none of the above option as well.
-	\item net change in capacity can be negative
-	\item if a technology has no chance of being selected it can be removed from the logit specification
-	\item the relationship between the logit probability and representative utility is S-shaped which means that if representative utility is very low (relatively), a small increase in the utility of the alternative has little effect on the probability of its being chosen (from a policy perspective this would be like choosing between investing in an area with poor bus service or an area with sufficient bus service: more impact in the area with sufficient service on bus ridership)
-\end{enumerate}
-\begin{align}
-logit(p) &= \beta_0 + \beta_1 \cdot time_{i} \\
-logit(p) &= \beta_{0} + \beta_1\cdot time_{i} + \beta
-\end{align}
-
-\begin{equation} \label{MCI}
-S_{bt} = \frac{exp\left(\alpha_{b} + \gamma_{t} + \beta_b \cdot ln(p_{bt})\right)}{\sum_{k=1}^B exp\left(\alpha_k + \gamma_{t} + \beta_k \cdot ln(p_{kt})\right)}
-\end{equation}
-
-In the literature this model is referred to as the multiplicative competitive interaction (MCI) model \parencite{}(Cooper 1988, 1993).
-The MCI model assumes that a proportional increase in all prices (i.e., all fuel types in this case) would cause no change in the distribution of market shares (assuming equality in the $\beta_b$ parameters). 
-An alternative model formulation is the multinomial logit (MNL) model, which includes the actual prices (instead of the logged prices).
-The MNL model assumes that an absolute price increase for all market participants (i.e., all fuel types) would result in no change to the distribution of market shares (assuming all $\beta_b$ parameters are equal). 
-Of the two assumptions the MCI seems the more realistic one. 
-
-We can expand the previous model (see Equation \ref{MCI}) to include cross-price elasticities. 
-\begin{equation} \label{MCI_2}
-Q_B = exp\left(\alpha_{b} + \gamma_{t} + \beta_b \cdot ln(p_{bt}) + \sum_{k \neq b} \eta_{bk}\cdot ln(p_kt)\right)
-\end{equation}
 
 
-\section{Next steps}
-We might consider the nested logit models to incorporate the specific technology choice once the fuel choice has been made. 
-glm implementation with percentage dependent variable and a weight equal to the change in installed MW because the percentages are not equivalent between the years (i.e., the absolute value is different than the relative percentage). 
-
+\printbibliography
 \end{document}
