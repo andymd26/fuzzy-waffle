@@ -25,6 +25,7 @@ source(paste0(path_code,"mapping_860_overnight_R.r"))
 source(paste0(path_code, "ca_almanac_R.r"))
 source(paste0(path_code, "summary_files.r"))
 source(paste0(path_code, "overnight_cost.r"))
-source(paste0(path_code, 'multinomial.r'))
+source(paste0(path_code, 'multinomial.r')) # warning a dplyr function call will take ~ 6 minutes (instead just run the sections of code after it, 
+#       unless changes have been made to data tables)
 source(paste0(path_code, "figure.r"))
 
