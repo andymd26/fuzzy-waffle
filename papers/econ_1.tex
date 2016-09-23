@@ -153,28 +153,42 @@ This issue can be addressed through the normalization of the variable or by inte
 
 The multinomial logit model imposes the restriction that the error distribution is independent and identical over alternatives (i.e., technology choice selected are iid extreme value (i.e., unobserved portion of the utility is uncorrelated over the choice set and have the same variance) \parencite{wen2001generalized}.\footnote{It should be noted that through proper model specification we could reduce the importance of the independence assumption. 
 If we specify the utility model well (i.e., $U_{nj} = V_{nj} + \epsilon_{nj}$), accounting for the important differences between alternatives, then the error term should be white noise (i.e., the error for one alternative provides little to no information about the error for another alternative).} 
-Should we believe correlation exists across alternatives then we either respecify the model to account for the correlation structure; explore other alternatives later that do not have this restrictive assumption (i.e., GEV, probit, and mixed logit); or continue with the logit specification as an approximation. 
- 
-We assume that correlation exists between some technology alternatives, which necessarily violates the independence of irrelevant alternatives, which assumes that for two alternatives $coal$ and $ng$, we have $P_{coal}$ = $\frac{e^{V_{coal}}}{\sum_j e^V_j}$ and $P_{ng}$ = $\frac{e^{V_{ng}}}{\sum_j e^V_j}$, which means that the ratio of the two is $\frac{P_{coal}}{P_ng} = \frac{e^{V_{coal}}}{e^{V_{ng}}}$.
-The ratio is only a function of characteristics of each alternative and not related to other alternatives. 
-However, the choice between some options might violate this assumption, in that the error terms are correlated for alternatives in the same 'nest'.  
-The generalized extreme value model (GEV) allows for correlation in the unobserved factors over alternatives (if the correlation amongst these factors is zero then the GEV is equivalent to the logit model). 
-To estimate this model requires the nested logit model, which allows for error terms to be correlated within nests and uncorrelated between nests \parencite{mcfadden1978}.
+In the first group of models we assume that the IIA assumption holds in that the utility of each individual for each alternative ($U_{ij}$) is specified as follows in Equation \ref{mlogit.spec}.
 
-The Generalized Extreme Value model (GEV) also known as the nested logit model assumes that the error terms are distributed, whereby in Equation \ref{nestederror} if $\lambda_m = 1$ then we have no correlation and the model is equivalent to the multinomial logit discussed previously. 
+\begin{equation}\label{mlogit.spec}
+U_{ij} = \sum_j \alpha_{j}*d_{ij} + \beta_1*\textit{Overnight cost} + \beta_2*\textit{Fuel Price} + \beta_3*\textit{Variable O\&M} + \beta_4*\textit{Fixed O\&M} + \epsilon_{ij}
+\end{equation} 
+ 
+In our analysis, we assume that the choice alternatives violate the independence of irrelevant alternatives, which assumes that for two alternatives the ratio of two alternatives ($\frac{P_{coal}}{P_ng} = \frac{e^{V_{coal}}}{e^{V_{ng}}}$) is only a function of characteristics of each alternative and not related to other alternatives. 
+The generalized extreme value model (GEV) allows for correlation in the unobserved factors over alternatives (if the correlation among these factors is zero then the GEV is equivalent to the logit model). 
+To estimate this model requires the nested logit model, which allows for error terms to be correlated within nests and uncorrelated between nests \parencite{mcfadden1978}.
+To account for the violation of the IIA assumption we could respecify the model to account for the correlation structure; explore other alternatives later that do not have this restrictive assumption (i.e., GEV, probit, and mixed logit); or continue with the logit specification as an approximation.
+We chose to use the Generalized Extreme Value model (GEV), also known as the nested logit model, which assumes that the error terms are correlated within each nest but independent across nests (see Equation \ref{nestederror}).\footnote{The GEV model reduces to the multinomial logit if $\lambda_m = 1$.}
 
 \begin{equation}\label{nestederror}
 exp\Big(- \sum_{m=1}^{M} \Big(\sum_{j\in B_m} e^{\frac{-\epsilon_j}{\lambda_m}} \Big)^{\lambda_m} \Big)
 \end{equation} 
 
 It can be shown then that the probability of choosing option $j$ in nest $l$ is 
-\begin{equation}
+\begin{equation}\label{nestedstructure}
 P_j = P(j | l)P(l) = \frac{e^{\sfrac{{Z_j}}{\lambda_l}}}{\sum_{k\in B_l}e^{\sfrac{Z_k}{\lambda_l}}} \cdot \frac{e^{W_l+\lambda_l I_l}}{\sum_{m=l}^M e^{W_m+\lambda_m I_m}}
 \end{equation}
 whereby is generally referred to as the inclusive utility, which is calculated as the $I_l = ln\Big(\sum_{k\in B_l} e^{\sfrac{Z_k}{\lambda_l}}\Big)$ and is the link between the upper and lower model. 
 The first term of the nested logit structure represents the lower level of the model and is the conditional probability that an alternative is selected given that it is in that nest. 
 The second term represents the expected utility of the nest $m$ \parencite{} mlogit docs.
+
+In the second set of models we assume that the IIA assumption is violated, which we address through a nested logit model specification as specified in Equations \ref{nlogit.spec.1, nlogit.spec.2}.
 We implement this nested logit structure using the mlogit package in R \parencite{mlogit2013}
+
+
+\begin{align}
+\begin{split}\label{eq:1}
+    P(\textit{choice $|$ branch})  ={}& P\Big(\sum_j \alpha_{j}*d_{ij} +\beta_1*\textit{Overnight cost} + \beta_2*\textit{Fuel Price} + \beta_3*\textit{Variable O\&M} + \\
+         & + \beta_4*\textit{Fixed O\&M} \Big)
+\end{split}\\
+    P(\textit{branch}) ={}& P\Big(\sum_{\textit{k $\in$ fuel}} \tau_{k}*IV_{k}\Big) \\ 
+    P(\textit{choice, branch}) ={}& P(\textit{choice $|$ branch})\cdot P(\textit{branch})
+\end{align}
 
 The determinants of the choice made by each individual amongst the entire choice set can be classified according to three indexes: the properties of each alternative, the choice situation, and properties of the individual \cite{}(Croissant mlogit package).
 At least three types of variables are possible in the multinomial logit framework: alternative specific variables ($x_{ij}$) with generic effects ($\beta$); individual specific variables ($z_i$) with an alternative specific coefficient ($\gamma_j$); and alternative specific variables ($w_j$) with alternative specific coefficients ($\lambda_j$)\parencite{mlogit2013}.  
@@ -205,6 +219,50 @@ This is equivalent to the multinomial logit model, which assumes a linear model 
 the relationship between the logit probability and representative utility is S-shaped which means that if representative utility is very low (relatively), a small increase in the utility of the alternative has little effect on the probability of its being chosen (from a policy perspective this would be like choosing between investing in an area with poor bus service or an area with sufficient bus service: more impact in the area with sufficient service on bus ridership)
 
 \section{Results}
+The historic allocation across electricity production technologies can be seen in Table \ref{table:perc}.
+
+\begin{table}[H]
+\caption{Historic allocation of share weights to new capacity additions (1999-2014)}
+\centering
+\begin{tabular}{c c c}
+\hline
+\hline
+Input fuel & Production technology & Market share \\ [0.5ex]
+\hline
+Coal & Coal & 6.2\% \\
+Natural gas & Combined Cycle & 48.7\% \\
+Oil & Combined Cycle & 0.2\% \\
+Natural gas & Combustion Turbine & 22.6\% \\
+Oil & Combustion Turbine & 1.2\% \\
+Geothermal & Geothermal & 0.2\% \\
+Solar & Photovoltaic & 2.5\% \\
+Solar & Solar Thermal & 0.4\% \\
+Wind & Wind Turbine & 18.0\% \\ [1ex]
+\hline
+\end{tabular}
+\label{table:perc}
+\end{table}
+
+The multinomial logit \ldots
+
+We test the IIA assumption of the multinomial model using the Hausman consistency test as implemented through the 'hmftest' in the mlogit package \parencite{mlogit2013}. 
+The Hausman test checks that the probability ratio between each pair of choice alternatives is only determined by the characteristics of the alternative, as opposed to factors of other alternatives. 
+The test compares the full model with a model estimated across a subset of the choice alternatives.
+The results of our analysis suggest that we reject the null hypothesis of IIA, which means that we should estimate the model with a structure that accounts for the correlated error terms.  
+
+Our assumption is that choice alternatives that utilize the same primary fuel input are potentially correlated (i.e., are located in the same nest). 
+Using the mlogit package in R by \cite{mlogit2013} we estimate the nested logit model using the formulation in Equation \ref{nestedstructure}. 
+The upper level of the model (i.e,. branches) are the primary fuel types used by the power production technologies including, oil, coal, natural gas, wind, solar, and geothermal.\footnote{Fuels such as nuclear, \ldots, etc. have not been used by new capacity additions recently, which is why they aren't in the fuel mix. For other fuels like biomass, kerosene, etc. we don't have cost or price estimates at this time.}
+The lower level of the model (i.e., twigs) are the production technology alternatives (e.g., combined cycle, combustion turbine, etc.). 
+
+The model structure and past history leads to degeneracy in one of our branches (i.e., coal). 
+While other power production technologies exist that use coal (i.e., integrated gasification plants) these plants have not been deployed during the period of study.
+The degenerate branch leads to a normalization issue, which \cite{hensher2002specification} discuss in some detail.
+However, what is important here is that we can estimate the model using the mlogit package if we set the unscaled parameter to 'TRUE'. 
+
+We estimated the model in Equation \ref{eq:1}, which included alternative-specific constraints, which means that the prediction of our model match exactly the proportions of the input data (i.e., logit model ensures that the average probabilities equal the observed shares \cite{} Train). 
+ 
+If we don't consider the nested structure of the model 
 
 \section{Discussion}
 
