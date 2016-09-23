@@ -2,8 +2,9 @@ data.raw = read.table(paste0(path_data, "processed.overnight.txt.gz"), header=TR
 
 data.final = data.raw %>%
   select(overnight_category, fuel_1_general, year, capacity.factor.avg, capacity_mw, n, pred.heat.rate, adj.fuel.price, base.overnight, variable.o.m, fixed.o.m) %>%
-  filter(year >= 1999) %>%
-  # We don't have overnight cost data for the period prior to this (we have 1997 but are missing 1998)
+  filter(year >= 2001) %>%
+  # We don't have overnight cost data for the period prior to this (we have 1997 but are missing 1998). Mlogit has issues with missing data. 
+  #   To incorporate any of this data we would need to impute missing values during the period. 
   filter(fuel_1_general != "biomass") %>%
   # We don't have biomass fuel prices at this time.
   filter(fuel_1_general != "lpg") %>%
@@ -16,7 +17,7 @@ data.final = data.raw %>%
   # We don't have propane fuel prices at this time. Also, probably more importantly, not many power plants use it.
   filter(fuel_1_general != "MWh") %>%
   # We don't have MWh fuel prices at this time.
-  filter(overnight_category != 'fuel cell') %>%
+  filter(overnight_category != 'fuel cell' & overnight_category != 'hydro') %>%
   # We don't have good heat rate data at this time. If we wanted to we could use the nth heat rate from the overnight cost dataset.
   mutate(adj.fuel.price = ifelse(fuel_1_general=='geothermal' | fuel_1_general== 'wind' | fuel_1_general=='solar' | 
                                    fuel_1_general=='water', 0, adj.fuel.price)) %>%
@@ -32,13 +33,58 @@ data.final = data.raw %>%
   mutate(choice_id = seq(from=1,to=nrow(.), by = 1)) %>%
   mutate(choice = as.factor(choice)) %>%
   mutate(year = as.factor(as.character(year))) %>%
+  mutate(fossil.use = ifelse(fuel_1_general == 'coal' | fuel_1_general == 'oil' | fuel_1_general == 'ng', 1, 0)) %>%
+  mutate(coal.use = ifelse(fuel_1_general=='coal', 1, 0)) %>%
+  mutate(ng.use = ifelse(fuel_1_general=='natural gas', 1, 0)) %>%
+  mutate(oil.use = ifelse(fuel_1_general=='oil', 1, 0)) %>%
+  mutate(renewable.use = ifelse(fuel_1_general=='solar' | fuel_1_general=='wind' | fuel_1_general == 'geothermal', 1, 0)) %>%
   arrange(overnight_category, fuel_1_general, year) %>%
-  select(choice_id, year, choice, overnight_category, fuel_1_general, capacity.factor.avg, capacity_mw, adj.fuel.price, variable.o.m, 
-         fixed.o.m, adj.overnight)
+  select(choice_id, year, choice, overnight_category, fuel_1_general, fossil.use, coal.use, ng.use, oil.use, renewable.use, 
+         capacity.factor.avg, capacity_mw, adj.fuel.price, variable.o.m, fixed.o.m, adj.overnight)
 
 gz1 = gzfile(paste0(path_data,"data.final.txt.gz"), "w")
 write.table(data.final, file = gz1, sep="\t", col.names = TRUE, row.names = FALSE)
 close(gz1) 
+
+summary.stats.0 = data.final %>%
+  group_by(choice) %>%
+  summarize(mw = sum(capacity_mw)) %>%
+  ungroup() %>%
+  mutate(proporation = round((mw/sum(mw))*100, 1))
+
+summary.stats.1 = data.final %>%
+  group_by(fuel_1_general, year) %>%
+  summarize(capacity = sum(capacity_mw))
+
+summary.stats.2 = data.final %>%
+  group_by(overnight_category, year) %>%
+  summarize(capacity = sum(capacity_mw))
+
+p1 = ggplot(summary.stats.1, aes(year, capacity, fill= fuel_1_general)) +
+  geom_bar(stat="identity") +
+  theme(axis.text.x = element_text(size=12), axis.text.y = element_text(size = 12), axis.title = element_text(size = 14),
+        strip.text.x = element_text(size = 14), legend.position = c(0.75,0.75), legend.background = element_rect(colour = NA), 
+        legend.text = element_text(size = 10)) +
+  guides(fill = guide_legend(title = "Primary fuel")) +
+  labs(x = "Year", y = "Capacity additions (MW)")
+
+dev.off()
+pdf(paste0(path_figure, "summary_stats_fuel.pdf"), width=8.5,height=11) 
+p1
+dev.off()
+
+p1 = ggplot(summary.stats.2, aes(year, capacity, fill= overnight_category)) +
+  geom_bar(stat="identity") +
+  theme(axis.text.x = element_text(size=12), axis.text.y = element_text(size = 12), axis.title = element_text(size = 14),
+        strip.text.x = element_text(size = 14), legend.position = c(0.75,0.75), legend.background = element_rect(colour = NA), 
+        legend.text = element_text(size = 10)) +
+  guides(fill = guide_legend(title = "Production technology")) +
+  labs(x = "Year", y = "Capacity additions (MW)")
+
+dev.off()
+pdf(paste0(path_figure, "summary_stats_tech.pdf"), width=8.5,height=11) 
+p1
+dev.off()
 
 categories = unique(data.final[, c('overnight_category', 'fuel_1_general')]) %>%
   mutate(choice = paste(overnight_category, fuel_1_general, sep=" ")) %>%
@@ -54,13 +100,11 @@ my_func = function(x, y, z){
   return(data.frame(a))
 }
 # This function adds all of the choice alternatives to the dataset (not just the option that was selected)
-
 capacity_1mw = data.final %>%
-  select(year,overnight_category, fuel_1_general, choice, capacity_mw) %>%
+  select(year, overnight_category, fuel_1_general, choice, capacity_mw) %>%
   slice(rep(1:n(), round(capacity_mw))) %>%
   mutate(id = seq(from=1, to = nrow(.), by = 1)) %>%
   mutate(decision = TRUE)
-
 df = capacity_1mw %>%
   group_by(id) %>%
   do(my_func(x = .$choice, y = .$year, z = .$id)) %>%
@@ -74,43 +118,45 @@ gz1 = gzfile(paste0(path_data,"data.expanded.txt.gz"), "w")
 write.table(df, file = gz1, sep="\t", col.names = TRUE, row.names = FALSE)
 close(gz1) 
 
+# Model estimation
 df = read.table(paste0(path_data, "data.expanded.txt.gz"), header=TRUE, sep ="\t", as.is = TRUE)
+df.mlogit = mlogit.data(df, choice = 'decision', shape = 'long', id = 'id', alt.var = 'choice')
 
-
-test = df %>%
-  filter(choice != 'igcc coal') %>%
-  filter(choice != 'nuclear uranium') %>%
-  arrange(id, choice)
-
-test.1 = mlogit.data(df, choice = 'decision', shape = 'long', chid.var = 'id',
-                alt.levels = c("coal coal", "conventional combined cycle natural gas", "conventional combined cycle oil",
-                               "conventional combustion turbine natural gas", "conventional combustion turbine oil",         
-                               "geothermal geothermal", "hydro water", "photovoltaic solar",
-                               "solar thermal solar", "wind wind"))
-test.1 = mlogit.data(test, choice = 'decision', shape = 'long', alt.var = 'choice')
-f = mFormula(decision ~ adj.overnight)
+formula.1.mlogit = mFormula(decision ~ adj.overnight + fixed.o.m  + adj.fuel.price + variable.o.m | 1 | 0)
+formula.nl.1.mlogit = mFormula(decision ~ fixed.o.m + adj.fuel.price + variable.o.m + adj.overnight + fossil.use | 0)
+formula.nl.2.mlogit = mFormula(decision ~ fixed.o.m + adj.fuel.price + variable.o.m + adj.overnight + coal.use + ng.use + oil.use | 0)
 #View(model.matrix(f, test.1))
 
-f.1 = mlogit(f, test.1, shape='long', alt.var='choice')
-f.1 = mlogit(decision ~ adj.overnight | id, data = test.1)
+f.0 = mlogit(formula.1.mlogit, df.mlogit, shape='long', alt.var='choice')
+f.1 = mlogit(formula.1.mlogit, df.mlogit, shape='long', alt.var='choice', 
+             alt.subset = c('conventional combined cycle natural gas', 'conventional combustion turbine oil', 'conventional combined cycle oil', 
+                            'conventional combustion turbine natural gas', 'conventional combustion turbine oil', 'conventional combined cycle oil'))
+f.nl.0 = mlogit(formula.nl.1.mlogit, shape='long', alt.var='choice', df.mlogit,
+             nests = list(fossil= c('coal coal', 'conventional combined cycle natural gas', 'conventional combustion turbine oil', 
+                                    'conventional combined cycle oil', 'conventional combustion turbine natural gas'),
+                          renewables = c('geothermal geothermal', 'wind wind','solar thermal solar', 'photovoltaic solar')))
+f.nl.1 = mlogit(formula.nl.2.mlogit, shape='long', alt.var='choice', df.mlogit,
+             nests = list(coal = 'coal coal', 
+                          ng = c('conventional combined cycle natural gas', 'conventional combustion turbine natural gas'),
+                          oil = c('conventional combustion turbine oil', 'conventional combined cycle oil'),
+                          renewables = c('geothermal geothermal', 'wind wind','solar thermal solar', 'photovoltaic solar')), unscaled = TRUE)
+# The coal branch is degenerate (i.e., has only one alternative) to 
 
-summary(mlogit(decision ~ 0 | adj.overnight, data = test.1))
+# un.nest.el = TRUE means that we are forcing the hypothesis of a unique elasticity for nested logit (each nest)
 
-test = df %>%
-  filter(year == 2014) %>%
-  mutate(new = paste(id, choice, sep='.')) 
 
-test$id = as.character(test$id)
-test$choice = as.character(test$choice)
+z = sample(1:length(unique(data.final$year)), 4, replace=TRUE)
+cv.df.mlogit = rbind(df.mlogit[which(df.mlogit$year == unique(data.final$year)[z[1]]), ],
+                     df.mlogit[which(df.mlogit$year == unique(data.final$year)[z[2]]), ],
+                     df.mlogit[which(df.mlogit$year == unique(data.final$year)[z[3]]), ],
+                     df.mlogit[which(df.mlogit$year == unique(data.final$year)[z[4]]), ])
 
-data = mlogit.data(test, choice = 'decision', shape = 'wide', id.var = c('id','year'), alt.var = 'choice')
-data = data %>%
-  arrange(fuel_1_general)
+stats = cv.df.mlogit %>%
+  group_by(choice) %>% 
+  summarize(mw = sum(decision == TRUE)) %>%
+  ungroup() %>%
+  mutate(perc = round(mw/sum(mw),2))
 
-ml.capacity = mlogit(decision ~ adj.fuel.price + variable.o.m + fixed.o.m + adj.overnight | 0, df)
+cv.test = fitted(f.0, newData=cv.df.mlogit)
+apply(predict(f.0, newdata=cv.df.mlogit), 2, mean)
 
-nl.capacity = mlogit(decision ~ adj.fuel.price + variable.o.m + fixed.o.m + adj.overnight, data, panel = TRUE,
-                     nests = list(coal= c('coal coal', 'igcc coal'), oil = c('conventional combustion turbine oil', 'conventional combined cycle oil'),
-                                  ng = c('conventional combined cycle natural gas', 'conventional combustion turbine natural gas'),
-                                  geothermal = 'geothermal geothermal', nuclear = 'nuclear uranium', solar = c('solar thermal solar', 'photovoltaic solar'),
-                                  hydro = 'hydro water', wind = 'wind wind'), un.nest.el=TRUE)
