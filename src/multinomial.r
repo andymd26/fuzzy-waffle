@@ -38,9 +38,15 @@ data.final = data.raw %>%
   mutate(ng.use = ifelse(fuel_1_general=='natural gas', 1, 0)) %>%
   mutate(oil.use = ifelse(fuel_1_general=='oil', 1, 0)) %>%
   mutate(renewable.use = ifelse(fuel_1_general=='solar' | fuel_1_general=='wind' | fuel_1_general == 'geothermal', 1, 0)) %>%
+  mutate(fossil.use = as.factor(fossil.use)) %>%
+  mutate(coal.use = as.factor(coal.use)) %>%
+  mutate(ng.use = as.factor(ng.use)) %>%
+  mutate(oil.use = as.factor(oil.use)) %>%
+  mutate(renewable.use = as.factor(renewable.use)) %>%
+  mutate(cost = adj.fuel.price + variable.o.m + fixed.o.m + adj.overnight) %>%
   arrange(overnight_category, fuel_1_general, year) %>%
   select(choice_id, year, choice, overnight_category, fuel_1_general, fossil.use, coal.use, ng.use, oil.use, renewable.use, 
-         capacity.factor.avg, capacity_mw, adj.fuel.price, variable.o.m, fixed.o.m, adj.overnight)
+         capacity.factor.avg, capacity_mw, adj.fuel.price, variable.o.m, fixed.o.m, adj.overnight, cost)
 
 gz1 = gzfile(paste0(path_data,"data.final.txt.gz"), "w")
 write.table(data.final, file = gz1, sep="\t", col.names = TRUE, row.names = FALSE)
@@ -120,42 +126,108 @@ close(gz1)
 
 # Model estimation
 df = read.table(paste0(path_data, "data.expanded.txt.gz"), header=TRUE, sep ="\t", as.is = TRUE)
-df.mlogit = mlogit.data(df, choice = 'decision', shape = 'long', id = 'id', alt.var = 'choice')
+df = df %>%
+  mutate(overnight_category = as.factor(overnight_category)) %>%
+  mutate(fuel_1_general = as.factor(fuel_1_general)) %>%
+  mutate(choice = as.factor(choice)) %>%
+  mutate(year = as.factor(as.character(year))) %>%
+  mutate(fossil.use = as.factor(fossil.use)) %>%
+  mutate(coal.use = as.factor(coal.use)) %>%
+  mutate(ng.use = as.factor(ng.use)) %>%
+  mutate(oil.use = as.factor(oil.use)) %>%
+  mutate(renewable.use = as.factor(renewable.use))
+# All categorical variables need to be set as factors
 
+df.mlogit = mlogit.data(df, choice = 'decision', 
+                        shape = 'long', 
+                        alt.levels = c('coal coal', 'conventional combined cycle natural gas', 'conventional combustion turbine oil',
+                                       'conventional combined cycle oil', 'conventional combustion turbine natural gas', 'geothermal geothermal', 
+                                       'wind wind','solar thermal solar', 'photovoltaic solar'))
+# Random lessons learned in using mlogit:
+# We don't have a panel dataset (we have a repeated cross-section), which means that we don't use the 'id.var' parameter
+# If done correctly, in the non-panel data the row names will be the paste0(choice #, choice alternative, sep='.') 
+# Even if a nest has one alternative you must use c()
+# We set the reference level as the renewables 
+
+
+formula.0.mlogit = mFormula(decision ~ cost|0)
 formula.1.mlogit = mFormula(decision ~ adj.overnight + fixed.o.m  + adj.fuel.price + variable.o.m | 1 | 0)
 formula.nl.1.mlogit = mFormula(decision ~ fixed.o.m + adj.fuel.price + variable.o.m + adj.overnight + fossil.use | 0)
+formula.nl.1.mlogit = mFormula(decision ~ fixed.o.m + adj.fuel.price + variable.o.m + adj.overnight | 0)
+formula.nl.4.mlogit = mFormula(decision ~ cost + fossil.use | 0)
+# I assume that we continue with convention and don't include all dummy variables (though the model doesn't seem to drop one)
 formula.nl.2.mlogit = mFormula(decision ~ fixed.o.m + adj.fuel.price + variable.o.m + adj.overnight + coal.use + ng.use + oil.use | 0)
+formula.nl.3.mlogit = mFormula(decision ~ cost + coal.use + ng.use + oil.use | 0)
+formula.nl.3.mlogit = mFormula(decision ~ cost + renewable.use + ng.use + coal.use | 0)
+formula.nl.3.mlogit = mFormula(decision ~ cost | 0)
 #View(model.matrix(f, test.1))
 
 f.0 = mlogit(formula.1.mlogit, df.mlogit, shape='long', alt.var='choice')
-f.1 = mlogit(formula.1.mlogit, df.mlogit, shape='long', alt.var='choice', 
-             alt.subset = c('conventional combined cycle natural gas', 'conventional combustion turbine oil', 'conventional combined cycle oil', 
-                            'conventional combustion turbine natural gas', 'conventional combustion turbine oil', 'conventional combined cycle oil'))
-f.nl.0 = mlogit(formula.nl.1.mlogit, shape='long', alt.var='choice', df.mlogit,
+# No nests
+f.nl.0.a = mlogit(formula.nl.1.mlogit, shape='long', alt.var='choice', df.mlogit,
              nests = list(fossil= c('coal coal', 'conventional combined cycle natural gas', 'conventional combustion turbine oil', 
                                     'conventional combined cycle oil', 'conventional combustion turbine natural gas'),
                           renewables = c('geothermal geothermal', 'wind wind','solar thermal solar', 'photovoltaic solar')))
+f.nl.0.b = mlogit(formula.nl.4.mlogit, shape='long', alt.var='choice', df.mlogit,
+                nests = list(fossil= c('coal coal', 'conventional combined cycle natural gas', 'conventional combustion turbine oil', 
+                                       'conventional combined cycle oil', 'conventional combustion turbine natural gas'),
+                             renewables = c('geothermal geothermal', 'wind wind','solar thermal solar', 'photovoltaic solar')))
+# Fossil vs. renewable fuels nest structure
 f.nl.1 = mlogit(formula.nl.2.mlogit, shape='long', alt.var='choice', df.mlogit,
-             nests = list(coal = 'coal coal', 
+             nests = list(coal = c('coal coal'), 
                           ng = c('conventional combined cycle natural gas', 'conventional combustion turbine natural gas'),
                           oil = c('conventional combustion turbine oil', 'conventional combined cycle oil'),
-                          renewables = c('geothermal geothermal', 'wind wind','solar thermal solar', 'photovoltaic solar')), unscaled = TRUE)
-# The coal branch is degenerate (i.e., has only one alternative) to 
+                          renewables = c('geothermal geothermal', 'wind wind','solar thermal solar', 'photovoltaic solar')), 
+             unscaled = TRUE)
+f.nl.2 = mlogit(formula.nl.3.mlogit, shape='long', alt.var='choice', df.mlogit,
+                nests = list(coal = c('coal coal'), 
+                             ng = c('conventional combined cycle natural gas', 'conventional combustion turbine natural gas'),
+                             oil = c('conventional combustion turbine oil', 'conventional combined cycle oil'),
+                             renewables = c('geothermal geothermal', 'wind wind','solar thermal solar', 'photovoltaic solar')), 
+                unscaled = TRUE)
+f.nl.3 = mlogit(formula.nl.3.mlogit, shape='long', alt.var='choice', df.mlogit,
+                nests = list(coal = c('coal coal'), 
+                             ng = c('conventional combined cycle natural gas', 'conventional combustion turbine natural gas'),
+                             oil = c('conventional combustion turbine oil', 'conventional combined cycle oil'),
+                             solar = c('solar thermal solar', 'photovoltaic solar'),
+                             geothermal = c('geothermal geothermal'),
+                             wind = c('wind wind')), 
+                unscaled = TRUE)
+# Nesting structure akin to GCAM. Note: The coal branch is degenerate (i.e., has only one alternative), which we address through the unscaled parameter.
 
 # un.nest.el = TRUE means that we are forcing the hypothesis of a unique elasticity for nested logit (each nest)
 
+x = unique(data.final$year)
+z = sample(1:length(x), 7, replace=TRUE)
+cv.df.fit = rbind(df.mlogit[which(df.mlogit$year == x[z[1]]), ],
+                     df.mlogit[which(df.mlogit$year == x[z[2]]), ],
+                     df.mlogit[which(df.mlogit$year == x[z[3]]), ],
+                     df.mlogit[which(df.mlogit$year == x[z[4]]), ],
+                     df.mlogit[which(df.mlogit$year == x[z[5]]), ],
+                     df.mlogit[which(df.mlogit$year == x[z[6]]), ],
+                     df.mlogit[which(df.mlogit$year == x[z[7]]), ])
+y = sample(1:length(x), 7, replace=TRUE)
+cv.df.test = rbind(df.mlogit[which(df.mlogit$year == x[y[1]]), ],
+                  df.mlogit[which(df.mlogit$year == x[y[2]]), ],
+                  df.mlogit[which(df.mlogit$year == x[y[3]]), ],
+                  df.mlogit[which(df.mlogit$year == x[y[4]]), ],
+                  df.mlogit[which(df.mlogit$year == x[y[5]]), ],
+                  df.mlogit[which(df.mlogit$year == x[y[6]]), ],
+                  df.mlogit[which(df.mlogit$year == x[y[7]]), ])
 
-z = sample(1:length(unique(data.final$year)), 4, replace=TRUE)
-cv.df.mlogit = rbind(df.mlogit[which(df.mlogit$year == unique(data.final$year)[z[1]]), ],
-                     df.mlogit[which(df.mlogit$year == unique(data.final$year)[z[2]]), ],
-                     df.mlogit[which(df.mlogit$year == unique(data.final$year)[z[3]]), ],
-                     df.mlogit[which(df.mlogit$year == unique(data.final$year)[z[4]]), ])
+f.nl.1 = mlogit(formula.nl.2.mlogit, shape='long', alt.var='choice', cv.df.fit,
+                nests = list(coal = 'coal coal', 
+                             ng = c('conventional combined cycle natural gas', 'conventional combustion turbine natural gas'),
+                             oil = c('conventional combustion turbine oil', 'conventional combined cycle oil'),
+                             renewables = c('geothermal geothermal', 'wind wind','solar thermal solar', 'photovoltaic solar')), unscaled = TRUE)
 
-stats = cv.df.mlogit %>%
+stats = cv.df.test %>%
   group_by(choice) %>% 
   summarize(mw = sum(decision == TRUE)) %>%
   ungroup() %>%
   mutate(perc = round(mw/sum(mw),2))
+
+pred.shares = apply(predict(f.nl.1, newdata=cv.df.test), 2, mean)
 
 cv.test = fitted(f.0, newData=cv.df.mlogit)
 apply(predict(f.0, newdata=cv.df.mlogit), 2, mean)
