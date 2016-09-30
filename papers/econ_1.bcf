@@ -2097,20 +2097,21 @@
     <bcf:datasource type="file" datatype="bibtex">/Users/bloh356/Google Drive/Library/Library.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
-    <bcf:citekey order="2">eiaform860</bcf:citekey>
-    <bcf:citekey order="3">eiaform860</bcf:citekey>
-    <bcf:citekey order="5">eiaupdatedcapital2010</bcf:citekey>
-    <bcf:citekey order="6">eiaupdatedcapital2010</bcf:citekey>
-    <bcf:citekey order="7">train:2009aa</bcf:citekey>
-    <bcf:citekey order="8">train:2009aa</bcf:citekey>
-    <bcf:citekey order="9">wen2001generalized</bcf:citekey>
-    <bcf:citekey order="10">mcfadden1978</bcf:citekey>
-    <bcf:citekey order="12">mlogit2013</bcf:citekey>
+    <bcf:citekey order="1">train2009discrete</bcf:citekey>
+    <bcf:citekey order="2">train2009discrete</bcf:citekey>
+    <bcf:citekey order="3">eiaglossary2016</bcf:citekey>
+    <bcf:citekey order="4">eiaform860</bcf:citekey>
+    <bcf:citekey order="5">eiaform860</bcf:citekey>
+    <bcf:citekey order="6">eiaform860</bcf:citekey>
+    <bcf:citekey order="7">eiaform923</bcf:citekey>
+    <bcf:citekey order="8">eiaupdatedcapital2010</bcf:citekey>
+    <bcf:citekey order="9">eiaupdatedcapital2010</bcf:citekey>
+    <bcf:citekey order="11">cec2016</bcf:citekey>
     <bcf:citekey order="14">mlogit2013</bcf:citekey>
-    <bcf:citekey order="15">mlogit2013</bcf:citekey>
+    <bcf:citekey order="15">wen2001generalized</bcf:citekey>
     <bcf:citekey order="16">mlogit2013</bcf:citekey>
-    <bcf:citekey order="17">mlogit2013</bcf:citekey>
-    <bcf:citekey order="18">hensher2002specification</bcf:citekey>
+    <bcf:citekey order="17">heiss2002structural</bcf:citekey>
+    <bcf:citekey order="19">mlogit2013</bcf:citekey>
   </bcf:section>
   <bcf:sortlist section="0" name="nyt/global/" type="entry" sortscheme="nyt" sortnamekeyscheme="global" labelprefix="">
   <bcf:sorting>
