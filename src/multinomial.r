@@ -162,8 +162,15 @@ formula.nl.3.mlogit = mFormula(decision ~ cost + renewable.use + ng.use + coal.u
 formula.nl.3.mlogit = mFormula(decision ~ cost | 0)
 #View(model.matrix(f, test.1))
 
-f.0 = mlogit(formula.1.mlogit, df.mlogit, shape='long', alt.var='choice')
+f.0 = mlogit(formula.0.mlogit, df.mlogit, shape='long', alt.var='choice')
 # No nests
+iia.test = mlogit(formula.0.mlogit, df.mlogit, shape='long', alt.var='choice', 
+                  alt.subset = c('conventional combined cycle natural gas', 'conventional combustion turbine oil', 
+                                 'conventional combined cycle oil', 'conventional combustion turbine natural gas',
+                                 'geothermal geothermal'))
+# Same model but with a subset of alternatives (in preparation for the Hausman consistency test)
+hmftest(z=iia.test, x=f.0)
+# From the Hausman-McFadden test we can say that the IIA assumption is rejected
 f.nl.0.a = mlogit(formula.nl.1.mlogit, shape='long', alt.var='choice', df.mlogit,
              nests = list(fossil= c('coal coal', 'conventional combined cycle natural gas', 'conventional combustion turbine oil', 
                                     'conventional combined cycle oil', 'conventional combustion turbine natural gas'),
