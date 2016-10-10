@@ -113,7 +113,7 @@ We use the data to calculate the average plant capacity factor for each primary 
 
 Where, $n_{jk}$ is the number of plants with primary fuel $k$ and production technology $j$.
 Unfortunately, the size of each plant is not a variable captured by Form EIA-923.
-Instead, we identify the size pf each plant using data from EIA Form 860 and merge the two data sources using the unique plant identifier.
+Instead, we identify the size of each plant using data from EIA Form 860 and merge the two data sources using the unique plant identifier.
 This process introduces error into our calculations, as Form EIA-860 and Form EIA-923 do not always agree on the number of generators active at each site during a particular period. 
 However, the advantage of this approach is that the capacity factors are tailored to the primary fuel and production technology, as opposed to capacity factors found in the literature, which are solely based on production technology and tend to be available for a short amount of time (usually $\sim$2010 to present).
 
@@ -137,7 +137,7 @@ Variable operation and maintenance costs are expenses that by definition vary wi
 We considered using the estimates of the heat rate from the AEO documentation but ended up using other methods, which are discussed later. 
 
 The literature suggests that fuel costs are the predominant operating cost for fossil fuel generation plants and are thus, an important factor in power plant production technology selection.
-Fuel price data for the period (1/1986-5/2016) is available from Energy Information Administration (EIA) sources.
+Fuel price data for the period (January 1986 to May 2016) is available from Energy Information Administration (EIA) sources.
 The Energy Information Administration (EIA) in the Electric Power Monthly report publishes electric utility receipts of and average cost for fossil fuels used in the power generation sector \parencite{}.
 We generate a monthly time-series dataset for the period 1/1986-5/2016 using the Electric Power Monthly reports from June 1996 (Table 26), January 2010 (Table 4.2), and May 2016 (Table 4.2). 
 The data includes price information for coal, petroleum liquids, and natural gas inputs.
@@ -158,7 +158,6 @@ The nested model parameters are then compared with the GCAM electricity model sh
 
 We chose to model the discrete choice model using a  multinomial logit, however, a generalized linear model (GLM) using the Poisson family with a log-link function would also have been appropriate to estimate the share weights. 
 The multinomial and Poisson models have an equivalence that can be exploited using a generalized linear model.
-
 If we have a set of Poisson distributed random variables, such as the annual capacity additions, \textit{$X_1 \sim P(\lambda_1$), $X_2 \sim P(\lambda_2$), \ldots, $X_k \sim P(\lambda_k$)} where $\lambda_1 \neq \lambda_2 \neq \ldots \neq \lambda_k$ (at least not necessarily equal) then the conditional distribution (i.e., probability distribution for a sub-population) of the random variables \textit{$X = (X_1, X_2, \ldots, x_k)$} is multinomial, $X \sim Mult(n, \pi)$, where \textit{$n = \sum_k X_k$} and \textit{$\pi_j = \frac{\lambda_j}{\sum_k \lambda_k}$}.\footnote{The reader is directed to \cite{} (Guzman lecture notes) for more details on the equivalent log-linear model.}
 However, given the well developed mlogit package in R developed by \cite{mlogit2013}, in particular the ease in which it implements nested model structures, we chose to implement the multinomial logit model directly. 
 
