@@ -151,17 +151,15 @@ df.mlogit = mlogit.data(df, choice = 'decision',
 
 
 formula.0.mlogit = mFormula(decision ~ cost|0)
+# No nests equation
 formula.1.mlogit = mFormula(decision ~ adj.overnight + fixed.o.m  + adj.fuel.price + variable.o.m | 1 | 0)
-formula.nl.1.mlogit = mFormula(decision ~ fixed.o.m + adj.fuel.price + variable.o.m + adj.overnight + fossil.use | 0)
+# Includes a constant for each production technology
 formula.nl.1.mlogit = mFormula(decision ~ fixed.o.m + adj.fuel.price + variable.o.m + adj.overnight | 0)
-formula.nl.4.mlogit = mFormula(decision ~ cost + fossil.use | 0)
-# I assume that we continue with convention and don't include all dummy variables (though the model doesn't seem to drop one)
-formula.nl.2.mlogit = mFormula(decision ~ fixed.o.m + adj.fuel.price + variable.o.m + adj.overnight + coal.use + ng.use + oil.use | 0)
-formula.nl.3.mlogit = mFormula(decision ~ cost + coal.use + ng.use + oil.use | 0)
-formula.nl.3.mlogit = mFormula(decision ~ cost + renewable.use + ng.use + coal.use | 0)
+# Disaggregated cost factors
 formula.nl.3.mlogit = mFormula(decision ~ cost | 0)
-#View(model.matrix(f, test.1))
+# Could have just used formula.0.mlogit
 
+#### IIA testing 
 f.0 = mlogit(formula.0.mlogit, df.mlogit, shape='long', alt.var='choice')
 # No nests
 iia.test = mlogit(formula.0.mlogit, df.mlogit, shape='long', alt.var='choice', 
@@ -171,6 +169,8 @@ iia.test = mlogit(formula.0.mlogit, df.mlogit, shape='long', alt.var='choice',
 # Same model but with a subset of alternatives (in preparation for the Hausman consistency test)
 hmftest(z=iia.test, x=f.0)
 # From the Hausman-McFadden test we can say that the IIA assumption is rejected
+####
+
 f.nl.0.a = mlogit(formula.nl.1.mlogit, shape='long', alt.var='choice', df.mlogit,
              nests = list(fossil= c('coal coal', 'conventional combined cycle natural gas', 'conventional combustion turbine oil', 
                                     'conventional combined cycle oil', 'conventional combustion turbine natural gas'),
@@ -192,6 +192,10 @@ f.nl.2 = mlogit(formula.nl.3.mlogit, shape='long', alt.var='choice', df.mlogit,
                              oil = c('conventional combustion turbine oil', 'conventional combined cycle oil'),
                              renewables = c('geothermal geothermal', 'wind wind','solar thermal solar', 'photovoltaic solar')), 
                 unscaled = TRUE)
+
+
+
+#### GCAM structure 
 f.nl.3 = mlogit(formula.nl.3.mlogit, shape='long', alt.var='choice', df.mlogit,
                 nests = list(coal = c('coal coal'), 
                              ng = c('conventional combined cycle natural gas', 'conventional combustion turbine natural gas'),
@@ -201,6 +205,16 @@ f.nl.3 = mlogit(formula.nl.3.mlogit, shape='long', alt.var='choice', df.mlogit,
                              wind = c('wind wind')), 
                 unscaled = TRUE)
 # Nesting structure akin to GCAM. Note: The coal branch is degenerate (i.e., has only one alternative), which we address through the unscaled parameter.
+
+#### Disaggreated cost components
+f.nl.4 = mlogit(formula.nl.1.mlogit, shape='long', alt.var='choice', df.mlogit,
+                nests = list(coal = c('coal coal'), 
+                             ng = c('conventional combined cycle natural gas', 'conventional combustion turbine natural gas'),
+                             oil = c('conventional combustion turbine oil', 'conventional combined cycle oil'),
+                             solar = c('solar thermal solar', 'photovoltaic solar'),
+                             geothermal = c('geothermal geothermal'),
+                             wind = c('wind wind')), 
+                unscaled = TRUE)
 
 # un.nest.el = TRUE means that we are forcing the hypothesis of a unique elasticity for nested logit (each nest)
 
