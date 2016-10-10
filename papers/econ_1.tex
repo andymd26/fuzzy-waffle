@@ -7,6 +7,7 @@
 \usepackage{endnotes}
 \usepackage{verbatimbox}
 \usepackage{geometry}
+\usepackage{makecell}
 \usepackage{tikz}
 \usepackage{pdflscape}
 \usetikzlibrary{shapes, arrows, shadows}
@@ -241,18 +242,22 @@ The model specification results in the following raw output (see Table \ref{nl.1
 \begin{table}[H]
 \caption{Model 1 output: Nested logit structure to match GCAM}
 \centering
-\begin{tabular}{c c c c}
+\begin{tabular}{c c c}
 \hline
 \hline
-Variable & Estimate & Std. Error & t-value \\ [0.5ex]
+Variable & Model 1 & Model 2 \\ [0.5ex]
 \hline
-cost & -0.0001267926 & 0.0000010466 & -121.152 \\
-iv.coal & -2.8231532034 & 0.0587462264 & -48.057 \\
-iv.ng & 8.4443789459 & 0.0256093450 & 329.738 \\
-iv.oil & 2.0880832676 & 0.0472627419 &  44.180 \\
-iv.solar & -0.3688732253 & 0.0119622530 & -30.836 \\
-iv.geothermal & 5.1993393429 & 0.0946018914 &  54.960 \\
-iv.wind & -3.0364914202 & 0.0465553286 & -65.223 \\ [1ex]
+Total cost & \makecell{-0.0001267926 \\ {\footnotesize\textit{(0.0000010466)}}} & \\
+Adj. Overnight cost & & \makecell{-0.0000949715 \\ {\footnotesize\textit{(0.0000009862)}}} \\
+Adj. Fuel price & & \makecell{-0.0028220275 \\ {\footnotesize\textit{(0.00002115623)}}}\\
+Fixed O\&M & & \makecell{-0.00268805896 \\ {\footnotesize\textit{(0.00019349289)}}}\\
+Variable O\&M & & \makecell{-0.00635959781 \\ {\footnotesize\textit{(0.00018435229)}}}\\
+iv.coal & \makecell{-2.8231532034 \\ {\footnotesize\textit{(0.0587462264)}}} & \makecell{-2.66980286712 \\ {\footnotesize\textit{(0.06828036844)}}} \\
+iv.ng & \makecell{8.4443789459 \\ {\footnotesize\textit{(0.0256093450)}}} & \makecell{13.74789359089 \\ {\footnotesize\textit{(0.06651883627)}}}\\
+iv.oil & \makecell{2.0880832676 \\ {\footnotesize\textit{(0.0472627419)}}} & \makecell{5.05227178166 \\ {\footnotesize\textit{(0.05983481003)}}}\\
+iv.solar & \makecell{-0.3688732253 \\ {\footnotesize\textit{(0.0119622530)}}} & \makecell{-0.46214211146 \\ {\footnotesize\textit{(0.02306568944)}}} \\
+iv.geothermal & \makecell{5.1993393429 \\ {\footnotesize\textit{(0.0946018914)}}} & \makecell{3.37280559925 \\ {\footnotesize\textit{(0.13787696939)}}}\\
+iv.wind & \makecell{-3.0364914202 \\ {\footnotesize\textit{(0.0465553286)}}} & \makecell{-3.65082160074 \\ {\footnotesize\textit{(0.07163342314)}}}\\ [1ex]
 \hline
 \end{tabular}
 \label{table:nl.1}
@@ -262,18 +267,22 @@ The exponentiated parameter estimates are as follows:
 \begin{table}[H]
 \caption{Model 1 output: Exponentiated parameter estimates}
 \centering
-\begin{tabular}{c c}
+\begin{tabular}{c c c}
 \hline
 \hline
-Variable & Estimate \\ [0.5ex]
+Variable & Model 1 & Model 2 \\ [0.5ex]
 \hline
-cost & 0.99987322 \\
-iv.coal & 0.05941829\\
-iv.ng & 4648.86761788 \\
-iv.oil & 8.06943339 \\
-iv.solar & 0.69151307 \\
-iv.geothermal & 181.15252263 \\
-iv.wind & 0.04800302 \\ [1ex]
+cost & 0.99987322 & \\
+Adj. Overnight cost & & 0.99990503 \\
+Adj. Fuel price & & 0.99718195\\
+Fixed O\& M & & 0.99731555\\
+Variable O\& M & & 0.99366058\\
+iv.coal & 0.05941829 & 0.06926588\\
+iv.ng & 4648.86761788 & 934618.39464477\\
+iv.oil & 8.06943339 & 156.37731638 \\
+iv.solar & 0.69151307 & 0.62993281\\
+iv.geothermal & 181.15252263 & 29.16022430\\
+iv.wind & 0.04800302 & 0.02596978\\ [1ex]
 \hline
 \end{tabular}
 \label{table:nl.1}
