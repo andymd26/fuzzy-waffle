@@ -44,9 +44,10 @@ data.final = data.raw %>%
   mutate(oil.use = as.factor(oil.use)) %>%
   mutate(renewable.use = as.factor(renewable.use)) %>%
   mutate(cost = adj.fuel.price + variable.o.m + fixed.o.m + adj.overnight) %>%
+  mutate(vc = adj.fuel.price + variable.o.m + fixed.o.m) %>%
   arrange(overnight_category, fuel_1_general, year) %>%
   select(choice_id, year, choice, overnight_category, fuel_1_general, fossil.use, coal.use, ng.use, oil.use, renewable.use, 
-         capacity.factor.avg, capacity_mw, adj.fuel.price, variable.o.m, fixed.o.m, adj.overnight, cost)
+         capacity.factor.avg, capacity_mw, adj.fuel.price, variable.o.m, fixed.o.m, adj.overnight, vc, cost)
 
 gz1 = gzfile(paste0(path_data,"data.final.txt.gz"), "w")
 write.table(data.final, file = gz1, sep="\t", col.names = TRUE, row.names = FALSE)
