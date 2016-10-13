@@ -207,7 +207,7 @@ f.nl.3 = mlogit(formula.nl.3.mlogit, shape='long', alt.var='choice', df.mlogit,
                              solar = c('solar thermal solar', 'photovoltaic solar'),
                              geothermal = c('geothermal geothermal'),
                              wind = c('wind wind')), 
-                unscaled = TRUE)
+                unscaled = TRUE, un.nest.el = FALSE)
 # Nesting structure akin to GCAM. Note: The coal branch is degenerate (i.e., has only one alternative), which we address through the unscaled parameter.
 
 #### Disaggreated cost components
@@ -218,25 +218,25 @@ f.nl.4 = mlogit(formula.nl.1.mlogit, shape='long', alt.var='choice', df.mlogit,
                              solar = c('solar thermal solar', 'photovoltaic solar'),
                              geothermal = c('geothermal geothermal'),
                              wind = c('wind wind')), 
-                unscaled = TRUE)
-f.nl.5 = mlogit(formula.nl.4.mlogit, shape='long', alt.var='choice', df.mlogit,
+                unscaled = TRUE, un.nest.el = FALS)
+f.nl.5.a = mlogit(formula.nl.4.mlogit, shape='long', alt.var='choice', df.mlogit,
                                    nests = list(coal = c('coal coal'), 
                                                 ng = c('conventional combined cycle natural gas', 'conventional combustion turbine natural gas'),
                                                 oil = c('conventional combustion turbine oil', 'conventional combined cycle oil'),
                                                 solar = c('solar thermal solar', 'photovoltaic solar'),
                                                 geothermal = c('geothermal geothermal'),
                                                 wind = c('wind wind')), 
-                                   unscaled = TRUE)
-f.nl.6 = mlogit(formula.nl.5.mlogit, shape='long', alt.var='choice', df.mlogit,
-                nests = list(coal = c('coal coal'), 
-                             ng = c('conventional combined cycle natural gas', 'conventional combustion turbine natural gas'),
-                             oil = c('conventional combustion turbine oil', 'conventional combined cycle oil'),
-                             solar = c('solar thermal solar', 'photovoltaic solar'),
-                             geothermal = c('geothermal geothermal'),
-                             wind = c('wind wind')), 
-                unscaled = TRUE, reflevel = 'coal coal')
+                                   unscaled = TRUE, un.nest.el = FALSE)
+# This is the unrestricted model (a log-sum coefficient for each nest)
+f.nl.5.b = update(f.nl.5.a, un.nest.el=TRUE)
+# This is the restricted model (one log-sum coefficient)
+lrtest(f.nl.5.b, f.nl.5.a)
+# We reject the null hypothesis that the two nests have the same log-sum coefficient based on a c (i.e., we should use the unrestricted model)
 
-# un.nest.el = TRUE means that we are forcing the hypothesis of a unique elasticity for nested logit (each nest)
+round(apply(fitted(f.nl.5.a, outcome = FALSE), 2, mean)*100, 1)
+# Predicted market share (Model 3)
+round(apply(fitted(f.nl.3, outcome = FALSE), 2, mean)*100, 1)
+# Predicted market share (Model 1 - GCAM parameterization)
 
 x = unique(data.final$year)
 z = sample(1:length(x), 7, replace=TRUE)
