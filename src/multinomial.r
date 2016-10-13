@@ -155,10 +155,13 @@ formula.0.mlogit = mFormula(decision ~ cost|0)
 # No nests equation
 formula.1.mlogit = mFormula(decision ~ adj.overnight + fixed.o.m  + adj.fuel.price + variable.o.m | 1 | 0)
 # Includes a constant for each production technology
-formula.nl.1.mlogit = mFormula(decision ~ fixed.o.m + adj.fuel.price + variable.o.m + adj.overnight | 0)
+formula.nl.1.mlogit = mFormula(decision ~ adj.overnight + fixed.o.m + adj.fuel.price + variable.o.m  | 0)
 # Disaggregated cost factors
 formula.nl.3.mlogit = mFormula(decision ~ cost | 0)
 # Could have just used formula.0.mlogit
+formula.nl.4.mlogit = mFormula(decision ~ adj.overnight + vc | 0)
+# We sum together the variable costs separate from the investment costs
+# unless we estimate a model with intercepts we don't need to specify a 'reflevel'
 
 #### IIA testing 
 f.0 = mlogit(formula.0.mlogit, df.mlogit, shape='long', alt.var='choice')
@@ -216,6 +219,22 @@ f.nl.4 = mlogit(formula.nl.1.mlogit, shape='long', alt.var='choice', df.mlogit,
                              geothermal = c('geothermal geothermal'),
                              wind = c('wind wind')), 
                 unscaled = TRUE)
+f.nl.5 = mlogit(formula.nl.4.mlogit, shape='long', alt.var='choice', df.mlogit,
+                                   nests = list(coal = c('coal coal'), 
+                                                ng = c('conventional combined cycle natural gas', 'conventional combustion turbine natural gas'),
+                                                oil = c('conventional combustion turbine oil', 'conventional combined cycle oil'),
+                                                solar = c('solar thermal solar', 'photovoltaic solar'),
+                                                geothermal = c('geothermal geothermal'),
+                                                wind = c('wind wind')), 
+                                   unscaled = TRUE)
+f.nl.6 = mlogit(formula.nl.5.mlogit, shape='long', alt.var='choice', df.mlogit,
+                nests = list(coal = c('coal coal'), 
+                             ng = c('conventional combined cycle natural gas', 'conventional combustion turbine natural gas'),
+                             oil = c('conventional combustion turbine oil', 'conventional combined cycle oil'),
+                             solar = c('solar thermal solar', 'photovoltaic solar'),
+                             geothermal = c('geothermal geothermal'),
+                             wind = c('wind wind')), 
+                unscaled = TRUE, reflevel = 'coal coal')
 
 # un.nest.el = TRUE means that we are forcing the hypothesis of a unique elasticity for nested logit (each nest)
 
