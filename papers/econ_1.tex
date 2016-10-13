@@ -185,7 +185,6 @@ P_{ni} = \frac{e^{V_{ni}}}{\sum_{j} e^{V_{nj}}}
 
 As was mentioned earlier, the multinomial logit model imposes the restriction that the error distribution is independent and identical over alternatives (i.e., unobserved portion of the utility is uncorrelated over the choice set and have the same variance) \parencite{wen2001generalized}.
 The implications of the IIA assumption are that the ratio of two alternatives ($\frac{P_{coal}}{P_ng} = \frac{e^{V_{coal}}}{e^{V_{ng}}}$) is only a function of characteristics of each alternative and not related to other alternatives.
-
 However, given our knowledge of the electricity sector, we expect to see correlation among technologies that use the same primary fuel. 
 To account for the violation of the IIA assumption we could respecify the model to account for the correlation structure; explore other alternatives that do not have this restrictive assumption (i.e., GEV, probit, and mixed logit); or continue with the logit specification as an approximation.
 
@@ -207,25 +206,23 @@ I_l = ln\Big(\sum_{k\in B_l} e^{\sfrac{Z_k}{\lambda_l}}\Big)\end{equation}
 The model is estimated sequentially, with the twigs estimated first and then the branches.  
 
 \section{Results}
-We first test the IIA assumption of the multinomial logit model using the Hausman consistency test as implemented through the 'hmftest' in the mlogit package on the non-nested model structure \parencite{mlogit2013}. 
+We first test the independence of irrelevant alternatives (IIA) assumption of the multinomial logit model using the Hausman consistency test as implemented through the 'hmftest' in the mlogit package on the non-nested model structure \parencite{mlogit2013}. 
 The Hausman test checks that the probability ratio between each pair of choice alternatives is only determined by the characteristics of the alternative, as opposed to factors of other alternatives. 
 The test compares the full model with a model estimated across a subset of the choice alternatives.
 The results of our analysis suggest that we reject the null hypothesis of IIA, which means that we should estimate the model with a structure that accounts for the correlated error terms.  
   
 To address the violation of the IIA assumption we estimate a nested multinomial model using the nesting structure of the GCAM electricity sector.
-The nested logit model assumes that the error terms are generalized extreme value (GEV) distributed, which is an extension of the conditional logit model that assumes error terms are extreme value type I, by allowing for correlation among alternatives located in the same nest. 
-The joint distribution of each nest now includes a new term $\tau_m$ that represents the correlation of the error terms among alternatives located in the nest (often called the dissimilarity or inclusive value paramter). 
-The choice then among alternatives within each nest remains a conditional logit model.
-The utility from each alternative is scaled by the inverse of the dissimilarity parameter for the nest. 
-
 The nests in GCAM are based on primary fuel use with natural gas, coal, biomass, nuclear, refined liquids, solar, wind, and geothermal, as the available categories.
-At this time we don't have biomass fuel costs, which resulted in the biomass capacity expansion from being precluded from the model.
+At this time we don't have biomass fuel costs, which resulted in the biomass capacity expansion being precluded from the model.
 Further, a nuclear plant has not been built in the United States since the 1970's and since it is an unselected  alternative over the period of analysis the model will never select a nuclear plant. 
 The structure of the model then has the following nests: natural gas, coal, oil, geothermal, solar, and wind. 
-The technologies within each nest include coal - coal; natural gas - conventional combustion turbine and combined cycle; oil - conventional combustion turbine and combined cycle; renewables - geothermal, wind, solar thermal, and photovoltaic. 
-
-Further, the GCAM electricity sector uses the total cost per each technology, fuel pairing instead of allowing the sub-components of the total cost to vary independently.
+The technologies within each nest include coal - coal (i.e., steam turbine); natural gas - either conventional combustion turbine or combined cycle; oil - either conventional combustion turbine or combined cycle; and renewables - geothermal, wind, solar thermal, and photovoltaic. 
+The GCAM electricity sector uses the total cost per each technology, fuel pairing instead of allowing the sub-components of the total cost to vary independently.
 For equivalence, we generate a new cost term (one per technology, primary fuel pairing for each year) by summing the adjusted overnight cost, adjusted fuel price, variable operations and maintenance, and fixed operations and maintenance costs.
+
+The nested logit model assumes that the error terms are generalized extreme value (GEV) distributed, which is an extension of the conditional logit model that assumes error terms are extreme value type I, by allowing for correlation among alternatives located in the same nest. 
+The joint distribution of each nest now includes a new term $\tau_m$ that represents the correlation of the error terms among alternatives located in the nest (often called the dissimilarity or inclusive value parameter). 
+The choice among alternatives within each nest remains a conditional logit model with the utility from each alternative now scaled by the inverse of the dissimilarity parameter for the nest.  
 
 The coal, wind, and geothermal branches are degenerate in that only one option is available in the nest.
 This can cause estimation issues in the nested logit framework through the dissimilarity index.
@@ -237,27 +234,37 @@ If we normalize each nest by the nest dissimilarity parameter then we can compar
 Greene showed that we can estimate a model with degenerate nests if we fix the dissimilarity parameter for the nest.
 There is some discussion about whether to fix the numerator or denominator \parencite{} but the important thing is that we identify the choice that we made so that models can be compared. 
 We implement the correction for degenerate nests in the mlogit package in R authored by \cite{mlogit2013} by setting the 'unscaled' parameter equal to True. 
-The model specification results in the following raw output (see Table \ref{nl.1})
+
+The nested logit model specification includes parameterizing the elasticity structure between nests.
+In the 'mlogit' package we can either implement the constraint that each nest shares a common elasticity or that the elasticity of each nest is allowed to vary across nests through the 'un.nest.el' parameter.
+We estimate Model 3 (See Table \ref{table:nl.1}) for both the restricted and unrestricted cases and conduct a likelihood ratio test using the 'lrtest' function in R. 
+We find a likelihood ratio test statistic of 233,970 (distributed chi-square) with 5 degrees of freedom, which shows that the unrestricted model (i.e., a unique elasticity allowed for each nest) is the statistically better fit.   
+
+The model specification results in the following raw output (see Table \ref{table:nl.1})
 
 \begin{table}[H]
-\caption{Model 1 output: Nested logit structure to match GCAM}
+\caption{Model 1 output: Nested logit models}
 \centering
-\begin{tabular}{c c c}
+\begin{tabular}{c c c c}
 \hline
 \hline
-Variable & Model 1 & Model 2 \\ [0.5ex]
+Variable & Model 1 & Model 2 & Model 3\\ [0.5ex]
 \hline
-Total cost & \makecell{-0.0001267926 \\ {\footnotesize\textit{(0.0000010466)}}} & \\
-Adj. Overnight cost & & \makecell{-0.0000949715 \\ {\footnotesize\textit{(0.0000009862)}}} \\
-Adj. Fuel price & & \makecell{-0.0028220275 \\ {\footnotesize\textit{(0.00002115623)}}}\\
-Fixed O\&M & & \makecell{-0.00268805896 \\ {\footnotesize\textit{(0.00019349289)}}}\\
-Variable O\&M & & \makecell{-0.00635959781 \\ {\footnotesize\textit{(0.00018435229)}}}\\
-iv.coal & \makecell{-2.8231532034 \\ {\footnotesize\textit{(0.0587462264)}}} & \makecell{-2.66980286712 \\ {\footnotesize\textit{(0.06828036844)}}} \\
-iv.ng & \makecell{8.4443789459 \\ {\footnotesize\textit{(0.0256093450)}}} & \makecell{13.74789359089 \\ {\footnotesize\textit{(0.06651883627)}}}\\
-iv.oil & \makecell{2.0880832676 \\ {\footnotesize\textit{(0.0472627419)}}} & \makecell{5.05227178166 \\ {\footnotesize\textit{(0.05983481003)}}}\\
-iv.solar & \makecell{-0.3688732253 \\ {\footnotesize\textit{(0.0119622530)}}} & \makecell{-0.46214211146 \\ {\footnotesize\textit{(0.02306568944)}}} \\
-iv.geothermal & \makecell{5.1993393429 \\ {\footnotesize\textit{(0.0946018914)}}} & \makecell{3.37280559925 \\ {\footnotesize\textit{(0.13787696939)}}}\\
-iv.wind & \makecell{-3.0364914202 \\ {\footnotesize\textit{(0.0465553286)}}} & \makecell{-3.65082160074 \\ {\footnotesize\textit{(0.07163342314)}}}\\ [1ex]
+Total cost & \makecell{-0.0001267926 \\ {\footnotesize\textit{(0.0000010466)}}} & & \\
+Adj. Overnight cost & & \makecell{-0.0000949715 \\ {\footnotesize\textit{(0.0000009862)}}} & \makecell{-0.0000604990 \\ {\footnotesize\textit{(0.0000015897)}}} \\
+Variable Cost & & & \makecell{-0.0575018311 \\ {\footnotesize\textit{(0.0002609583)}}} \\
+Adj. Fuel price & & \makecell{-0.0028220275 \\ {\footnotesize\textit{(0.00002115623)}}} & \\
+Fixed O\&M & & \makecell{-0.00268805896 \\ {\footnotesize\textit{(0.00019349289)}}} &\\
+Variable O\&M & & \makecell{-0.00635959781 \\ {\footnotesize\textit{(0.00018435229)}}} &\\
+iv.coal & \makecell{-2.8231532034 \\ {\footnotesize\textit{(0.0587462264)}}} & \makecell{-2.66980286712 \\ {\footnotesize\textit{(0.06828036844)}}} & \makecell{0.0161841057 \\ {\footnotesize\textit{(0.0034289231)}}} \\
+iv.ng & \makecell{8.4443789459 \\ {\footnotesize\textit{(0.0256093450)}}} & \makecell{13.74789359089 \\ {\footnotesize\textit{(0.06651883627)}}} & \makecell{-0.6030893877 \\ {\footnotesize\textit{(0.0041478695)}}} \\
+iv.oil & \makecell{2.0880832676 \\ {\footnotesize\textit{(0.0472627419)}}} & \makecell{5.05227178166 \\ {\footnotesize\textit{(0.05983481003)}}} & \makecell{0.3541623177 \\ {\footnotesize\textit{(0.0042264601)}}} \\
+iv.solar & \makecell{-0.3688732253 \\ {\footnotesize\textit{(0.0119622530)}}} & \makecell{-0.46214211146 \\ {\footnotesize\textit{(0.02306568944)}}} & \makecell{0.3720123340 \\ {\footnotesize\textit{(0.0092020388)}}} \\
+iv.geothermal & \makecell{5.1993393429 \\ {\footnotesize\textit{(0.0946018914)}}} & \makecell{3.37280559925 \\ {\footnotesize\textit{(0.13787696939)}}} & \makecell{0.6797182712 \\ {\footnotesize\textit{(0.0063287749)}}} \\
+iv.wind & \makecell{-3.0364914202 \\ {\footnotesize\textit{(0.0465553286)}}} & \makecell{-3.65082160074 \\ {\footnotesize\textit{(0.07163342314)}}} & \makecell{-0.4456791368 \\ {\footnotesize\textit{(0.0064849629)}}} \\ 
+\hline
+\textit{ln} $\mathcal{L}$ & -526480 & -425290 & -476170 \\ [1ex]
+\hline
 \hline
 \end{tabular}
 \label{table:nl.1}
@@ -267,28 +274,48 @@ The exponentiated parameter estimates are as follows:
 \begin{table}[H]
 \caption{Model 1 output: Exponentiated parameter estimates}
 \centering
-\begin{tabular}{c c c}
+\begin{tabular}{c c c c}
 \hline
 \hline
-Variable & Model 1 & Model 2 \\ [0.5ex]
+Variable & Model 1 & Model 2 & Model 3\\ [0.5ex]
 \hline
-cost & 0.99987322 & \\
-Adj. Overnight cost & & 0.99990503 \\
-Adj. Fuel price & & 0.99718195\\
-Fixed O\& M & & 0.99731555\\
-Variable O\& M & & 0.99366058\\
-iv.coal & 0.05941829 & 0.06926588\\
-iv.ng & 4648.86761788 & 934618.39464477\\
-iv.oil & 8.06943339 & 156.37731638 \\
-iv.solar & 0.69151307 & 0.62993281\\
-iv.geothermal & 181.15252263 & 29.16022430\\
-iv.wind & 0.04800302 & 0.02596978\\ [1ex]
+cost & 0.99987322 & & \\
+Adj. Overnight cost & & 0.99990503 & 0.9999395\\
+Variable cost & & & 0.9441202 \\
+Adj. Fuel price & & 0.99718195 &\\
+Fixed O\& M & & 0.99731555 &\\
+Variable O\& M & & 0.99366058 &\\
+iv.coal & 0.05941829 & 0.06926588 & 1.0163158 \\
+iv.ng & 4648.86761788 & 934618.39464477 & 0.5471188\\
+iv.oil & 8.06943339 & 156.37731638 & 1.4249865\\
+iv.solar & 0.69151307 & 0.62993281 & 1.4506509\\
+iv.geothermal & 181.15252263 & 29.16022430 & 1.9733217\\
+iv.wind & 0.04800302 & 0.02596978 & 0.6403892 \\ [1ex]
 \hline
 \end{tabular}
-\label{table:nl.1}
+\label{exponentiated}
 \end{table}
 
-\begin{table}[H]
+The literature identifies the ratio of investment cost to operating cost as the willingness to pay a higher installation cost for a one dollar reduction in operating cost \parencite{}(Train).
+From Model 3 in Table \ref{exponentiated} we can calculate the WTP, which is \$950.45.
+The model implies that an actor is willing to pay an additional \$950.45 in investment cost in order to reduce the annual operating cost by \$1. 
+[We should check that the units are all MW and not a mix of MW and kW].  
+The WTP can also be used to calculate the discount rate implied by the model.
+From the present value of operating costs, for a system with a reasonably long life we assume that a one-dollar reduction in operating cost reduces the present value of future operating costs by $\sfrac{1}{r}$.\footnote{\textit{PV} = $\sum_{t=1}^L \frac{OC}{(1+r)^t}$, as L increases the PV approaches $\sfrac{OC}{r}$ \parencite{}(Train)}
+Thus, a rational decision maker would be willing to pay $\sfrac{1}{r}$ for operating cost reductions \parencite{}(Train). 
+We have the following model (See Equation \ref{discount_rate}, where a rational decision maker is making decisions based on the lifecycle (LC) costs of each production technology \parencite{}(Train).
+
+\begin{equation}\label{discount_rate}
+\begin{split}
+\textit{U} = a\cdot LC \\
+\textit{LC} = \textit{IC} + \sfrac{1}{r}\cdot\textit{OC} \\
+\textit{U} = a\cdot\textit{IC} + \sfrac{a}{r}\cdot\textit{OC}
+\end{split}
+\end{equation}
+
+Model 3 estimates \textit{a} as -0.0000604990 and $\sfrac{a}{r}$ as -0.0575018311, which means that \textit{r} = $sfrac{a}{\sfrac{a}{r}}\cdot\textit{OC}$ = 0.00105 or approximately 1.05\% discount rate.
+
+\begin{table}
 \caption{GCAM parameters}
 \centering
 \begin{tabular}{c c c c}
@@ -326,27 +353,30 @@ Geothermal & 8.09 & 0.017 & 1 \\ [1ex]
 
 The historic allocation across electricity production technologies can be seen in Table \ref{table:perc}.
 
-\begin{table}[H]
+\begin{table}
 \caption{Historic allocation of share weights to new capacity additions (1999-2014)}
 \centering
-\begin{tabular}{c c c}
+\begin{tabular}{c c c c c}
 \hline
 \hline
-Input fuel & Production technology & Market share \\ [0.5ex]
+Input fuel & Production technology & Market share & \makecell{Pred. Market Share \\ {\footnotesize\textit{(Model 1)}}} & \makecell{Pred. Market Share \\ {\footnotesize\textit{(Model 3)}}} \\ [0.5ex]
 \hline
-Coal & Coal & 6.2\% \\
-Natural gas & Combined Cycle & 48.7\% \\
-Oil & Combined Cycle & 0.2\% \\
-Natural gas & Combustion Turbine & 22.6\% \\
-Oil & Combustion Turbine & 1.2\% \\
-Geothermal & Geothermal & 0.2\% \\
-Solar & Photovoltaic & 2.5\% \\
-Solar & Solar Thermal & 0.4\% \\
-Wind & Wind Turbine & 18.0\% \\ [1ex]
+Coal & Coal & 6.2\% & 6.0\% &7.7\% \\
+Natural gas & Combined Cycle & 48.7\% & 36.5\% & 49.1\% \\
+Oil & Combined Cycle & 0.2\% & 1.4\% & 0.9\% \\
+Natural gas & Combustion Turbine & 22.6\% & 34.8\% & 18.2\%\\
+Oil & Combustion Turbine & 1.2\% & 0.7\% & 0.8\% \\
+Geothermal & Geothermal & 0.2\% & 0.2\% & 0.3\% \\
+Solar & Photovoltaic & 2.5\% & 1.1\% & 3.2\%\\
+Solar & Solar Thermal & 0.4\% & 2.2\% & 0.6\%\\
+Wind & Wind Turbine & 18.0\% & 17.2\% & 19.3\% \\ [1ex]
 \hline
 \end{tabular}
 \label{table:perc}
 \end{table}
+
+The introduction of a new production technology into the mix is fairly straight forward. 
+Using the case of nuclear as an example.
 
 
 \section{Discussion}
