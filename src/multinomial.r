@@ -28,7 +28,7 @@ data.final = data.raw %>%
   mutate(adj.overnight = base.overnight/capacity.factor.avg) %>%
   mutate(choice = paste(overnight_category, fuel_1_general, sep = " ")) %>%
   filter(choice != 'igcc coal') %>%
-  filter(choice != 'nuclear uranium') %>%
+  # filter(choice != 'nuclear uranium') %>%
   # Neither of these alternatives is ever selected in the mix, which seems to cause issues in the mlogit estimation
   mutate(choice_id = seq(from=1,to=nrow(.), by = 1)) %>%
   mutate(choice = as.factor(choice)) %>%
@@ -143,13 +143,22 @@ df.mlogit = mlogit.data(df, choice = 'decision',
                         shape = 'long', 
                         alt.levels = c('coal coal', 'conventional combined cycle natural gas', 'conventional combustion turbine oil',
                                        'conventional combined cycle oil', 'conventional combustion turbine natural gas', 'geothermal geothermal', 
-                                       'wind wind','solar thermal solar', 'photovoltaic solar'))
+                                       'nuclear uranium', 'wind wind','solar thermal solar', 'photovoltaic solar'))
 # Random lessons learned in using mlogit:
 # We don't have a panel dataset (we have a repeated cross-section), which means that we don't use the 'id.var' parameter
 # If done correctly, in the non-panel data the row names will be the paste0(choice #, choice alternative, sep='.') 
 # Even if a nest has one alternative you must use c()
 # We set the reference level as the renewables 
+# If trying to get the nuclear data below we need to remember to add 'nuclear uranium' to alt.levels in df.mlogit above
 
+# nuclear = df.mlogit[df.mlogit$choice=="nuclear uranium", ]
+# I ran this one time through to get the nuclear data in the right format. Otherwise, we screen out nuclear in the data.final dataset above (it's never selected)
+# gz1 = gzfile(paste0(path_data,"nuclear.data.txt.gz"), "w")
+# write.table(nuclear, file = gz1, sep="\t", col.names = TRUE, row.names = TRUE)
+# close(gz1)
+# We dropped nuclear from the multinomial model fitting (because it has not been built after the 1970s and thus given the length of record of our data 
+#   it wouldn't be selected by the model. But we can use the estimated model and the cost data to guess how much it would be built if the choice of nuclear
+#   only depended on cost factors. We do this below.)
 
 formula.0.mlogit = mFormula(decision ~ cost|0)
 # No nests equation
@@ -237,6 +246,14 @@ round(apply(fitted(f.nl.5.a, outcome = FALSE), 2, mean)*100, 1)
 # Predicted market share (Model 3)
 round(apply(fitted(f.nl.3, outcome = FALSE), 2, mean)*100, 1)
 # Predicted market share (Model 1 - GCAM parameterization)
+
+X = model.matrix(f.nl.5.a)
+nuclear = read.table(paste0(path_data, "nuclear.data.txt.gz"), header=TRUE, sep ="\t", as.is = TRUE)
+nuclear = nuclear[, c('adj.overnight', 'vc')]
+X = rbind(X, nuclear)
+X = X[order(row.names(X)), ]
+eXb = as.numeric(exp(X %*% coef(f.nl.5.a)))
+# Predict how much nuclear would be in the market were it not for regulatory or other hurdles
 
 x = unique(data.final$year)
 z = sample(1:length(x), 7, replace=TRUE)
