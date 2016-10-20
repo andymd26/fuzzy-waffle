@@ -28,7 +28,7 @@ data.final = data.raw %>%
   mutate(adj.overnight = base.overnight/capacity.factor.avg) %>%
   mutate(choice = paste(overnight_category, fuel_1_general, sep = " ")) %>%
   filter(choice != 'igcc coal') %>%
-  # filter(choice != 'nuclear uranium') %>%
+  filter(choice != 'nuclear uranium') %>%
   # Neither of these alternatives is ever selected in the mix, which seems to cause issues in the mlogit estimation
   mutate(choice_id = seq(from=1,to=nrow(.), by = 1)) %>%
   mutate(choice = as.factor(choice)) %>%
@@ -143,8 +143,9 @@ df.mlogit = mlogit.data(df, choice = 'decision',
                         shape = 'long', 
                         alt.levels = c('coal coal', 'conventional combined cycle natural gas', 'conventional combustion turbine oil',
                                        'conventional combined cycle oil', 'conventional combustion turbine natural gas', 'geothermal geothermal', 
-                                       'nuclear uranium', 'wind wind','solar thermal solar', 'photovoltaic solar'))
+                                       'wind wind','solar thermal solar', 'photovoltaic solar'))
 # Random lessons learned in using mlogit:
+# We can only include alternatives that are selected at least once.
 # We don't have a panel dataset (we have a repeated cross-section), which means that we don't use the 'id.var' parameter
 # If done correctly, in the non-panel data the row names will be the paste0(choice #, choice alternative, sep='.') 
 # Even if a nest has one alternative you must use c()
@@ -227,7 +228,7 @@ f.nl.4 = mlogit(formula.nl.1.mlogit, shape='long', alt.var='choice', df.mlogit,
                              solar = c('solar thermal solar', 'photovoltaic solar'),
                              geothermal = c('geothermal geothermal'),
                              wind = c('wind wind')), 
-                unscaled = TRUE, un.nest.el = FALS)
+                unscaled = TRUE, un.nest.el = FALSE)
 f.nl.5.a = mlogit(formula.nl.4.mlogit, shape='long', alt.var='choice', df.mlogit,
                                    nests = list(coal = c('coal coal'), 
                                                 ng = c('conventional combined cycle natural gas', 'conventional combustion turbine natural gas'),
@@ -244,6 +245,8 @@ lrtest(f.nl.5.b, f.nl.5.a)
 
 round(apply(fitted(f.nl.5.a, outcome = FALSE), 2, mean)*100, 1)
 # Predicted market share (Model 3)
+round(apply(fitted(f.nl.4, outcome = FALSE), 2, mean)*100, 1)
+# Predicted market share (Model 2)
 round(apply(fitted(f.nl.3, outcome = FALSE), 2, mean)*100, 1)
 # Predicted market share (Model 1 - GCAM parameterization)
 
@@ -285,7 +288,7 @@ stats = cv.df.test %>%
   ungroup() %>%
   mutate(perc = round(mw/sum(mw),2))
 
-pred.shares = apply(predict(f.nl.1, newdata=cv.df.test), 2, mean)
+pred.shares = apply(predict(f.nl.4, newdata=cv.df.test), 2, mean)
 
 cv.test = fitted(f.0, newData=cv.df.mlogit)
 apply(predict(f.0, newdata=cv.df.mlogit), 2, mean)
