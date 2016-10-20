@@ -216,7 +216,7 @@ The nests in GCAM are based on primary fuel use with natural gas, coal, biomass,
 At this time we don't have biomass fuel costs, which resulted in the biomass capacity expansion being precluded from the model.
 Further, a nuclear plant has not been built in the United States since the 1970's and since it is an unselected  alternative over the period of analysis the model will never select a nuclear plant. 
 The structure of the model then has the following nests: natural gas, coal, oil, geothermal, solar, and wind. 
-The technologies within each nest include coal - coal (i.e., steam turbine); natural gas - either conventional combustion turbine or combined cycle; oil - either conventional combustion turbine or combined cycle; and renewables - geothermal, wind, solar thermal, and photovoltaic. 
+The technologies within each nest include coal - coal (i.e., steam turbine); natural gas - either conventional combustion turbine or combined cycle; oil - either conventional combustion turbine or combined cycle; geothermal - geothermal; wind - onshore wind, and solar - solar thermal or photovoltaic. 
 The GCAM electricity sector uses the total cost per each technology, fuel pairing instead of allowing the sub-components of the total cost to vary independently.
 For equivalence, we generate a new cost term (one per technology, primary fuel pairing for each year) by summing the adjusted overnight cost, adjusted fuel price, variable operations and maintenance, and fixed operations and maintenance costs.
 
@@ -240,10 +240,10 @@ In the 'mlogit' package we can either implement the constraint that each nest sh
 We estimate Model 3 (See Table \ref{table:nl.1}) for both the restricted and unrestricted cases and conduct a likelihood ratio test using the 'lrtest' function in R. 
 We find a likelihood ratio test statistic of 233,970 (distributed chi-square) with 5 degrees of freedom, which shows that the unrestricted model (i.e., a unique elasticity allowed for each nest) is the statistically better fit.   
 
-The model specification results in the following raw output (see Table \ref{table:nl.1})
+The model specification results in the following output with coefficients on top and standard error underneath in italics (see Table \ref{table:nl.1})
 
 \begin{table}[H]
-\caption{Model 1 output: Nested logit models}
+\caption{Model evaluation: Nested logit models}
 \centering
 \begin{tabular}{c c c c}
 \hline
@@ -268,6 +268,34 @@ iv.wind & \makecell{-3.0364914202 \\ {\footnotesize\textit{(0.0465553286)}}} & \
 \hline
 \end{tabular}
 \label{table:nl.1}
+\end{table}
+
+The model results are negative as expected, which means that as investment and marginal costs of each power production technology rise the probability of choosing that particular option decreases. 
+Each of the variables in each of the three models are significant with 
+The historic allocation across electricity production technologies as compared to predicted model results can be seen in Table \ref{table:perc}.
+Model 3 does a better job of predicting the probability of selecting natural gas-fired production technologies than Model 1. 
+The 
+
+\begin{table}[H]
+\caption{Historic allocation of share weights to new capacity additions (1999-2014)}
+\centering
+\begin{tabular}{c c c c c c}
+\hline
+\hline
+Input fuel & Production technology & Market share & \makecell{Pred. Market Share \\ {\footnotesize\textit{(Model 1)}}} & \makecell{Pred. Market Share \\ {\footnotesize\textit{(Model 2)}}} & \makecell{Pred. Market Share \\ {\footnotesize\textit{(Model 3)}}} \\ [0.5ex]
+\hline
+Coal & Coal & 6.2\% & 6.0\% &6.3\% &7.7\% \\
+Natural gas & Combined Cycle & 48.7\% & 36.5\% & 37.1\% & 49.1\% \\
+Oil & Combined Cycle & 0.2\% & 1.4\% & 1.0\% & 0.9\% \\
+Natural gas & Combustion Turbine & 22.6\% & 34.8\% & 34.1\% & 18.2\%\\
+Oil & Combustion Turbine & 1.2\% & 0.7\% & 0.7\% & 0.8\% \\
+Geothermal & Geothermal & 0.2\% & 0.2\% & 0.2\% & 0.3\% \\
+Solar & Photovoltaic & 2.5\% & 1.1\% & 1.1\% & 3.2\%\\
+Solar & Solar Thermal & 0.4\% & 2.2\% & 2.0\% & 0.6\%\\
+Wind & Wind Turbine & 18.0\% & 17.2\% & 17.5\% & 19.3\% \\ [1ex]
+\hline
+\end{tabular}
+\label{table:perc}
 \end{table}
 
 The exponentiated parameter estimates are as follows:
@@ -300,6 +328,7 @@ The literature identifies the ratio of investment cost to operating cost as the 
 From Model 3 in Table \ref{exponentiated} we can calculate the WTP, which is \$950.45.
 The model implies that an actor is willing to pay an additional \$950.45 in investment cost in order to reduce the annual operating cost by \$1. 
 [We should check that the units are all MW and not a mix of MW and kW].  
+The decision maker in the model values saving. 
 
 The WTP can also be used to calculate the discount rate implied by the model.
 From the present value of operating costs, for a system with a reasonably long life we assume that a one-dollar reduction in operating cost reduces the present value of future operating costs by $\sfrac{1}{r}$.\footnote{\textit{PV} = $\sum_{t=1}^L \frac{OC}{(1+r)^t}$, as L increases the PV approaches $\sfrac{OC}{r}$ \parencite{}(Train)}
@@ -352,29 +381,7 @@ Geothermal & 8.09 & 0.017 & 1 \\ [1ex]
 \label{table:nl.1}
 \end{table}
 
-The historic allocation across electricity production technologies can be seen in Table \ref{table:perc}.
 
-\begin{table}[H]
-\caption{Historic allocation of share weights to new capacity additions (1999-2014)}
-\centering
-\begin{tabular}{c c c c c}
-\hline
-\hline
-Input fuel & Production technology & Market share & \makecell{Pred. Market Share \\ {\footnotesize\textit{(Model 1)}}} & \makecell{Pred. Market Share \\ {\footnotesize\textit{(Model 3)}}} \\ [0.5ex]
-\hline
-Coal & Coal & 6.2\% & 6.0\% &7.7\% \\
-Natural gas & Combined Cycle & 48.7\% & 36.5\% & 49.1\% \\
-Oil & Combined Cycle & 0.2\% & 1.4\% & 0.9\% \\
-Natural gas & Combustion Turbine & 22.6\% & 34.8\% & 18.2\%\\
-Oil & Combustion Turbine & 1.2\% & 0.7\% & 0.8\% \\
-Geothermal & Geothermal & 0.2\% & 0.2\% & 0.3\% \\
-Solar & Photovoltaic & 2.5\% & 1.1\% & 3.2\%\\
-Solar & Solar Thermal & 0.4\% & 2.2\% & 0.6\%\\
-Wind & Wind Turbine & 18.0\% & 17.2\% & 19.3\% \\ [1ex]
-\hline
-\end{tabular}
-\label{table:perc}
-\end{table}
 
 The introduction of a new production technology into the mix is fairly straight forward. 
 Using the case of nuclear as an example.
