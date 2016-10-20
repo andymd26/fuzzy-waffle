@@ -300,6 +300,7 @@ The literature identifies the ratio of investment cost to operating cost as the 
 From Model 3 in Table \ref{exponentiated} we can calculate the WTP, which is \$950.45.
 The model implies that an actor is willing to pay an additional \$950.45 in investment cost in order to reduce the annual operating cost by \$1. 
 [We should check that the units are all MW and not a mix of MW and kW].  
+
 The WTP can also be used to calculate the discount rate implied by the model.
 From the present value of operating costs, for a system with a reasonably long life we assume that a one-dollar reduction in operating cost reduces the present value of future operating costs by $\sfrac{1}{r}$.\footnote{\textit{PV} = $\sum_{t=1}^L \frac{OC}{(1+r)^t}$, as L increases the PV approaches $\sfrac{OC}{r}$ \parencite{}(Train)}
 Thus, a rational decision maker would be willing to pay $\sfrac{1}{r}$ for operating cost reductions \parencite{}(Train). 
@@ -313,7 +314,7 @@ We have the following model (See Equation \ref{discount_rate}, where a rational 
 \end{split}
 \end{equation}
 
-Model 3 estimates \textit{a} as -0.0000604990 and $\sfrac{a}{r}$ as -0.0575018311, which means that \textit{r} = $sfrac{a}{\sfrac{a}{r}}\cdot\textit{OC}$ = 0.00105 or approximately 1.05\% discount rate.
+Model 3 estimates \textit{a} as -0.0000604990 and $\sfrac{a}{r}$ as -0.0575018311, which means that \textit{r} = $\sfrac{a}({\sfrac{a}{r}})\cdot\textit{OC}$ = 0.00105 or approximately 1.05\% discount rate.
 
 \begin{table}
 \caption{GCAM parameters}
@@ -353,7 +354,7 @@ Geothermal & 8.09 & 0.017 & 1 \\ [1ex]
 
 The historic allocation across electricity production technologies can be seen in Table \ref{table:perc}.
 
-\begin{table}
+\begin{table}[H]
 \caption{Historic allocation of share weights to new capacity additions (1999-2014)}
 \centering
 \begin{tabular}{c c c c c}
