@@ -2112,6 +2112,7 @@
     <bcf:citekey order="16">mlogit2013</bcf:citekey>
     <bcf:citekey order="17">heiss2002structural</bcf:citekey>
     <bcf:citekey order="19">mlogit2013</bcf:citekey>
+    <bcf:citekey order="24">greene2012</bcf:citekey>
   </bcf:section>
   <bcf:sortlist section="0" name="nyt/global/" type="entry" sortscheme="nyt" sortnamekeyscheme="global" labelprefix="">
   <bcf:sorting>

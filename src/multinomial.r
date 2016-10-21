@@ -169,6 +169,8 @@ formula.nl.1.mlogit = mFormula(decision ~ adj.overnight + fixed.o.m + adj.fuel.p
 # Disaggregated cost factors
 formula.nl.3.mlogit = mFormula(decision ~ cost | 0)
 # Could have just used formula.0.mlogit
+formula.nl.3b.mlogit = mFormula(decision ~ cost | 1)
+# GCAM model
 formula.nl.4.mlogit = mFormula(decision ~ adj.overnight + vc | 0)
 # We sum together the variable costs separate from the investment costs
 # unless we estimate a model with intercepts we don't need to specify a 'reflevel'
@@ -237,6 +239,14 @@ f.nl.5.a = mlogit(formula.nl.4.mlogit, shape='long', alt.var='choice', df.mlogit
                                                 geothermal = c('geothermal geothermal'),
                                                 wind = c('wind wind')), 
                                    unscaled = TRUE, un.nest.el = FALSE)
+f.nl.6.a = mlogit(formula.nl.3b.mlogit, shape='long', alt.var='choice', df.mlogit,
+                  nests = list(coal = c('coal coal'), 
+                               ng = c('conventional combined cycle natural gas', 'conventional combustion turbine natural gas'),
+                               oil = c('conventional combustion turbine oil', 'conventional combined cycle oil'),
+                               solar = c('solar thermal solar', 'photovoltaic solar'),
+                               geothermal = c('geothermal geothermal'),
+                               wind = c('wind wind')), 
+                  unscaled = TRUE, un.nest.el = TRUE)
 # This is the unrestricted model (a log-sum coefficient for each nest)
 f.nl.5.b = update(f.nl.5.a, un.nest.el=TRUE)
 # This is the restricted model (one log-sum coefficient)
@@ -249,6 +259,11 @@ round(apply(fitted(f.nl.4, outcome = FALSE), 2, mean)*100, 1)
 # Predicted market share (Model 2)
 round(apply(fitted(f.nl.3, outcome = FALSE), 2, mean)*100, 1)
 # Predicted market share (Model 1 - GCAM parameterization)
+
+
+# 1. A nested logit model is a conditional logit model at the twig level, so we first estimate the conditional logit model for the alternatives in the nest where the new option resides
+f.1 = mlogit(formula.nl.4.mlogit, shape='long', alt.var='choice', df.mlogit, 
+             alt.subset = c('conventional combined cycle natural gas', 'conventional combustion turbine natural gas'))
 
 X = model.matrix(f.nl.5.a)
 chid = index(df.mlogit)$chid

@@ -347,34 +347,22 @@ Model 3 estimates \textit{a} as -0.0000604990 and $\sfrac{a}{r}$ as -0.057501831
 \begin{table}
 \caption{GCAM parameters}
 \centering
-\begin{tabular}{c c c c}
+\begin{tabular}{c c c c c c}
 \hline
 \hline
-Technology/Nest & Cost (2005) & Share-weight (2005) & Share-weight (2100) \\ [0.5ex]
+Nest & \makecell{Cost \\ (2005)} & \makecell{Logit \\ exponents} & \makecell{Logit exponent \\ over cost} \makecell{Share-weight \\ (2005)} & \makecell{Share-weight \\ (2100)} \\ [0.5ex]
 \hline
-Electricity & 6.776 & & \\
+Electricity & 6.776 & -3 & & &\\
 \hline
 \hline
-Coal - Conventional & 6.213 & & \\
-Coal - IGCC & 8.512 & & \\
-Biomass - Conventional & 15.518 & & \\
-Biomass - IGCC & 15.034 & & \\
-Natural gas - Steam & 5.802 & & \\
-Natural gas - Combined cycle & 4.903  & & \\
-Refined liquids - Steam & 9.197 & & \\
-Refined liquids - Combined cycle & 8.872 & & \\
-Solar - Photovoltaic & 14.184 & & \\
-Solar - CSP & 26.607 & & \\
-\hline 
-\hline
-Biomass & 15.518 & 0.225 & 1 \\
-Coal & 6.213 & 1 & 1 \\
-Natural gas & 5.136 & 0.189 & 0.502 \\
-Nuclear & 8.974 & 1.145 & 1 \\
-Refined liquids & 9.197 & 0.192 & 0. 22 \\
-Solar & 20.795 & 0.02 & 1 \\
-Wind & 5.498 & 0.006 & 1 \\
-Geothermal & 8.09 & 0.017 & 1 \\ [1ex]
+Biomass & 15.518 & -10 & -0.644 & 0.225 & 1 \\
+Coal & 6.213 & -10 & -1.610 & 1 & 1 \\
+Natural gas & 5.136 & -10 & -1.947 & 0.189 & 0.502 \\
+Nuclear & 8.974 & -6 & -0.669 & 1.145 & 1 \\
+Refined liquids & 9.197 & -10 & -1.087 & 0.192 & 0. 22 \\
+Solar & 20.795 & -6 & -0.289 & 0.02 & 1 \\
+Wind & 5.498 & -6 & -1.091 & 0.006 & 1 \\
+Geothermal & 8.09 & -6 & -0.742 & 0.017 & 1 \\ [1ex]
 \hline
 \end{tabular}
 \label{table:nl.1}
@@ -382,8 +370,19 @@ Geothermal & 8.09 & 0.017 & 1 \\ [1ex]
 
 
 
-The introduction of a new production technology into the mix is fairly straight forward. 
-Using the case of nuclear as an example.
+The introduction of a new production technology into the mix is fairly straight forward even in the nested logit framework. 
+In the nested logit framework the nests are referred to as branches and the choice alternatives are twigs.
+The probability of choosing power production technology $j$ (i.e., twig) that uses the primary fuel $l$ (i.e., branch) can be decomposed into a conditional probability.
+\begin{equation}
+P_{ijl} = P_{ij \vert l} \cdot P_{l}
+\end{equation} 
+The probability of $P_{ij \vert l}$ and $P_{l}$, respecitively, is the following \parencite{greene2012}:
+\begin{equation}
+\begin{split}
+P_{ij \vert l} &= \frac{exp(x^T_{ij \vert l}\cdot \beta)}{\sum_{j=1}^{J_b} exp(x^{T}_{ij \vert l}\cdot \beta)} \\
+P_{l} &= \frac{exp(\lambda_k \cdot IV_{k})}{\sum_{k \in l} exp(\lambda_k \cdot IV_k)}
+\end{split}
+\end{equation}
 
 
 \section{Discussion}
