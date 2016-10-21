@@ -251,11 +251,26 @@ round(apply(fitted(f.nl.3, outcome = FALSE), 2, mean)*100, 1)
 # Predicted market share (Model 1 - GCAM parameterization)
 
 X = model.matrix(f.nl.5.a)
+chid = index(df.mlogit)$chid
+Xn = X[grep('coal', rownames(X)), ]
+Xn[, 'vc'] = Xn[, "vc"]*1.76
+unchid = unique(index(df.mlogit)$chid)
+rownames(Xn) = paste(unchid, 'new', sep = '.')
+chidb = c(chid, unchid)
+X = rbind(X, Xn)
+X = X[order(chidb), ]
+eXb = as.numeric(exp(X %*% coef(f.nl.5.a)[1:2]))
+SeXb = as.numeric(tapply(eXb, sort(chidb), sum))
+P = eXb/SeXb[sort(chidb)]
+P = matrix(P, ncol = 10, byrow = TRUE)
+apply(P, 2, mean)
+
+
+
 nuclear = read.table(paste0(path_data, "nuclear.data.txt.gz"), header=TRUE, sep ="\t", as.is = TRUE)
 nuclear = nuclear[, c('adj.overnight', 'vc')]
 X = rbind(X, nuclear)
 X = X[order(row.names(X)), ]
-eXb = as.numeric(exp(X %*% coef(f.nl.5.a)))
 # Predict how much nuclear would be in the market were it not for regulatory or other hurdles
 
 x = unique(data.final$year)
