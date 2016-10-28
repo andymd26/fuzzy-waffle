@@ -97,7 +97,11 @@ categories = unique(data.final[, c('overnight_category', 'fuel_1_general')]) %>%
   mutate(choice = paste(overnight_category, fuel_1_general, sep=" ")) %>%
   mutate(year = NA) %>%
   mutate(id = NA) %>%
+  mutate(decision = FALSE)
+
+categories.iv = data.frame(fuel_1_general = c(unique(data.final[, 'fuel_1_general']))) %>%
   mutate(year = NA) %>%
+  mutate(id = NA) %>%
   mutate(decision = FALSE)
 
 my_func = function(x, y, z){
@@ -106,7 +110,13 @@ my_func = function(x, y, z){
   a['year'] = y
   return(data.frame(a))
 }
-# This function adds all of the choice alternatives to the dataset (not just the option that was selected)
+my_func.iv = function(x, y, z){
+  a = categories.iv[!categories.iv$fuel_1_general %in% x, ]
+  a['id'] = z
+  a['year'] = y
+  return(data.frame(a))
+}
+# These functions adds all of the choice alternatives in the first stage regression (and fuel alternatives in the second stage) to the dataset (not just the option that was selected)
 capacity_1mw = data.final %>%
   select(year, overnight_category, fuel_1_general, choice, capacity_mw) %>%
   slice(rep(1:n(), round(capacity_mw))) %>%
@@ -126,6 +136,10 @@ write.table(df, file = gz1, sep="\t", col.names = TRUE, row.names = FALSE)
 close(gz1) 
 
 # Model estimation
+# Random lessons learned in using mlogit:
+# We can only include alternatives that are selected at least once.
+# We don't have a panel dataset (we have a repeated cross-section), which means that we don't use the 'id.var' parameter
+# If done correctly, in the non-panel data the row names
 df = read.table(paste0(path_data, "data.expanded.txt.gz"), header=TRUE, sep ="\t", as.is = TRUE)
 df = df %>%
   mutate(overnight_category = as.factor(overnight_category)) %>%
@@ -141,12 +155,9 @@ df = df %>%
 
 df.mlogit = mlogit.data(df, choice = 'decision', 
                         shape = 'long', 
-                        alt.levels = c('coal coal', 'conventional combined cycle natural gas', 'conventional combustion turbine oil',
-                                       'conventional combined cycle oil', 'conventional combustion turbine natural gas', 'geothermal geothermal', 
-                                       'wind wind','solar thermal solar', 'photovoltaic solar'))
-# Random lessons learned in using mlogit:
-# We can only include alternatives that are selected at least once.
-# We don't have a panel dataset (we have a repeated cross-section), which means that we don't use the 'id.var' parameter
+                        alt.levels = c('coal coal', 'conventional combined cycle natural gas', 'conventional combined cycle oil',
+                                       'conventional combustion turbine natural gas', 'conventional combustion turbine oil', 
+                                       'geothermal geothermal', 'photovoltaic solar','solar thermal solar', 'wind wind'))
 # If done correctly, in the non-panel data the row names will be the paste0(choice #, choice alternative, sep='.') 
 # Even if a nest has one alternative you must use c()
 # We set the reference level as the renewables 
@@ -161,11 +172,12 @@ df.mlogit = mlogit.data(df, choice = 'decision',
 #   it wouldn't be selected by the model. But we can use the estimated model and the cost data to guess how much it would be built if the choice of nuclear
 #   only depended on cost factors. We do this below.)
 
-formula.0.mlogit = mFormula(decision ~ cost|0)
+formula.0.mlogit = mFormula(decision ~ cost|1)
 # No nests equation
 formula.1.mlogit = mFormula(decision ~ adj.overnight + fixed.o.m  + adj.fuel.price + variable.o.m | 1 | 0)
 # Includes a constant for each production technology
 formula.nl.1.mlogit = mFormula(decision ~ adj.overnight + fixed.o.m + adj.fuel.price + variable.o.m  | 0)
+formula.nl.1.mlogit = mFormula(decision ~ adj.overnight + fixed.o.m + adj.fuel.price + variable.o.m  | 1 | 0)
 # Disaggregated cost factors
 formula.nl.3.mlogit = mFormula(decision ~ cost | 0)
 # Could have just used formula.0.mlogit
@@ -323,3 +335,85 @@ pred.shares = apply(predict(f.nl.4, newdata=cv.df.test), 2, mean)
 cv.test = fitted(f.0, newData=cv.df.mlogit)
 apply(predict(f.0, newdata=cv.df.mlogit), 2, mean)
 
+
+
+
+# The code below estimates the nested logit using the definition of conditional probability
+f.1 = mlogit(decision ~ 1 + cost, shape='long', alt.var='choice', df.mlogit, reflevel="conventional combined cycle natural gas")
+# First we estimate the 1st stage regression coefficients, we allow for alternative specific constants but enforce the condition that the slope for the cost is constant across
+# alternatives. 
+f.1.coef = data.frame(coefficients = c(coef(f.1)[1:8])) %>%
+  mutate(choice = rownames(f.1.coef)) %>% 
+  mutate(choice = as.factor(gsub(":.*","", x$choice, perl=TRUE)))
+model.pred = df.mlogit %>%
+  left_join(f.1.coef, by = 'choice')  %>%
+  mutate(coefficients = ifelse(is.na(test$coefficients), 1, test$coefficients)) %>%
+  mutate(y.1 = exp(test$coefficients + test$cost*coef(f.1)['cost'])) %>%
+  group_by(fuel_1_general, id) %>%
+  mutate(y.tot = sum(y.1)) %>%
+  ungroup() %>%
+  mutate(perc.1 = y.1/y.tot)
+iv.mlogit.1 = df.mlogit %>%
+  filter(decision == TRUE) %>%
+  select(fuel_1_general, id, decision, year)
+fuel.iv = model.pred %>%
+  filter(decision == TRUE) %>%
+  group_by(year, fuel_1_general) %>%
+  summarize(iv = log(sum(y.1)))
+iv.mlogit = iv.mlogit.1 %>%
+  group_by(id) %>%
+  do(my_func.iv(x = .$fuel_1_general, y = .$year, z = .$id)) %>%
+  left_join(fuel.iv, by = c('year', 'fuel_1_general')) %>%
+  ungroup() %>%
+  bind_rows(iv.mlogit.1) %>%
+  mutate(iv = ifelse(is.na(iv), 0, iv)) %>%
+  arrange(id, fuel_1_general)
+iv.data = mlogit.data(iv.mlogit, choice = 'decision', 
+                        shape = 'long', alt.var = "fuel_1_general")
+f.2 = mlogit(decision ~ 1 + iv, shape='long', alt.var='fuel_1_general', iv.data, reflevel="natural gas")
+f.2.coef = data.frame("fuel_1_general" = c("coal", "natural gas", "oil", "geothermal", "solar", "wind"), 
+                 "coefficient.2" = c(coef(f.2)[1], 0, coef(f.2)[3], coef(f.2)[2], coef(f.2)[4], coef(f.2)[5]),
+                 "iv.coef" = c(coef(f.2)[6], coef(f.2)[6], coef(f.2)[6], coef(f.2)[6], coef(f.2)[6], coef(f.2)[6]))
+y.2 = data.frame(predict(f.2, newdata = iv.data, outcome = FALSE)) %>%
+  mutate(id = as.integer(rownames(.)))
+
+model.pred = model.pred %>%
+  left_join(iv.mlogit, by = c("id", "fuel_1_general", "year", "decision")) %>%
+  filter(decision == TRUE) %>%
+  left_join(y.2, by = c("id")) %>%
+  mutate(y.2 = exp(coefficient.2 + iv.coef*iv)) %>%
+  group_by(id) %>%
+  mutate(y.2.tot = sum(y.2)) %>%
+  ungroup() %>%
+  mutate(perc.2 = y.2/y.2.tot) %>%
+  mutate(overall.perc = perc.1*perc.2) %>%
+  group_by(choice) %>%
+  filter(decision == TRUE) %>%
+  summarize(test = mean(perc.2, na.rm=TRUE))
+
+
+
+f.2 = mlogit(decision ~ fuel_1_general + iv, shape='long', alt.var='choice', df.mlogit)
+stage.1 = stage.1 %>%
+  left_join(x.1, by=c('fuel_1_general')) %>%
+  y.2 = exp(coefficient.2 + iv.coef*iv)
+  
+
+y_2 = as.data.frame(apply(predict(f.2, newdata = iv.data, outcome = FALSE), 2, mean))
+
+stage.1 = model.pred %>%
+  group_by(fuel_1_general, id) %>%
+  mutate(y.tot = sum(y_1)) %>%
+  ungroup() %>%
+  mutate(perc.1 = y_1/y.tot)
+
+
+y = predict(f.1, newdata = df.mlogit, outcome = FALSE)
+
+df = capacity_1mw %>%
+  
+  ungroup() %>%
+  bind_rows(capacity_1mw) %>%
+  select(overnight_category, fuel_1_general, choice, year, id, decision) %>%
+  left_join(data.final, by = c('overnight_category', 'fuel_1_general', 'choice', 'year')) %>%
+  arrange(id, choice)
