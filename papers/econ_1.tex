@@ -240,6 +240,28 @@ In the 'mlogit' package we can either implement the constraint that each nest sh
 We estimate Model 3 (See Table \ref{table:nl.1}) for both the restricted and unrestricted cases and conduct a likelihood ratio test using the 'lrtest' function in R. 
 We find a likelihood ratio test statistic of 233,970 (distributed chi-square) with 5 degrees of freedom, which shows that the unrestricted model (i.e., a unique elasticity allowed for each nest) is the statistically better fit.   
 
+We could estimate the model using full information maximum likelihood (FIML) estimation over the joint distribution of the two random variables for the two stages of the model.
+\begin{equation}
+ln \mathcal{L}(\theta_1, \theta_2) = \sum_{i=1}^n \text{ln} \textit{f}(y_{i1}, y_{i2} \vert x_{i1}, x_{i2}, \theta_1, \theta_2)
+\end{equation} 
+Or we could estimate the model using a two-step estimation by estimating the model parameters first by maximizing Equation \ref{1st.stage} and then maximizing the likelihood function for the second stage Equation \ref{2nd.stage} while embedding the $\theta_1$ parameters \parencite{}(Greene). 
+\begin{equation}\label{1st.stage}
+\text{ln} \mathcal{L}(\theta_1) = \sum_{i=1}^n \text{ln}\textit{f}_1(y_{i1}\vert x_{i1}, \theta_1) \\
+\end{equation}
+\begin{equation}\label{2nd.stage}
+\text{ln} \mathcal{L}(\hat{\theta}_1, \theta_2) = \sum_{i=1}^n \text{ln}\textit{f}_2(y_{i2}\vert x_{i1},x_{i2}, \hat{\theta}_1, \theta_2) 
+\end{equation}
+
+Even though $\theta_1$ is unknown using this approach to estimate $\hat{\theta}_2$ produces a consistent estimate of $\theta_2$ because the probability limit of $\hat{theta}_1$ = $theta_1$, asymptotically \parencite{}(Greene). 
+However, the covariance of matrix of $\hat{\theta_2}$ needs to be corrected for using an estimate of $\theta_1$ in the estimation of $\theta_2$ \parencite{}(Greene). 
+The asymptotic covariance matrix then of $\theta_2$ parameter is calculated using the uncorrected covariance matrices $\hat{V}_1$ and $\hat{V}_2$, as well as two additional matrices $R$ (see Equation \ref{}) and $C$ (see Equation \ref{}), which are the summation of the cross products of the derivatives across individual observations \parencite{}(Greene).
+\begin{equation}
+\hat{C} = \bigg[\frac{1}{n}\sum_{i=1}^n \bigg(\frac{\partial\text{ln}\textit{f}_{i2}}{\partial\hat{\theta}_2}\bigg)\bigg(\frac{\partial\text{ln}\textit{f}_{i2}}{\partial\hat{\theta}_1^T}\bigg)\bigg]^{-1}
+\end{equation}
+\begin{equation}
+\hat{R} = \bigg[\frac{1}{n}\sum_{i=1}^n \bigg(\frac{\partial\text{ln}\textit{f}_{i2}}{\partial\hat{\theta}_2}\bigg)\bigg(\frac{\partial\text{ln}\textit{f}_{i1}}{\partial\hat{\theta}_1^T}\bigg)\bigg]^{-1}
+\end{equation}
+
 The model specification results in the following output with coefficients on top and standard error underneath in italics (see Table \ref{table:nl.1})
 
 \begin{table}[H]
@@ -250,20 +272,31 @@ The model specification results in the following output with coefficients on top
 \hline
 Variable & Model 1 & Model 2 & Model 3\\ [0.5ex]
 \hline
-Total cost & \makecell{-0.0001267926 \\ {\footnotesize\textit{(0.0000010466)}}} & & \\
-Adj. Overnight cost & & \makecell{-0.0000949715 \\ {\footnotesize\textit{(0.0000009862)}}} & \makecell{-0.0000604990 \\ {\footnotesize\textit{(0.0000015897)}}} \\
-Variable Cost & & & \makecell{-0.0575018311 \\ {\footnotesize\textit{(0.0002609583)}}} \\
-Adj. Fuel price & & \makecell{-0.0028220275 \\ {\footnotesize\textit{(0.00002115623)}}} & \\
-Fixed O\&M & & \makecell{-0.00268805896 \\ {\footnotesize\textit{(0.00019349289)}}} &\\
-Variable O\&M & & \makecell{-0.00635959781 \\ {\footnotesize\textit{(0.00018435229)}}} &\\
-iv.coal & \makecell{-2.8231532034 \\ {\footnotesize\textit{(0.0587462264)}}} & \makecell{-2.66980286712 \\ {\footnotesize\textit{(0.06828036844)}}} & \makecell{0.0161841057 \\ {\footnotesize\textit{(0.0034289231)}}} \\
-iv.ng & \makecell{8.4443789459 \\ {\footnotesize\textit{(0.0256093450)}}} & \makecell{13.74789359089 \\ {\footnotesize\textit{(0.06651883627)}}} & \makecell{-0.6030893877 \\ {\footnotesize\textit{(0.0041478695)}}} \\
-iv.oil & \makecell{2.0880832676 \\ {\footnotesize\textit{(0.0472627419)}}} & \makecell{5.05227178166 \\ {\footnotesize\textit{(0.05983481003)}}} & \makecell{0.3541623177 \\ {\footnotesize\textit{(0.0042264601)}}} \\
-iv.solar & \makecell{-0.3688732253 \\ {\footnotesize\textit{(0.0119622530)}}} & \makecell{-0.46214211146 \\ {\footnotesize\textit{(0.02306568944)}}} & \makecell{0.3720123340 \\ {\footnotesize\textit{(0.0092020388)}}} \\
-iv.geothermal & \makecell{5.1993393429 \\ {\footnotesize\textit{(0.0946018914)}}} & \makecell{3.37280559925 \\ {\footnotesize\textit{(0.13787696939)}}} & \makecell{0.6797182712 \\ {\footnotesize\textit{(0.0063287749)}}} \\
-iv.wind & \makecell{-3.0364914202 \\ {\footnotesize\textit{(0.0465553286)}}} & \makecell{-3.65082160074 \\ {\footnotesize\textit{(0.07163342314)}}} & \makecell{-0.4456791368 \\ {\footnotesize\textit{(0.0064849629)}}} \\ 
+Coal coal & \makecell{-2.12970195371 \\ {\footnotesize\textit{(0.00744667864)}}} & & \\ 
+CC Oil & \makecell{-5.68541000269 \\ {\footnotesize\textit{(0.04229241632)}}} & & \\
+CC NG & & & \\
+CT Oil & \makecell{-4.01724220479 \\ {\footnotesize\textit{(0.01695843124)}}} & & \\
+CT NG & \makecell{-0.79084021857 \\ {\footnotesize\textit{(0.00440468104)}}} & & \\
+Geothermal & \makecell{-5.79402803974 \\ {\footnotesize\textit{(0.04328174064)}}} & & \\
+Photovoltaic & \makecell{-4.22955535681 \\ {\footnotesize\textit{(0.02664954467)}}} & & \\
+Solar thermal & \makecell{-5.70952045496 \\ {\footnotesize\textit{(0.03264583301)}}} & & \\
+Wind & \makecell{-1.16983236970 \\ {\footnotesize\textit{(0.00564745003)}}} & & \\
+Total cost & \makecell{0.00004802615 \\ {\footnotesize\textit{(0.00000083342)}}} & & \\
+Adj. Overnight cost & & & \\
+Variable Cost & & & \\
+Adj. Fuel price & & & \\
+Fixed O\&M & & & \\
+Variable O\&M & & & \\
 \hline
-\textit{ln} $\mathcal{L}$ & -526480 & -425290 & -476170 \\ [1ex]
+iv & \makecell{-1.964255 \\ {\footnotesize\textit{(0.017662)}}} & & \\
+iv.coal & \makecell{-11.193160 \\ {\footnotesize\textit{(0.176190)}}} & \makecell{-2.66980286712 \\ {\footnotesize\textit{(0.06828036844)}}} & \makecell{0.0161841057 \\ {\footnotesize\textit{(0.0034289231)}}} \\
+iv.ng & & \makecell{13.74789359089 \\ {\footnotesize\textit{(0.06651883627)}}} & \makecell{-0.6030893877 \\ {\footnotesize\textit{(0.0041478695)}}} \\
+iv.oil & \makecell{-12.347553 \\ {\footnotesize\textit{(0.170955)}}} & \makecell{5.05227178166 \\ {\footnotesize\textit{(0.05983481003)}}} & \makecell{0.3541623177 \\ {\footnotesize\textit{(0.0042264601)}}} \\
+iv.solar & \makecell{-12.527262 \\ {\footnotesize\textit{(0.176883)}}} & \makecell{-0.46214211146 \\ {\footnotesize\textit{(0.02306568944)}}} & \makecell{0.3720123340 \\ {\footnotesize\textit{(0.0092020388)}}} \\
+iv.geothermal & \makecell{-22.546971 \\ {\footnotesize\textit{(0.233530)}}} & \makecell{3.37280559925 \\ {\footnotesize\textit{(0.13787696939)}}} & \makecell{0.6797182712 \\ {\footnotesize\textit{(0.0063287749)}}} \\
+iv.wind & \makecell{-4.131713 \\ {\footnotesize\textit{(0.150974)}}} & \makecell{-3.65082160074 \\ {\footnotesize\textit{(0.07163342314)}}} & \makecell{-0.4456791368 \\ {\footnotesize\textit{(0.0064849629)}}} \\ 
+\hline
+\textit{ln} $\mathcal{L}$ & & & \\ [1ex]
 \hline
 \hline
 \end{tabular}
@@ -283,15 +316,15 @@ Model 3 does a better job of predicting the probability of selecting natural gas
 \hline
 Input fuel & Production technology & Market share & \makecell{Pred. Market Share \\ {\footnotesize\textit{(Model 1)}}} & \makecell{Pred. Market Share \\ {\footnotesize\textit{(Model 2)}}} & \makecell{Pred. Market Share \\ {\footnotesize\textit{(Model 3)}}} \\ [0.5ex]
 \hline
-Coal & Coal & 6.2\% & 6.0\% &6.3\% &7.7\% \\
-Natural gas & Combined Cycle & 48.7\% & 36.5\% & 37.1\% & 49.1\% \\
-Oil & Combined Cycle & 0.2\% & 1.4\% & 1.0\% & 0.9\% \\
-Natural gas & Combustion Turbine & 22.6\% & 34.8\% & 34.1\% & 18.2\%\\
-Oil & Combustion Turbine & 1.2\% & 0.7\% & 0.7\% & 0.8\% \\
+Coal & Coal & 6.2\% & 6.2\% &6.3\% &7.7\% \\
+Natural gas & Combined Cycle & 48.7\% & 60.9\% & 37.1\% & 49.1\% \\
+Oil & Combined Cycle & 0.2\% & 0.2\% & 1.0\% & 0.9\% \\
+Natural gas & Combustion Turbine & 22.6\% & 10.4\% & 34.1\% & 18.2\%\\
+Oil & Combustion Turbine & 1.2\% & 1.2\% & 0.7\% & 0.8\% \\
 Geothermal & Geothermal & 0.2\% & 0.2\% & 0.2\% & 0.3\% \\
-Solar & Photovoltaic & 2.5\% & 1.1\% & 1.1\% & 3.2\%\\
-Solar & Solar Thermal & 0.4\% & 2.2\% & 2.0\% & 0.6\%\\
-Wind & Wind Turbine & 18.0\% & 17.2\% & 17.5\% & 19.3\% \\ [1ex]
+Solar & Photovoltaic & 2.5\% & 2.5\% & 1.1\% & 3.2\%\\
+Solar & Solar Thermal & 0.4\% & 0.4\% & 2.0\% & 0.6\%\\
+Wind & Wind Turbine & 18.0\% & 18.0\% & 17.5\% & 19.3\% \\ [1ex]
 \hline
 \end{tabular}
 \label{table:perc}
@@ -306,18 +339,28 @@ The exponentiated parameter estimates are as follows:
 \hline
 Variable & Model 1 & Model 2 & Model 3\\ [0.5ex]
 \hline
+Coal coal & 0.118872718 & & \\ 
+CC Oil & 0.003395141 & &  \\
+CC NG & & & \\
+CT Oil & 0.018002544 & & \\
+CT NG & 0.453463627 & &  \\
+Geothermal & 0.003045689 & &  \\
+Photovoltaic & 0.014558863 & &  \\
+Solar thermal & 0.003314262 & & \\
+Wind & 0.310418973 & &  \\
 Total Cost & 0.99987322 & & \\
 Adj. Overnight cost & & 0.99990503 & 0.9999395\\
 Variable cost & & & 0.9441202 \\
 Adj. Fuel price & & 0.99718195 &\\
 Fixed O\& M & & 0.99731555 &\\
 Variable O\& M & & 0.99366058 &\\
-iv.coal & 0.05941829 & 0.06926588 & 1.0163158 \\
-iv.ng & 4648.86761788 & 934618.39464477 & 0.5471188\\
-iv.oil & 8.06943339 & 156.37731638 & 1.4249865\\
-iv.solar & 0.69151307 & 0.62993281 & 1.4506509\\
-iv.geothermal & 181.15252263 & 29.16022430 & 1.9733217\\
-iv.wind & 0.04800302 & 0.02596978 & 0.6403892 \\ [1ex]
+iv & 0.1402602951657208 & & \\
+iv.coal & 0.0000137680540003 & 0.06926588 & 1.0163158 \\
+iv.ng &  & 934618.39464477 & 0.5471188\\
+iv.oil & 0.0000043403610372 & 156.37731638 & 1.4249865\\
+iv.solar & 0.0000036264311454 & 0.62993281 & 1.4506509\\
+iv.geothermal & 0.0000000001614266 & 29.16022430 & 1.9733217\\
+iv.wind & 0.0160553508219616 & 0.02596978 & 0.6403892 \\ [1ex]
 \hline
 \end{tabular}
 \label{exponentiated}
