@@ -267,34 +267,34 @@ The model specification results in the following output with coefficients on top
 \begin{table}[H]
 \caption{Model evaluation: Nested logit models}
 \centering
-\begin{tabular}{c c c c}
+\begin{tabular}{c c c c c c}
 \hline
 \hline
-Variable & Model 1 & Model 2 & Model 3\\ [0.5ex]
+Variable & \makecell{GCAM logit exponent \\ over cost (2005)} & \makecell{Share weight \\ 2005} & Model 1 & Model 2 & Model 3\\ [0.5ex]
 \hline
-Coal coal & \makecell{-2.12970195371 \\ {\footnotesize\textit{(0.00744667864)}}} & & \\ 
-CC Oil & \makecell{-5.68541000269 \\ {\footnotesize\textit{(0.04229241632)}}} & & \\
-CC NG & & & \\
-CT Oil & \makecell{-4.01724220479 \\ {\footnotesize\textit{(0.01695843124)}}} & & \\
-CT NG & \makecell{-0.79084021857 \\ {\footnotesize\textit{(0.00440468104)}}} & & \\
-Geothermal & \makecell{-5.79402803974 \\ {\footnotesize\textit{(0.04328174064)}}} & & \\
-Photovoltaic & \makecell{-4.22955535681 \\ {\footnotesize\textit{(0.02664954467)}}} & & \\
-Solar thermal & \makecell{-5.70952045496 \\ {\footnotesize\textit{(0.03264583301)}}} & & \\
-Wind & \makecell{-1.16983236970 \\ {\footnotesize\textit{(0.00564745003)}}} & & \\
-Total cost & \makecell{0.00004802615 \\ {\footnotesize\textit{(0.00000083342)}}} & & \\
-Adj. Overnight cost & & & \\
-Variable Cost & & & \\
-Adj. Fuel price & & & \\
-Fixed O\&M & & & \\
-Variable O\&M & & & \\
+Coal coal & & & \makecell{-2.12970195371 \\ {\footnotesize\textit{(0.00744667864)}}} & & \\ 
+CC Oil & & & \makecell{-5.68541000269 \\ {\footnotesize\textit{(0.04229241632)}}} & & \\
+CC NG & & & & & \\
+CT Oil & & & \makecell{-4.01724220479 \\ {\footnotesize\textit{(0.01695843124)}}} & & \\
+CT NG & & & \makecell{-0.79084021857 \\ {\footnotesize\textit{(0.00440468104)}}} & & \\
+Geothermal & & & \makecell{-5.79402803974 \\ {\footnotesize\textit{(0.04328174064)}}} & & \\
+Photovoltaic & & & \makecell{-4.22955535681 \\ {\footnotesize\textit{(0.02664954467)}}} & & \\
+Solar thermal & & & \makecell{-5.70952045496 \\ {\footnotesize\textit{(0.03264583301)}}} & & \\
+Wind & & & \makecell{-1.16983236970 \\ {\footnotesize\textit{(0.00564745003)}}} & & \\
+Total cost & & & \makecell{0.00004802615 \\ {\footnotesize\textit{(0.00000083342)}}} & & \\
+Adj. Overnight cost & & & & & \\
+Variable Cost & & & & & \\
+Adj. Fuel price & & & & & \\
+Fixed O\&M & & & & & \\
+Variable O\&M & & & & & \\
 \hline
-iv & \makecell{-1.964255 \\ {\footnotesize\textit{(0.017662)}}} & & \\
-iv.coal & \makecell{-11.193160 \\ {\footnotesize\textit{(0.176190)}}} & \makecell{-2.66980286712 \\ {\footnotesize\textit{(0.06828036844)}}} & \makecell{0.0161841057 \\ {\footnotesize\textit{(0.0034289231)}}} \\
-iv.ng & & \makecell{13.74789359089 \\ {\footnotesize\textit{(0.06651883627)}}} & \makecell{-0.6030893877 \\ {\footnotesize\textit{(0.0041478695)}}} \\
-iv.oil & \makecell{-12.347553 \\ {\footnotesize\textit{(0.170955)}}} & \makecell{5.05227178166 \\ {\footnotesize\textit{(0.05983481003)}}} & \makecell{0.3541623177 \\ {\footnotesize\textit{(0.0042264601)}}} \\
-iv.solar & \makecell{-12.527262 \\ {\footnotesize\textit{(0.176883)}}} & \makecell{-0.46214211146 \\ {\footnotesize\textit{(0.02306568944)}}} & \makecell{0.3720123340 \\ {\footnotesize\textit{(0.0092020388)}}} \\
-iv.geothermal & \makecell{-22.546971 \\ {\footnotesize\textit{(0.233530)}}} & \makecell{3.37280559925 \\ {\footnotesize\textit{(0.13787696939)}}} & \makecell{0.6797182712 \\ {\footnotesize\textit{(0.0063287749)}}} \\
-iv.wind & \makecell{-4.131713 \\ {\footnotesize\textit{(0.150974)}}} & \makecell{-3.65082160074 \\ {\footnotesize\textit{(0.07163342314)}}} & \makecell{-0.4456791368 \\ {\footnotesize\textit{(0.0064849629)}}} \\ 
+iv & -3 \footnotesize{(over what cost?)} &  & \makecell{-1.964255 \\ {\footnotesize\textit{(0.017662)}}} & & \\
+iv.coal & -1.61 & 1 & \makecell{-11.193160 \\ {\footnotesize\textit{(0.176190)}}} & \makecell{-2.66980286712 \\ {\footnotesize\textit{(0.06828036844)}}} & \makecell{0.0161841057 \\ {\footnotesize\textit{(0.0034289231)}}} \\
+iv.ng & -1.947 & 0.189 & & \makecell{13.74789359089 \\ {\footnotesize\textit{(0.06651883627)}}} & \makecell{-0.6030893877 \\ {\footnotesize\textit{(0.0041478695)}}} \\
+iv.oil & -1.087 & 0.192 & \makecell{-12.347553 \\ {\footnotesize\textit{(0.170955)}}} & \makecell{5.05227178166 \\ {\footnotesize\textit{(0.05983481003)}}} & \makecell{0.3541623177 \\ {\footnotesize\textit{(0.0042264601)}}} \\
+iv.solar & -0.289 & 0.02 & \makecell{-12.527262 \\ {\footnotesize\textit{(0.176883)}}} & \makecell{-0.46214211146 \\ {\footnotesize\textit{(0.02306568944)}}} & \makecell{0.3720123340 \\ {\footnotesize\textit{(0.0092020388)}}} \\
+iv.geothermal & -0.742 & 0.017 & \makecell{-22.546971 \\ {\footnotesize\textit{(0.233530)}}} & \makecell{3.37280559925 \\ {\footnotesize\textit{(0.13787696939)}}} & \makecell{0.6797182712 \\ {\footnotesize\textit{(0.0063287749)}}} \\
+iv.wind & -1.091 & 0.006 & \makecell{-4.131713 \\ {\footnotesize\textit{(0.150974)}}} & \makecell{-3.65082160074 \\ {\footnotesize\textit{(0.07163342314)}}} & \makecell{-0.4456791368 \\ {\footnotesize\textit{(0.0064849629)}}} \\ 
 \hline
 \textit{ln} $\mathcal{L}$ & & & \\ [1ex]
 \hline
