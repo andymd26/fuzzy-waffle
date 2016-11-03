@@ -340,7 +340,7 @@ apply(predict(f.0, newdata=cv.df.mlogit), 2, mean)
 
 # The code below estimates the nested logit using the definition of conditional probability
 f.1 = mlogit(decision ~ 1 + cost, shape='long', alt.var='choice', df.mlogit, reflevel="conventional combined cycle natural gas")
-
+f.2 = mlogit(decision ~ 1 + adj.overnight + vc, shape='long', alt.var='choice', df.mlogit, reflevel="conventional combined cycle natural gas")
 # First we estimate the 1st stage regression coefficients, we allow for alternative specific constants but enforce the condition that the slope for the cost is constant across
 # alternatives. 
 f.1.coef = data.frame(coefficients = c(coef(f.1)[1:8])) %>%
